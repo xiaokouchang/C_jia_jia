@@ -274,7 +274,7 @@
 //对返回值没有要求
 //C语言不允许同名函数
 //C++允许同名函数
-//参数类型不同,名字相同类型不同会构成重载,如果函数参数相同会报错
+//参数类型不同,名字相同类型的顺序不同会构成重载,如果函数参数相同会报错
 //#include<iostream>
 //using namespace std;
 //int Add(int left, int right)
@@ -297,25 +297,50 @@
 
 
 //类型相同,名字不同,不构成重载
-#include<iostream>
-using namespace std;
-void f(int a, char b)
-{
-	cout << "f(int a,char b)" << endl;
-}
-void f(int b, char a)
-{
-	cout << "f(char b, int a)" << endl;
-}
-int mian()
-{
-	cout << "f(1, 'x')" << endl;
-	return 0;
-}
-
 //#include<iostream>
 //using namespace std;
-////参数个数不同
+//void f(int a, char b)
+//{
+//	cout << "f(int a, char b)" << endl;
+//}
+//void f(int b, char a)
+//{
+//	cout << "f(int b, char a)" << endl;
+//}
+//int main()
+//{
+//	f(1, 'x');
+//	return 0;
+//}
+
+
+//构成重载,类型相同,顺序不同
+//#include<iostream>
+//using namespace std;
+//void f(int a)
+//{
+//	cout << "f(int a)" << endl;
+//}
+//void f(int a, char b)
+//{
+//	cout << "f(int a, char b)" << endl;
+//}
+//void f(char a, int b)
+//{
+//	cout << "f(char b, int a)" << endl;
+//}
+//int main()
+//{
+//	f(1);
+//	f(1, 'x');
+//	f('x', 1);
+//	return 0;
+//}
+
+
+//参数个数不同
+//#include<iostream>
+//using namespace std;
 //void f()
 //{
 //	cout << "f()" << endl;
@@ -327,6 +352,63 @@ int mian()
 //
 //int main()
 //{
-//	cout << f(int a,char b) << endl;
+//	f();
+//	f(10);
+//	return 0;
+//}
+
+
+//构成重载
+//不明确的调用
+//#include<iostream>
+//using namespace std;
+//void f()
+//{
+//	cout << "f()" << endl;
+//}
+////缺省函数调用时可以不传参,与第1个f()函数重复
+////如果函数调用传参会调用void f(int a = 0)这个函数
+//void f(int a = 0)
+//{
+//	cout << "f(int a = 0)" << endl;
+//}
+//int main()
+//{
+//	//f();
+//	f(1);
+//	return 0;
+//}
+
+
+//为什么C语言不支持重载?
+//C++支持重载
+//函数名修饰规则
+//编译链接过程
+//自动识别类型就是函数重载
+//编译链接
+//第1步:预处理(头文件展开/宏替换/条件编译/去掉注释),处理完成之后,没有.h文件
+//生成两个文件Stack.i和test.s
+//第2步:编译:检查语法,生成汇编代码(指令集的代码)
+//第3步:汇编:生成.o文件,call是调用函数
+//第4步:链接:生成可执行程序xxx.exe/a.out
+//CPU看不懂汇编代码,机器只识别二进制,将汇编转换成二进制的机器码
+#include <stdio.h>
+#include <stdlib.h>
+#include "Stack.h"
+int main()
+{
+	struct Stack st;
+	StackInit(&st);//call StackInit(地址),编译阶段有这个地址吗,没有,地址在符号表里
+	StackPush(&st, 1);
+	StackPush(&st, 1.1);
+	return 0;
+}
+
+
+//#include <iostream>
+//using namespace std;
+//
+//int main()
+//{
 //	return 0;
 //}

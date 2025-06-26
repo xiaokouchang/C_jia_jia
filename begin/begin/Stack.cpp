@@ -2,7 +2,7 @@
 
 #include "Stack.h"
 
-void StackInit(struct stack* pst, int defaultCapacity)
+void StackInit(struct Stack* pst, int defaultCapacity)
 {
 	pst->a = (int*)malloc(sizeof(int) * defaultCapacity);
 	if (pst->a == NULL)
@@ -13,3 +13,16 @@ void StackInit(struct stack* pst, int defaultCapacity)
 	pst->top = 0;
 	pst->capacity = 4;
 }
+
+
+void StackPush(struct Stack* pst, int x)
+{
+	printf("void StackPush(struct Stack* pst, int x)\n");
+}
+
+
+void StackPush(struct Stack* pst, double x)
+{
+	printf("void StackPush(struct Stack* pst, double x)\n");
+}
+

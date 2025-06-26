@@ -8,7 +8,7 @@ using namespace std;
 //	int x = 0;
 //}
 
-struct stack
+struct Stack
 {
 	int* a;
 	int top;
@@ -16,4 +16,6 @@ struct stack
 };
 
 
-void StackInit(struct stack* pst, int defaultCapacity = 4);
+void StackInit(struct Stack* pst, int defaultCapacity = 4);
+void StackPush(struct Stack* pst, int x);
+void StackPush(struct Stack* pst, double x);
