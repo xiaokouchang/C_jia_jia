@@ -3,10 +3,10 @@
 #include<stdlib.h>
 #include<iostream>
 using namespace std;
-//namespace N2
-//{
-//	int x = 0;
-//}
+namespace N1
+{
+	int x = 10;
+}
 
 struct Stack
 {
@@ -16,6 +16,6 @@ struct Stack
 };
 
 
-void StackInit(struct Stack* pst, int defaultCapacity = 4);
-void StackPush(struct Stack* pst, int x);
-void StackPush(struct Stack* pst, double x);
+//void StackInit(struct Stack* pst, int defaultCapacity = 4);
+//void StackPush(struct Stack* pst, int x);
+//void StackPush(struct Stack* pst, double x);

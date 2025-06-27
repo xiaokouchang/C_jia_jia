@@ -15,11 +15,27 @@
 //#include <stdio.h>
 //#include <stdlib.h>
 //int a = 20;
-//
 //int main()
 //{
 //	int a = 10;
 //	printf("%d\n", a);
+//	return 0;
+//}
+
+
+//#include <stdio.h>
+//#include <stdlib.h>
+//int a = 20;
+//namespace N1
+//{
+//	int a = 30;
+//}
+//int main()
+//{
+//	int a = 10;
+//	printf("%d\n", a);
+//	printf("%d\n", ::a);
+//	printf("%d\n", N1::a);
 //	return 0;
 //}
 
@@ -112,10 +128,38 @@
 //}
 
 
+//#include<stdio.h>
+//int x = 30;
+//namespace N1
+//{
+//	int x = 20;
+//}
+//using namespace N1;
+//int main()
+//{
+//	int x = 10;
+//	printf("%d\n", x);
+//	return 0;
+//}
+
+
+//#include<stdio.h>
+//namespace N1
+//{
+//	int x = 10;
+//	int y = 20;
+//}
+//using N1::x;
+//int main()
+//{
+//	printf("%d\n", x);
+//	printf("%d\n", y);
+//	return 0;
+//}
+
+
 //#include"Queue.h"
 //#include"Stack.h"
-//#include<stdio.h>
-//using namespace std;
 //
 //int main()
 //{
@@ -132,7 +176,7 @@
 ////项目里建议指定访问,不要轻易展开命名空间
 //
 ////全部展开
-//using namespace std;//std包含在iostream中
+////using namespace std;//std包含在iostream中
 ////把常用的展开---指定展开
 //using std::cout;
 //using std::endl;
@@ -392,22 +436,21 @@
 //第3步:汇编:生成.o文件,call是调用函数
 //第4步:链接:生成可执行程序xxx.exe/a.out
 //CPU看不懂汇编代码,机器只识别二进制,将汇编转换成二进制的机器码
-#include <stdio.h>
-#include <stdlib.h>
-#include "Stack.h"
-int main()
-{
-	struct Stack st;
-	StackInit(&st);//call StackInit(地址),编译阶段有这个地址吗,没有,地址在符号表里
-	StackPush(&st, 1);
-	StackPush(&st, 1.1);
-	return 0;
-}
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include "Stack.h"
+//int main()
+//{
+//	struct Stack st;
+//	StackInit(&st);//call StackInit(地址),编译阶段有这个地址吗,没有,地址在符号表里
+//	StackPush(&st, 1);
+//	StackPush(&st, 1.1);
+//	return 0;
+//}
 
 
 //#include <iostream>
 //using namespace std;
-//
 //int main()
 //{
 //	return 0;
