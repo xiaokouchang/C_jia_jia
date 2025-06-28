@@ -449,7 +449,418 @@
 //}
 
 
+//编译:承诺
+//链接:兑现承诺
 //#include <iostream>
+//using namespace std;
+//int Func()
+//{
+//	return 1;
+//}
+//double Func()
+//{
+//	return 1.1;
+//}
+//int main()
+//{
+//	Func();//调用歧义
+//	return 0;
+//}
+
+
+//引用
+//给已存在的变量取别名
+//引用在定义时必须初始化
+//一个变量可以有多个引用
+//引用一旦引用一个实体,再不能引用其他实体
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	int a = 0;
+//	int& b = a;
+//	int& c = b;
+//	int& d = a;
+//	cout << &a << endl;
+//	cout << &b << endl;
+//	cout << &c << endl;
+//	cout << &d << endl;
+//	b++;
+//	cout << a << endl;
+//	cout << b << endl;
+//	cout << c << endl;
+//	cout << d << endl;
+//	d++;
+//	cout << a << endl;
+//	cout << b << endl;
+//	cout << c << endl;
+//	cout << d << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	int a = 0;
+//	int& d = a;
+//	int x = 11;
+//	//d变成x的引用还是别名
+//	d = x;//赋值
+//	return 0;
+//}
+
+
+//做参数(输出型参数)
+//#include<iostream>
+//using namespace std;
+//void Swap(int* a, int* b)
+//{
+//	int tmp = *a;
+//	*a = *b;
+//	*b = tmp;
+//}
+//void Swap(int& a, int& b)
+//{
+//	int tmp = a;
+//	a = b;
+//	b = tmp;
+//}
+//int main()
+//{
+//	int x = 0;
+//	int y = 1;
+//	Swap(&x, &y);
+//	Swap(x, y);
+//	cout << x << " " << y << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//void Swap(int*& a, int*& b)
+//{
+//	int* tmp = a;
+//	a = b;
+//	b = tmp;
+//}
+//int main()
+//{
+//	int x = 0;
+//	int y = 1;
+//	int* px = &x;
+//	int* py = &y;
+//	cout << *px << " " << *py << endl;
+//	Swap(px, py);
+//	cout << *px << " " << *py << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//typedef struct ListNode
+//{
+//	struct ListNode* next;
+//	int val;
+//}LTNode, *PLTNode;
+////LTNode == struct ListNode;
+////PLTNode == struct ListNode*;
+//void ListPushBack(PLTNode& phead, int x)
+//{
+//
+//}
+//int main()
+//{
+//	PLTNode plist = NULL;
+//	ListPushBack(plist, 1);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	int a = 1;
+//	int& b = a;
+//	int& c = b;
+//	int& d = c;
+//	int x = 10;
+//	d = x;//改变了a的值
+//	cout << a << endl;
+//	cout << b << endl;
+//	cout << c << endl;
+//	cout << d << endl;
+//	cout << x << endl;
+//	d++;
+//	cout << a << endl;
+//	cout << b << endl;
+//	cout << c << endl;
+//	cout << d << endl;
+//	cout << x << endl;
+//	return 0;
+//}
+
+
+//引用做参数可以提高效率(大对象/深拷贝类对象)
+//#include <time.h>
+//#include<iostream>
+//using namespace std;
+////C++里结构体可以用A或者struct A
+//struct A 
+//{ 
+//	int a[10000]; 
+//};
+//void TestFunc1(A a) 
+//{}
+//void TestFunc2(A& a) 
+//{}
+//void TestRefAndValue()
+//{
+//	A a;
+//	//以值作为函数参数
+//	size_t begin1 = clock();
+//	for (size_t i = 0; i < 10000; ++i)
+//	{
+//		TestFunc1(a);
+//	}
+//	size_t end1 = clock();
+//	//以引用作为函数参数
+//	size_t begin2 = clock();
+//	for (size_t i = 0; i < 10000; ++i)
+//	{
+//		TestFunc2(a);
+//	}
+//	size_t end2 = clock();
+//	//分别计算两个函数运行结束后的时间
+//	cout << "TestFunc1(A)-time:" << end1 - begin1 << endl;
+//	cout << "TestFunc2(A&)-time:" << end2 - begin2 << endl;
+//}
+//int main()
+//{
+//	TestRefAndValue();
+//	return 0;
+//}
+
+
+//引用做返回值
+//#include<iostream>
+//using namespace std;
+//int Count()
+//{
+//	static int n = 0;
+//	n++;
+//	return n;//一定会产生了临时变量,关注的是类型
+//}
+//int main()
+//{
+//	int ret = Count();
+//	cout << ret << endl;
+//	return 0;
+//}
+
+
+//传引用返回
+//必须是静态变量
+//减少拷贝,提高效率
+//修改返回值
+//返回的是n的别名,即n的引用
+//#include<iostream>
+//using namespace std;
+//int& Count()
+//{
+//	static int n = 0;
+//	n++;
+//	return n;
+//}
+//int main()
+//{
+//	int ret = Count();
+//	cout << ret << endl;
+//	return 0;
+//}
+
+
+//函数结束后空间销毁
+//#include<iostream>
+//using namespace std;
+////Count函数结束,函数栈帧销毁,没有清理栈帧,ret的结果是正确的
+////如果清理栈帧,返回的是随机值
+//int& Count()
+//{
+//	int n = 0;
+//	n++;
+//	return n;
+//}
+//int main()
+//{
+//	int ret = Count();
+//	cout << ret << endl;
+//	return 0;
+//}
+
+
+//引用返回
+//基本任何场景用引用传参
+//谨慎使用引用作为返回值,出了函数作用域,对象不在了,就不能使用引用返回,
+//否则还在就可以用引用返回
+//局部变量谨慎用引用返回,静态变量,全局变量,动态内存分配可以用引用返回
+//#include<iostream>
+//using namespace std;
+////Count函数结束,函数栈帧销毁,没有清理栈帧,ret的结果是正确的
+////如果清理栈帧,返回的是随机值
+//int& Count(int x)
+//{
+//	int n = 0;
+//	//cout << "n:" << &n << endl;
+//	n++;
+//	return n;
+//}
+//int main()
+//{
+//	int& ret = Count(10);//ret是n的别名,连续取别名
+//	//cout << "ret:" << &ret << endl;
+//	cout << ret << endl;//随机值
+//	//Count(20);
+//	printf("sssss\n");
+//	cout << ret << endl;//随机值
+//	return 0;
+//}
+
+
+//#include <assert.h>
+//#include <iostream>
+//using namespace std;
+//typedef struct SeqList
+//{
+//	int a[100];
+//	int size;
+//}SeqList;
+//int SLGet(SeqList* ps, int pos)
+//{
+//	assert(pos < 100 && (pos >= 0));
+//	return ps->a[pos];
+//}
+//void SLModify(SeqList* ps, int pos, int x)
+//{
+//	assert(pos < 100 && (pos >= 0));
+//	assert(ps);
+//	ps->a[pos] = x;
+//}
+//int& SLAt(SeqList* ps, int pos)
+//{
+//	assert(pos < 100 && pos >= 0);
+//	return ps->a[pos];
+//}
+//int& SLAt(SeqList& ps, int pos)
+//{
+//	assert(pos < 100 && pos >= 0);
+//	return ps.a[pos];
+//}
+//int main()
+//{
+//	SeqList s;
+//	SLModify(&s, 0, 1);
+//	cout << SLGet(&s, 0) << endl;
+//	//对第0个位置+5
+//	int ret = SLGet(&s, 0);
+//	SLModify(&s, 0, ret + 5);
+//	//引用(读写)
+//	SLAt(&s, 0) = 1;
+//	cout << SLAt(&s, 0) << endl;
+//	SLAt(&s, 0) += 5;
+//
+//	SLAt(s, 0) = 1;
+//	cout << SLAt(s, 0) << endl;
+//	SLAt(s, 0) += 5;
+//	return 0;
+//}
+
+
+//#include <assert.h>
+//#include <iostream>
+//using namespace std;
+//struct SeqList
+//{
+//	int a[100];
+//	size_t size;
+//	int& at(int pos)
+//	{
+//		assert(pos >= 0 && pos < 100);
+//		return a[pos];
+//	}
+//	int& operator[](int pos)
+//	{
+//		assert(pos >= 0 && pos < 100);
+//		return a[pos];
+//	}
+//};
+//int main()
+//{
+//	SeqList s;
+//	s.at(0) = 0;
+//	s.at(0)++;
+//	cout << s.at(0) << endl;
+//	s[1] = 10;
+//	s[1]++;
+//	cout << s[1] << endl;
+//	return 0;
+//}
+
+
+//#include <time.h>
+//#include <iostream>
+//using namespace std;
+//struct A
+//{ 
+//	int a[10000]; 
+//};
+//A a;
+////值返回
+//A TestFunc1() 
+//{ 
+//	return a; 
+//}
+////引用返回
+//A& TestFunc2() 
+//{ 
+//	return a;
+//}
+//void TestReturnByRefOrValue()
+//{
+//	//以值作为函数的返回值类型
+//	size_t begin1 = clock();
+//	for (size_t i = 0; i < 100000; ++i)
+//		TestFunc1();
+//	size_t end1 = clock();
+//	//以引用作为函数的返回值类型
+//	size_t begin2 = clock();
+//	for (size_t i = 0; i < 100000; ++i)
+//		TestFunc2();
+//	size_t end2 = clock();
+//	//计算两个函数运算完成之后的时间
+//	cout << "TestFunc1 time:" << end1 - begin1 << endl;
+//	cout << "TestFunc2 time:" << end2 - begin2 << endl;
+//}
+//int main()
+//{
+//	TestReturnByRefOrValue();
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
 //using namespace std;
 //int main()
 //{
