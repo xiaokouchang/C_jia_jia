@@ -74,66 +74,129 @@
 //访问权限作用域从该访问限定符出现的位置开始直到下一个访问限定符出现时为止
 //如果后面没有访问限定符,作用域就到}即类结束
 //class的默认访问权限为private,struct为public(因为struct要兼容C)
-#include<iostream>
-using namespace std;
-//struct和class都可以使用访问限定符
-//只要是类都可以使用访问限定符
-class Stack
-{
-public:
-	//成员函数
-	void Init(int defaultcapacity = 4)
-	{
-		a = (int*)malloc(sizeof(int) * capacity);
-		if (nullptr == a)
-		{
-			perror("malloc申请空间失败");
-			return;
-		}
-		capacity = defaultcapacity;
-		top = 0;
-	}
-	void Push(int x)
-	{
-		a[top++] = x;
-	}
-	void Destory()
-	{
-		free(a);
-		a = nullptr;
-		top = capacity;
-	}
-	//成员变量
-	//可以写在成员函数之前或之后
-private:
-	int* a;
-	int top;
-	int capacity;
-};
-//C++兼容C语言,struct以前的用法都可以继续使用
-//同时struct升级成了类
-int main()
-{
-	struct Stack st1;
-	st1.Init(20);
-	Stack st2;
-	st2.Init();
-	st2.Push(1);
-	st2.Push(2);
-	st2.Push(3);
-	st2.Push(4);
-	st2.Destory();
-	return 0;
-}
+//#include<iostream>
+//using namespace std;
+////struct和class都可以使用访问限定符
+////只要是类都可以使用访问限定符
+////不写访问限定符,class默认是私有的,struct默认是公有的
+//class Stack
+//{
+//public:
+//	//成员函数
+//	void Init(int defaultcapacity = 4)
+//	{
+//		a = (int*)malloc(sizeof(int) * capacity);
+//		if (nullptr == a)
+//		{
+//			perror("malloc申请空间失败");
+//			return;
+//		}
+//		capacity = defaultcapacity;
+//		top = 0;
+//	}
+//	void Push(int x)
+//	{
+//		a[top++] = x;
+//	}
+//	void Destory()
+//	{
+//		free(a);
+//		a = nullptr;
+//		top = capacity;
+//	}
+//	//成员变量
+//	//可以写在成员函数之前或之后
+//private:
+//	int* a;
+//	int top;
+//	int capacity;
+//};
+////C++兼容C语言,struct以前的用法都可以继续使用
+////同时struct升级成了类
+//int main()
+//{
+//	struct Stack st1;
+//	st1.Init(20);
+//	Stack st2;
+//	st2.Init();
+//	st2.Push(1);
+//	st2.Push(2);
+//	st2.Push(3);
+//	st2.Push(4);
+//	st2.Destory();
+//	return 0;
+//}
 
 
+//class Date
+//{
+//public:
+//	void Init(int year)
+//	{
+//		year = year;
+//	}
+//	//局部优先
+//private:
+//	int _year;//成员变量
+//	int _month;
+//	int _day;
+//};
+
+
+//封装
+//局部域和全局域会影响生命周期
+//类域和命名空间域不会影响生命周期
+//命名空间不展开不会访问
+//#include<iostream>
+//#include"class.h"
+//using namespace std;
+//int main()
+//{
+//	//类实例化对象/对象定义
+//	//st1和st2是两个对象
+//	Stack st1;//整体定义
+//	Stack st2;
+//	//不能,类访问top是声明,top不能存数据
+//	//st1和st2不是同一个对象,top不同,Push是同一个函数
+//	//Stack::top = 1;
+//	//st1.Init();
+//	//st1.top = 0;
+//	//st1.Push(1);
+//	//st2.top = 1;
+//	//st2.Push(1);
+//	//对象中只存储成员变量,没有存储成员函数
+//	cout << sizeof(Stack) << endl;
+//	return 0;
+//}
+
+
+//#include"class.h"
 //#include<iostream>
 //using namespace std;
 //int main()
 //{
-//
+//	A aa1;
+//	A aa2;
+//	A aa3;
+//	//不考虑成员函数
+//	cout << sizeof(A) << endl;
+//	cout << sizeof(aa1) << endl;
+//	aa1._a = 1;
+//	aa1.PrintA();
 //	return 0;
 //}
+
+
+#include<iostream>
+#include"class.h"
+using namespace std;
+int main()
+{
+	cout << sizeof(A1) << endl;
+	cout << sizeof(A2) << endl;
+	cout << sizeof(A3) << endl;
+	return 0;
+}
 
 
 //#include<iostream>
