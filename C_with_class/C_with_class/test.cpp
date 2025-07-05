@@ -187,16 +187,314 @@
 //}
 
 
-#include<iostream>
-#include"class.h"
-using namespace std;
-int main()
-{
-	cout << sizeof(A1) << endl;
-	cout << sizeof(A2) << endl;
-	cout << sizeof(A3) << endl;
-	return 0;
-}
+//#include<iostream>
+//#include"class.h"
+//using namespace std;
+//int main()
+//{
+//	A2 aa1;
+//	A2 aa2;
+//	cout << sizeof(A1) << endl;
+//	//没有成员变量的类对象,需要1byte,是为了占位,表示对象存在
+//	//不存储有效数据
+//	cout << sizeof(A2) << endl;
+//	cout << sizeof(A3) << endl;
+//	cout << &aa1 << endl;
+//	cout << &aa2 << endl;
+//	return 0;
+//}
+
+
+//this指针
+//this不能在形参和实参显示传递,但是可以在函数内部显示使用
+//对象大小没算this指针
+//this指针存在哪里?栈 对象里面 堆 静态区 常量区
+//this指针是形参,所以this指针是跟普通参数一样存在函数调用的栈帧里面。
+//this存在栈区
+//VS下面对this指针传递,进行了优化,对象地址是放在ecx,ecx存储this指针的值
+//#include<iostream>
+//using namespace std;
+//class Date
+//{
+//public:
+//	void Init(int year, int month, int day)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	void Print()
+//	{
+//		cout << _year << "-" << _month << "-" << _day << endl;
+//	}
+//	//this指针
+//	//void Print(Date* const this)
+//	void Print()
+//	{
+//		//this不能在形参和实参显示传递,但是可以在函数内部显示使用
+//		//this = nullptr;
+//		cout << this << endl;
+//		cout << this->_year << "-" << this->_month << "-" << this->_day << endl;
+//	}
+//private:
+//	int _year;  //年,声明
+//	int _month; //月
+//	int _day;   //日
+//};
+//int main()
+//{
+//	Date d1, d2;
+//	d1.Init(2022, 1, 11);
+//	d2.Init(2022, 1, 12);
+//	d1.Print();
+//	d2.Print();
+//	//d1.Print(&d1);
+//	//d2.Print(&d2);
+//	//Date::_year;
+//	//d1::_year;//左边必须是类名
+//	return 0;
+//}
+
+
+//下面程序编译运行结果是正常运行
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	void Print()
+//	{
+//		cout << "Print()" << endl;//this指针是空的,但是函数内部没有对this指针解引用
+//	}
+//private:
+//	int _a;
+//};
+//int main()
+//{
+//	A* p = nullptr;
+//	p->Print();
+//	//P调用Print,不会发生解引用,因为Print的地址不在对象中
+//	//p会作为实参传递给this指针
+//	return 0;
+//}
+
+
+//下面程序编译运行结果是运行崩溃
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	void PrintA()
+//	{
+//		cout << _a << endl;//this指针是空的,但是函数内部访问_a,本质是this->_a
+//	}
+//private:
+//	int _a;
+//};
+//int main()
+//{
+//	A* p = nullptr;
+//	p->PrintA();
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//C语言实现栈
+//#include<stdio.h>
+//#include<assert.h>
+//#include<stdlib.h>
+//typedef int DataType;
+//typedef struct Stack
+//{
+//	DataType* array;
+//	int capacity;
+//	int size;
+//}Stack;
+//void StackInit(Stack* ps)
+//{
+//	assert(ps);
+//	ps->array = (DataType*)malloc(sizeof(DataType) * 3);
+//	if (NULL == ps->array)
+//	{
+//		assert(0);
+//		return;
+//	}
+//	ps->capacity = 3;
+//	ps->size = 0;
+//}
+//void StackDestroy(Stack* ps)
+//{
+//	assert(ps);
+//	if (ps->array)
+//	{
+//		free(ps->array);
+//		ps->array = NULL;
+//		ps->capacity = 0;
+//		ps->size = 0;
+//	}
+//}
+//void CheckCapacity(Stack* ps)
+//{
+//	if (ps->size == ps->capacity)
+//	{
+//		int newcapacity = ps->capacity * 2;
+//		DataType* temp = (DataType*)realloc(ps->array,
+//			newcapacity * sizeof(DataType));
+//		if (temp == NULL)
+//		{
+//			perror("realloc申请空间失败!!!");
+//			return;
+//		}
+//		ps->array = temp;
+//		ps->capacity = newcapacity;
+//	}
+//}
+//void StackPush(Stack* ps, DataType data)
+//{
+//	assert(ps);
+//	CheckCapacity(ps);
+//	ps->array[ps->size] = data;
+//	ps->size++;
+//}
+//int StackEmpty(Stack* ps)
+//{
+//	assert(ps);
+//	return 0 == ps->size;
+//}
+//void StackPop(Stack* ps)
+//{
+//	if (StackEmpty(ps))
+//		return;
+//	ps->size--;
+//}
+//DataType StackTop(Stack* ps)
+//{
+//	assert(!StackEmpty(ps));
+//	return ps->array[ps->size - 1];
+//}
+//int StackSize(Stack* ps)
+//{
+//	assert(ps);
+//	return ps->size;
+//}
+//int main()
+//{
+//	Stack s;
+//	StackInit(&s);
+//	StackPush(&s, 1);
+//	StackPush(&s, 2);
+//	StackPush(&s, 3);
+//	StackPush(&s, 4);
+//	printf("%d\n", StackTop(&s));
+//	printf("%d\n", StackSize(&s));
+//	StackPop(&s);
+//	StackPop(&s);
+//	printf("%d\n", StackTop(&s));
+//	printf("%d\n", StackSize(&s));
+//	StackDestroy(&s);
+//	return 0;
+//}
+
+
+//C++实现
+//#include<iostream>
+//using namespace std;
+//typedef int DataType;
+//class Stack
+//{
+//public:
+//	void Init()
+//	{
+//		_array = (DataType*)malloc(sizeof(DataType) * 3);
+//		if (NULL == _array)
+//		{
+//			perror("malloc申请空间失败!!!");
+//			return;
+//		}
+//		_capacity = 3;
+//		_size = 0;
+//	}
+//	void Push(DataType data)
+//	{
+//		CheckCapacity();
+//		_array[_size] = data;
+//		_size++;
+//	}
+//	void Pop()
+//	{
+//		if (Empty())
+//			return;
+//		_size--;
+//	}
+//	DataType Top()
+//	{ 
+//		return _array[_size - 1]; 
+//	}
+//	int Empty()
+//	{ 
+//		return 0 == _size; 
+//	}
+//	int Size() 
+//	{
+//		return _size; 
+//	}
+//	void Destroy()
+//	{
+//		if (_array)
+//		{
+//			free(_array);
+//			_array = NULL;
+//			_capacity = 0;
+//			_size = 0;
+//		}
+//	}
+//private:
+//	void CheckCapacity()
+//	{
+//		if (_size == _capacity)
+//		{
+//			int newcapacity = _capacity * 2;
+//			DataType* temp = (DataType*)realloc(_array, newcapacity * sizeof(DataType));
+//			if (temp == NULL)
+//			{
+//				perror("realloc申请空间失败!!!");
+//				return;
+//			}
+//			_array = temp;
+//			_capacity = newcapacity;
+//		}
+//	}
+//private:
+//	DataType* _array;
+//	int _capacity;
+//	int _size;
+//};
+//int main()
+//{
+//	Stack s;
+//	s.Init();
+//	s.Push(1);
+//	s.Push(2);
+//	s.Push(3);
+//	s.Push(4);
+//	printf("%d\n", s.Top());
+//	printf("%d\n", s.Size());
+//	s.Pop();
+//	s.Pop();
+//	printf("%d\n", s.Top());
+//	printf("%d\n", s.Size());
+//	s.Destroy();
+//	return 0;
+//}
 
 
 //#include<iostream>
