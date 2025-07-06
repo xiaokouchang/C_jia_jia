@@ -3,6 +3,51 @@
 //C++是基于面向对象的,关注的是对象,将一件事情拆分成不同的对象,靠对象之间的交互完成
 //面向对象关注对象和对象之间的关系和交互
 
+#include<iostream>
+using namespace std;
+class Stack
+{
+public:
+	//成员函数
+	void Init(int defaultcapacity = 4)
+	{
+		a = (int*)malloc(sizeof(int) * capacity);
+		if (nullptr == a)
+		{
+			perror("malloc申请空间失败");
+			return;
+		}
+		capacity = defaultcapacity;
+		top = 0;
+	}
+	void Push(int x)
+	{
+		a[top++] = x;
+	}
+	void Destory()
+	{
+		free(a);
+		a = nullptr;
+		top = capacity;
+	}
+	//成员变量
+	//可以写在成员函数之前或之后
+	int* a;
+	int top;
+	int capacity;
+};
+int main()
+{
+	Stack st1;
+	st1.Init();
+	st1.Push(1);
+	st1.Push(2);
+	st1.Push(3);
+	st1.Push(4);
+	st1.Destory();
+	return 0;
+}
+
 
 //类的引入
 //C语言结构体中只能定义变量, 在C++中, 结构体内不仅可以定义变量, 也可以定义函数
