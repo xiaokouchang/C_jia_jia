@@ -3,52 +3,6 @@
 //C++是基于面向对象的,关注的是对象,将一件事情拆分成不同的对象,靠对象之间的交互完成
 //面向对象关注对象和对象之间的关系和交互
 
-#include<iostream>
-using namespace std;
-class Stack
-{
-public:
-	//成员函数
-	void Init(int defaultcapacity = 4)
-	{
-		a = (int*)malloc(sizeof(int) * capacity);
-		if (nullptr == a)
-		{
-			perror("malloc申请空间失败");
-			return;
-		}
-		capacity = defaultcapacity;
-		top = 0;
-	}
-	void Push(int x)
-	{
-		a[top++] = x;
-	}
-	void Destory()
-	{
-		free(a);
-		a = nullptr;
-		top = capacity;
-	}
-	//成员变量
-	//可以写在成员函数之前或之后
-	int* a;
-	int top;
-	int capacity;
-};
-int main()
-{
-	Stack st1;
-	st1.Init();
-	st1.Push(1);
-	st1.Push(2);
-	st1.Push(3);
-	st1.Push(4);
-	st1.Destory();
-	return 0;
-}
-
-
 //类的引入
 //C语言结构体中只能定义变量, 在C++中, 结构体内不仅可以定义变量, 也可以定义函数
 //之前在数据结构初阶中, 用C语言方式实现的栈, 结构体中只能定义变量;
@@ -204,13 +158,32 @@ int main()
 //	//不能,类访问top是声明,top不能存数据
 //	//st1和st2不是同一个对象,top不同,Push是同一个函数
 //	//Stack::top = 1;
+//	//St1::top = 1;
 //	//st1.Init();
 //	//st1.top = 0;
 //	//st1.Push(1);
+//	//st2.Init();
 //	//st2.top = 1;
 //	//st2.Push(1);
 //	//对象中只存储成员变量,没有存储成员函数
 //	cout << sizeof(Stack) << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include"class.h"
+//using namespace std;
+//int main()
+//{
+//	//st1和st2是两个对象
+//	Stack st1;//整体定义
+//	Stack st2;
+//	//st1和st2不是同一个对象,top不同,Push是同一个函数
+//	//对象中只存储成员变量,没有存储成员函数
+//	cout << sizeof(Stack) << endl;
+//	cout << "&st1:" << &st1 << endl;
+//	cout << "&st2:" << &st2 << endl;
 //	return 0;
 //}
 
@@ -226,7 +199,7 @@ int main()
 //	//不考虑成员函数
 //	cout << sizeof(A) << endl;
 //	cout << sizeof(aa1) << endl;
-//	aa1._a = 1;
+//	//aa1._a = 1;
 //	aa1.PrintA();
 //	return 0;
 //}
@@ -268,10 +241,10 @@ int main()
 //		_month = month;
 //		_day = day;
 //	}
-//	void Print()
-//	{
-//		cout << _year << "-" << _month << "-" << _day << endl;
-//	}
+//	//void Print()
+//	//{
+//	//	cout << _year << "-" << _month << "-" << _day << endl;
+//	//}
 //	//this指针
 //	//void Print(Date* const this)
 //	void Print()
@@ -325,32 +298,24 @@ int main()
 
 
 //下面程序编译运行结果是运行崩溃
-//#include<iostream>
-//using namespace std;
-//class A
-//{
-//public:
-//	void PrintA()
-//	{
-//		cout << _a << endl;//this指针是空的,但是函数内部访问_a,本质是this->_a
-//	}
-//private:
-//	int _a;
-//};
-//int main()
-//{
-//	A* p = nullptr;
-//	p->PrintA();
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
+#include<iostream>
+using namespace std;
+class A
+{
+public:
+	void PrintA()
+	{
+		cout << _a << endl;//this指针是空的,但是函数内部访问_a,本质是this->_a
+	}
+private:
+	int _a;
+};
+int main()
+{
+	A* p = nullptr;
+	p->PrintA();
+	return 0;
+}
 
 
 //C语言实现栈

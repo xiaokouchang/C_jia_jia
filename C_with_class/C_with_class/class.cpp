@@ -2,7 +2,7 @@
 #include "class.h"
 void Stack::Init(int defaultCapacity)//类里面成员函数的定义
 {
-	a = (int*)malloc(sizeof(int) * capacity);
+	a = (int*)malloc(sizeof(int) * defaultCapacity);
 	if (nullptr == a)
 	{
 		perror("malloc fail");
