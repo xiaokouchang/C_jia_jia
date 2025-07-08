@@ -298,24 +298,24 @@
 
 
 //下面程序编译运行结果是运行崩溃
-#include<iostream>
-using namespace std;
-class A
-{
-public:
-	void PrintA()
-	{
-		cout << _a << endl;//this指针是空的,但是函数内部访问_a,本质是this->_a
-	}
-private:
-	int _a;
-};
-int main()
-{
-	A* p = nullptr;
-	p->PrintA();
-	return 0;
-}
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	void PrintA()
+//	{
+//		cout << _a << endl;//this指针是空的,但是函数内部访问_a,本质是this->_a
+//	}
+//private:
+//	int _a;
+//};
+//int main()
+//{
+//	A* p = nullptr;
+//	p->PrintA();
+//	return 0;
+//}
 
 
 //C语言实现栈
@@ -503,6 +503,465 @@ int main()
 //	printf("%d\n", s.Top());
 //	printf("%d\n", s.Size());
 //	s.Destroy();
+//	return 0;
+//}
+
+
+//如果一个类中什么成员都没有,简称为空类
+//任何类在什么都不写时,编译器会自动生成以下6个默认成员函数
+//默认成员函数:用户没有显式实现,编译器会生成的成员函数称为默认成员函数
+//类的6个默认成员函数
+//构造函数
+//构造函数是一个特殊的成员函数,名字与类名相同,创建类类型对象时由编译器自动调用,
+//以保证每个数据成员都有一个合适的初始值,并且在对象整个生命周期内只调用一次。
+//特性
+//构造函数是特殊的成员函数,需要注意的是,构造函数虽然名称叫构造,
+//但是构造函数的主要任务并不是开空间创建对象,而是初始化对象
+//其特征如下:
+//1.函数名与类名相同
+//2.无返回值
+//3.对象实例化时编译器自动调用对应的构造函数
+//4.构造函数可以重载
+
+
+//析构函数
+//与构造函数功能相反,析构函数不是完成对对象本身的销毁,局部对象销毁工作是由编译器完成的。
+//而对象在销毁时会自动调用析构函数,完成对象中资源的清理工作
+//特征
+//1.析构函数名是在类名前加上字符~。
+//2.无参数无返回值类型。
+//3.一个类只能有一个析构函数。若未显式定义,系统会自动生成默认的析构函数。注意:析构函数不能重载
+//4.对象生命周期结束时,C++编译系统系统自动调用析构函数。
+//#include <iostream>
+//using namespace std;
+//typedef int DataType;
+//class Stack
+//{
+//public:
+//	//构造函数等价于Init
+//	Stack(int capacity = 4)
+//	{
+//		cout << "Stack(int capacity = 4)" << endl;
+//		_a = (DataType*)malloc(sizeof(DataType) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_capacity = capacity;
+//		_top = 0;
+//	}
+//	void Init()
+//	{
+//		_a = (DataType*)malloc(sizeof(DataType) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_capacity = 4;
+//		_top = 0;
+//	}
+//	void Push(int x)
+//	{
+//		_a[_top++] = x;
+//	}
+//	//析构函数在对象生命周期结束后自动调用
+//	~Stack()
+//	{
+//		cout << "~Stack()" << endl;
+//		if (_a)
+//		{
+//			free(_a);
+//			_a = nullptr;
+//			_top = 0;
+//			_capacity = 0;
+//		}
+//	}
+//	void Destory()
+//	{
+//		free(_a);
+//		_a = nullptr;
+//		_top = _capacity;
+//	}
+//	int Top()
+//	{
+//		return _a[_top - 1];
+//	}
+//private:
+//	int* _a;
+//	int _top;
+//	int _capacity;
+//};
+//int main()
+//{
+//	Stack s;
+//	//构造函数等价于Init
+//	//s.Init();
+//	s.Push(1);
+//	s.Push(2);
+//	s.Push(3);
+//	s.Push(4);
+//	//s.Destory();
+//	return 0;
+//}
+
+
+//#include <iostream>
+//using namespace std;
+//typedef int DataType;
+//class Stack
+//{
+//public:
+//	//构造函数支持重载
+//	Stack(DataType* a, int n)
+//	{
+//		cout << "Stack(DataType* a, int n)" << endl;
+//		_a = (DataType*)malloc(sizeof(DataType) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		memcpy(_a, a, sizeof(DataType) * n);
+//		_capacity = n;
+//		_top = 0;
+//	}
+//	//构造函数等价于Init
+//	Stack(int capacity = 4)
+//	{
+//		cout << "Stack(int capacity = 4)" << endl;
+//		_a = (DataType*)malloc(sizeof(DataType) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_capacity = capacity;
+//		_top = 0;
+//	}
+//	void Init()
+//	{
+//		_a = (DataType*)malloc(sizeof(DataType) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_capacity = 4;
+//		_top = 0;
+//	}
+//	void Push(int x)
+//	{
+//		_a[_top++] = x;
+//	}
+//	//析构函数在对象生命周期结束后自动调用
+//	~Stack()
+//	{
+//		cout << "~Stack()" << endl;
+//		if (_a)
+//		{
+//			free(_a);
+//			_a = nullptr;
+//			_top = 0;
+//			_capacity = 0;
+//		}
+//	}
+//	void Destory()
+//	{
+//		free(_a);
+//		_a = nullptr;
+//		_top = _capacity;
+//	}
+//	int Top()
+//	{
+//		return _a[_top - 1];
+//	}
+//private:
+//	int* _a;
+//	int _top;
+//	int _capacity;
+//};
+//int main()
+//{
+//	Stack s;
+//	//构造函数等价于Init
+//	//s.Init();
+//	s.Push(1);
+//	s.Push(2);
+//	s.Push(3);
+//	s.Push(4);
+//	//s.Destory();
+//	return 0;
+//}
+
+
+//没有构造函数
+//如果类中没有显式定义构造函数,则C++编译器会自动生成一个无参的默认构造函数,
+//一旦用户显式定义编译器将不再生成。
+//内置类型/基本类型、语言本省定义的基础类型int/char/double/指针等等
+//自定义、用struct/class等等定义的类型
+//我们不写,编译器默认生成构造函数,内置类型不做处理,自定义类型会去调用它的默认构造
+//一般情况下,有内置类型成员,就需要自己写构造函数,不能用编译器生成的
+//全部都是自定义类型,可以考虑让编译器自己生成
+//如果一旦显式定义任何构造函数,编译器将不再生成构造函数
+//#include <iostream>
+//using namespace std;
+//typedef int DataType;
+//class Stack
+//{
+//public:
+//	//构造函数支持重载
+//	Stack(DataType* a, int n)
+//	{
+//		cout << "Stack(DataType* a, int n)" << endl;
+//		_a = (DataType*)malloc(sizeof(DataType) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		memcpy(_a, a, sizeof(DataType) * n);
+//		_capacity = n;
+//		_top = 0;
+//	}
+//	//构造函数等价于Init
+//	Stack(int capacity = 4)
+//	{
+//		cout << "Stack(int capacity = 4)" << endl;
+//		_a = (DataType*)malloc(sizeof(DataType) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_capacity = capacity;
+//		_top = 0;
+//	}
+//	void Init()
+//	{
+//		_a = (DataType*)malloc(sizeof(DataType) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_capacity = 4;
+//		_top = 0;
+//	}
+//	void Push(int x)
+//	{
+//		_a[_top++] = x;
+//	}
+//	//析构函数在对象生命周期结束后自动调用
+//	~Stack()
+//	{
+//		cout << "~Stack()" << endl;
+//		if (_a)
+//		{
+//			free(_a);
+//			_a = nullptr;
+//			_top = 0;
+//			_capacity = 0;
+//		}
+//	}
+//	void Destory()
+//	{
+//		free(_a);
+//		_a = nullptr;
+//		_top = _capacity;
+//	}
+//	int Top()
+//	{
+//		return _a[_top - 1];
+//	}
+//private:
+//	int* _a;
+//	int _top;
+//	int _capacity;
+//};
+//class Date
+//{
+//public:
+//	//无参构造函数
+//	//无参调用
+//	Date()
+//	{
+//		cout << "Date()" << endl;
+//		_year = 1;
+//		_month = 2;
+//		_day = 1;
+//	}
+//	//有参构造函数
+//	Date(int year, int month, int day)
+//	{
+//		cout << "Date(int year, int month, int day)" << endl;
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	void Print()
+//	{
+//		cout << _year << "-" << _month << "-" << _day << endl;
+//	}
+//private:
+//	//内置类型
+//	//这里不是初始化,因为这里只是声明
+//	//这里是缺省值,给编译器生成的默认构造函数用
+//	int _year = 1;
+//	int _month = 1;
+//	int _day = 1;
+//	//自定义类型
+//	//Stack _st;
+//};
+//int main()
+//{
+//	Date d1;
+//	//Date d1();//不可以这样写,会跟函数声明有冲突,编译器不好识别
+//	Date d2(2023, 1, 2);
+//	d1.Print();
+//	d2.Print();
+//	return 0;
+//}
+
+
+//一般情况下,有动态申请资源,就需要显示写析构函数释放资源
+//没有动态申请资源,不需要写析构
+//需要释放资源的成员都是自定义类型,不需要写析构
+//#include<iostream>
+//using namespace std;
+//class Stack
+//{
+//public:
+//	Stack()
+//	{
+//		cout << "Stack()" << endl;
+//		_a = (int*)malloc(sizeof(int) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_top = 0;
+//		_capacity = 4;
+//	}
+//	Stack(int capacity)
+//	{
+//		cout << "Stack(int capacity)" << endl;
+//		_a = (int*)malloc(sizeof(int) * capacity);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_top = 0;
+//		_capacity = capacity;
+//	}
+//	~Stack()
+//	{
+//		cout << "~Stack()" << endl;
+//		free(_a);
+//		_a = nullptr;
+//		_capacity = _top = 0;
+//	}
+//private:
+//	int* _a;
+//	int _top;
+//	int _capacity;
+//};
+////不需要写析构函数
+//class Date
+//{
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//struct TreeNode
+//{
+//	TreeNode* _left;
+//	TreeNode* _right;
+//	int _val;
+//	TreeNode(int val = 0)
+//	{
+//		_left = nullptr;
+//		_right = nullptr;
+//		_val = val;
+//	}
+//};
+//class Tree
+//{
+//private:
+//	TreeNode* _root = nullptr;
+//};
+//class MyQueue
+//{
+//private:
+//	Stack _pushst;
+//	Stack _popst;
+//};
+//int main()
+//{
+//	//静态的栈不需要销毁,出了作用域自动销毁
+//	Stack st1;
+//	//内置类型不做处理,自定义类型会去调用它的析构函数
+//	Stack st2(4);
+//	Tree t1;
+//	TreeNode(1);
+//	TreeNode(2);
+//	MyQueue q1;
+//	MyQueue q2;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class Date
+//{
+//public:
+//	Date(int year = 1900, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	//拷贝构造函数
+//	Date(const Date& d)//类对象的引用
+//	{
+//		_year = d._year;
+//		_month = d._month;
+//		_day = d._day;
+//	}
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//void Func(Date d)
+//{
+//
+//}
+//void Func(int d)
+//{
+//
+//}
+//int main()
+//{
+//	Date d1(2023, 4, 25);
+//	//Date d2(d1);
+//	//规定了自定义类型必须要用拷贝构造去完成
+//	Func(d1);
+//	//内置类型没有这样的规定
+//	//内置类型直接拷贝
+//	Func(10);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
 //	return 0;
 //}
 
