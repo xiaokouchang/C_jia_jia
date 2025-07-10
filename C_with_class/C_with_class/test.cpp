@@ -926,12 +926,23 @@
 //		_day = day;
 //	}
 //	//拷贝构造函数
+//	//引用
 //	Date(const Date& d)//类对象的引用
 //	{
-//		_year = d._year;
-//		_month = d._month;
-//		_day = d._day;
+//		//引用
+//		this->_year = d._year;
+//		this->_month = d._month;
+//		this->_day = d._day;
 //	}
+//
+//
+//	//指针
+//	//Date(Date* d)
+//	//{
+//	//	_year = d->_year;
+//	//	_month = d->_month;
+//	//	_day = d->_day;
+//	//}
 //private:
 //	int _year;
 //	int _month;
@@ -948,14 +959,96 @@
 //int main()
 //{
 //	Date d1(2023, 4, 25);
-//	//Date d2(d1);
+//	Date d2(d1);
 //	//规定了自定义类型必须要用拷贝构造去完成
-//	Func(d1);
+//	//自定义类型是拷贝构造
+//	//指针
+//	//Func(&d1);
+//	//引用
+//	//Func(d1);
 //	//内置类型没有这样的规定
 //	//内置类型直接拷贝
-//	Func(10);
+//	//Func(10);
 //	return 0;
 //}
+
+
+//若未显式定义,编译器会生成默认的拷贝构造函数
+//默认的拷贝构造函数对象按内存存储按字节序完成拷贝,这种拷贝叫做浅拷贝,或者值拷贝
+//没有开辟空间
+//#include<iostream>
+//using namespace std;
+//class Date
+//{
+//public:
+//	Date(int year = 1900, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//int main()
+//{
+//	Date d1(2023, 4, 25);
+//	Date d2(d1);
+//	return 0;
+//}
+
+
+//开辟空间
+#include<iostream>
+using namespace std;
+class Stack
+{
+public:
+	Stack()
+	{
+		cout << "Stack()" << endl;
+		_a = (int*)malloc(sizeof(int) * 4);
+		if (nullptr == _a)
+		{
+			perror("malloc fail");
+			return;
+		}
+		_top = 0;
+		_capacity = 4;
+	}
+	Stack(const Stack& st)
+	{
+		_a = (int*)malloc(sizeof(int) * st._capacity);
+		if (nullptr == _a)
+		{
+			perror("malloc fail");
+			return;
+		}
+		memcpy(_a, st._a, sizeof(int) * st._top);
+		_top = st._top;
+		_capacity = st._capacity;
+	}
+	~Stack()
+	{
+		cout << "~Stack()" << endl;
+		free(_a);
+		_a = nullptr;
+		_capacity = _top = 0;
+	}
+private:
+	int* _a;
+	int _top;
+	int _capacity;
+};
+int main()
+{
+	Stack st1;
+	//st2先析构,st1后析构,符合后进先出原则
+	Stack st2(st1);//拷贝构造函数拷贝的空间指向同一块内存,析构函数会将同一块内存2次释放
+	return 0;
+}
 
 
 //#include<iostream>
