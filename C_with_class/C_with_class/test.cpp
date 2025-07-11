@@ -1001,62 +1001,252 @@
 
 
 //开辟空间
-#include<iostream>
-using namespace std;
-class Stack
-{
-public:
-	Stack()
-	{
-		cout << "Stack()" << endl;
-		_a = (int*)malloc(sizeof(int) * 4);
-		if (nullptr == _a)
-		{
-			perror("malloc fail");
-			return;
-		}
-		_top = 0;
-		_capacity = 4;
-	}
-	Stack(const Stack& st)
-	{
-		_a = (int*)malloc(sizeof(int) * st._capacity);
-		if (nullptr == _a)
-		{
-			perror("malloc fail");
-			return;
-		}
-		memcpy(_a, st._a, sizeof(int) * st._top);
-		_top = st._top;
-		_capacity = st._capacity;
-	}
-	~Stack()
-	{
-		cout << "~Stack()" << endl;
-		free(_a);
-		_a = nullptr;
-		_capacity = _top = 0;
-	}
-private:
-	int* _a;
-	int _top;
-	int _capacity;
-};
-int main()
-{
-	Stack st1;
-	//st2先析构,st1后析构,符合后进先出原则
-	Stack st2(st1);//拷贝构造函数拷贝的空间指向同一块内存,析构函数会将同一块内存2次释放
-	return 0;
-}
+//#include<iostream>
+//using namespace std;
+//class Stack
+//{
+//public:
+//	Stack()
+//	{
+//		cout << "Stack()" << endl;
+//		_a = (int*)malloc(sizeof(int) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_top = 0;
+//		_capacity = 4;
+//	}
+//	Stack(const Stack& st)
+//	{
+//		_a = (int*)malloc(sizeof(int) * st._capacity);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		memcpy(_a, st._a, sizeof(int) * st._top);
+//		_top = st._top;
+//		_capacity = st._capacity;
+//	}
+//	~Stack()
+//	{
+//		cout << "~Stack()" << endl;
+//		free(_a);
+//		_a = nullptr;
+//		_capacity = _top = 0;
+//	}
+//private:
+//	int* _a;
+//	int _top;
+//	int _capacity;
+//};
+//int main()
+//{
+//	Stack st1;
+//	//st2先析构,st1后析构,符合后进先出原则
+//	Stack st2(st1);//拷贝构造函数拷贝的空间指向同一块内存,析构函数会将同一块内存2次释放
+//	return 0;
+//}
 
 
 //#include<iostream>
 //using namespace std;
+//class Date
+//{
+//public:
+//	Date(int year = 1900, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//class Stack
+//{
+//public:
+//	Stack()
+//	{
+//		cout << "Stack()" << endl;
+//		_a = (int*)malloc(sizeof(int) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_top = 0;
+//		_capacity = 4;
+//	}
+//	Stack(const Stack& st)
+//	{
+//		_a = (int*)malloc(sizeof(int) * st._capacity);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		memcpy(_a, st._a, sizeof(int) * st._top);
+//		_top = st._top;
+//		_capacity = st._capacity;
+//	}
+//	~Stack()
+//	{
+//		cout << "~Stack()" << endl;
+//		free(_a);
+//		_a = nullptr;
+//		_capacity = _top = 0;
+//	}
+//private:
+//	int* _a;
+//	int _top;
+//	int _capacity;
+//};
+//void func(Date& d)
+//{
+//
+//}
+////void func(Stack& st)
+////{}
+//
+//Stack& func()
+//{
+//	//static Stack st;
+//	Stack st;
+//	return  st;
+//}
 //int main()
 //{
+//	Date d1;
+//	func(d1);
+//	
+//	//Stack st;
+//	//func(st);
+//
+//	//Stack st;
+//	Stack ret = func();
 //	return 0;
 //}
+
+
+//#include<iostream>
+//using namespace std;
+//class Date
+//{
+//public:
+//	Date(int year = 1900, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+////private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//bool operator<(const Date& x1, const Date& x2)
+//{
+//	if (x1._year < x2._year)
+//	{
+//		return true;
+//	}
+//	else if (x1._year == x2._year && x1._month < x2._month)
+//	{
+//		return true;
+//	}
+//	else if (x1._year == x2._year && x1._month == x2._month && x1._day < x2._day)
+//	{
+//		return true;
+//	}
+//	return false;
+//}
+//bool operator>(const Date& x1, const Date& x2)
+//{
+//	if (x1._year < x2._year)
+//	{
+//		return true;
+//	}
+//	else if (x1._year == x2._year && x1._month < x2._month)
+//	{
+//		return true;
+//	}
+//	else if (x1._year == x2._year && x1._month == x2._month && x1._day < x2._day)
+//	{
+//		return true;
+//	}
+//	return false;
+//}
+//int main()
+//{
+//	Date d1(2023, 4, 25);
+//	Date d2(2023, 5, 25);
+//
+//	//内置类型可以直接比较,自定义类型不能直接比较
+//	//<<流插入运算符的优先级高于比较运算符
+//	cout << (d1 < d2) << endl;
+//	cout << (operator<(d1, d2)) << endl;
+//
+//	cout << (d1 > d2) << endl;
+//	cout << (operator>(d1, d2)) << endl;
+//	return 0;
+//}
+
+
+#include<iostream>
+using namespace std;
+class Date
+{
+public:
+	//构造函数
+	Date(int year = 1, int month = 1, int day = 1)
+	{
+		_year = year;
+		_month = month;
+		_day = day;
+	}
+	void Print()
+	{
+		cout << _year << "-" << _month << "-" << _day << endl;
+	}
+	//作为类成员函数重载时,其形参看起来比操作数数目少1,因为成员函数的第一个参数为隐藏的this
+	bool operator<(const Date& x)
+	{
+		if (_year < x._year)
+		{
+			return true;
+		}
+		else if (_year == x._year && _month < x._month)
+		{
+			return true;
+		}
+		else if (_year == x._year && _month == x._month && _day < x._day)
+		{
+			return true;
+		}
+		return false;
+	}
+private:
+	int _year;
+	int _month;
+	int _day;
+};
+int main()
+{
+	Date d1(2018, 9, 26);
+	Date d2(2018, 10, 27);
+	//日期-日期有意义
+	//日期+日期没意义
+	//是否要重载运算符,这个运算符对这个类是否有意义
+	//d1 < d2;//转换成operator<(d1, d2);
+	d1 < d2;//转换成d1.operator<(d2);
+	d1.operator<(d2);
+	return 0;
+}
 
 
 //#include<iostream>
