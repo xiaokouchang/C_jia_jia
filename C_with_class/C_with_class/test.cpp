@@ -1133,6 +1133,18 @@
 //}
 
 
+//C++为了增强代码的可读性引入了运算符重载,运算符重载是具有特殊函数名的函数,
+//也具有其返回值类型,函数名字以及参数列表,其返回值类型与参数列表与普通的函数类似
+//函数名字为:关键字operator后面接需要重载的运算符符号
+//函数原型:返回值类型operator操作符(参数列表)
+//注意:
+//不能通过连接其他符号来创建新的操作符:比如operator@
+//重载操作符必须有一个类类型参数
+//用于内置类型的运算符,其含义不能改变,例如:内置的整型+,不能改变其含义
+//作为类成员函数重载时,其形参看起来比操作数数目少1,因为成员函数的第一个参数为隐藏的this
+//.* :: sizeof ? : .注意以上5个运算符不能重载
+//在全局函数中,操作符是几个操作数,重载函数就有几个参数。
+//在成员函数中,重载函数少一个参数
 //#include<iostream>
 //using namespace std;
 //class Date
@@ -1185,66 +1197,203 @@
 //{
 //	Date d1(2023, 4, 25);
 //	Date d2(2023, 5, 25);
-//
+//	d1 < d2;
+//	operator<(d1, d2);
 //	//内置类型可以直接比较,自定义类型不能直接比较
 //	//<<流插入运算符的优先级高于比较运算符
-//	cout << (d1 < d2) << endl;
-//	cout << (operator<(d1, d2)) << endl;
+//	/*cout << (d1 < d2) << endl;
+//	cout << (operator<(d1, d2)) << endl;*/
+//	//cout << (d1 > d2) << endl;
+//	//cout << (operator>(d1, d2)) << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class Date
+//{
+//public:
+//	//构造函数
+//	Date(int year = 1, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	void Print()
+//	{
+//		cout << _year << "-" << _month << "-" << _day << endl;
+//	}
+//	//作为类成员函数重载时,其形参看起来比操作数数目少1,因为成员函数的第一个参数为隐藏的this
+//	bool operator<(const Date& x)
+//	{
+//		if (this->_year < x._year)//这里等价于if (this->_year < x._year)
+//		{
+//			return true;
+//		}
+//		else if (this->_year == x._year && this->_month < x._month)
+//		{
+//			return true;
+//		}
+//		else if (this->_year == x._year && this->_month == x._month && this->_day < x._day)
+//		{
+//			return true;
+//		}
+//		return false;
+//	}
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//int main()
+//{
+//	Date d1(2018, 9, 26);
+//	Date d2(2018, 10, 27);
+//	//日期-日期有意义
+//	//日期+日期没意义
+//	//是否要重载运算符,这个运算符对这个类是否有意义
+//	//d1 < d2;//转换成operator<(d1, d2);
+//	d1 < d2;//转换成d1.operator<(d2);
+//	d1.operator<(d2);
+//	if (d1 < d2)
+//	{
 //
-//	cout << (d1 > d2) << endl;
-//	cout << (operator>(d1, d2)) << endl;
+//	}
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class Date
+//{
+//public:
+//	//构造函数
+//	Date(int year = 1, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	void Print()
+//	{
+//		cout << _year << "-" << _month << "-" << _day << endl;
+//	}
+//	Date(const Date& d)
+//	{
+//		cout << "Date(const Date& d)" << endl;
+//		_year = d._year;
+//		_month = d._month;
+//		_day = d._day;
+//	}
+//	//作为类成员函数重载时,其形参看起来比操作数数目少1,因为成员函数的第一个参数为隐藏的this
+//	bool operator<(const Date& x)
+//	{
+//		if (this->_year < x._year)//这里等价于if (this->_year < x._year)
+//		{
+//			return true;
+//		}
+//		else if (this->_year == x._year && this->_month < x._month)
+//		{
+//			return true;
+//		}
+//		else if (this->_year == x._year && this->_month == x._month && this->_day < x._day)
+//		{
+//			return true;
+//		}
+//		return false;
+//	}
+//	//void operator=(const Date& d)
+//	//{
+//	//	_year = d._year;
+//	//	_month = d._month;
+//	//	_day = d._day;
+//	//}
+//	//函数返回会调用2次拷贝构造函数
+//	//Date operator=(const Date& d)
+//	//{
+//	//	_year = d._year;
+//	//	_month = d._month;
+//	//	_day = d._day;
+//	//	return *this;
+//	//}
+//	//赋值运算符重载函数
+//	//Date& operator=(const Date& d)
+//	//{
+//	//	_year = d._year;
+//	//	_month = d._month;
+//	//	_day = d._day;
+//	//	return *this;
+//	//}
+////private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//int main()
+//{
+//	Date d1(2018, 9, 26);
+//	Date d2(2018, 10, 27);
+//	Date d3(2018, 11, 28);
+//	d1 = d2 = d3;
+//
+//	//d1 = d2;
+//	//d1.operator=(d2);
+//	//int i, j, k;
+//	//i = j = k = 0;
 //	return 0;
 //}
 
 
 #include<iostream>
+#include"Date.h"
 using namespace std;
-class Date
+void TestDate()
 {
-public:
-	//构造函数
-	Date(int year = 1, int month = 1, int day = 1)
-	{
-		_year = year;
-		_month = month;
-		_day = day;
-	}
-	void Print()
-	{
-		cout << _year << "-" << _month << "-" << _day << endl;
-	}
-	//作为类成员函数重载时,其形参看起来比操作数数目少1,因为成员函数的第一个参数为隐藏的this
-	bool operator<(const Date& x)
-	{
-		if (_year < x._year)
-		{
-			return true;
-		}
-		else if (_year == x._year && _month < x._month)
-		{
-			return true;
-		}
-		else if (_year == x._year && _month == x._month && _day < x._day)
-		{
-			return true;
-		}
-		return false;
-	}
-private:
-	int _year;
-	int _month;
-	int _day;
-};
+	//日期+-天数有价值
+	//Date d1(2025, 7, 12);
+	////d1 += 100;
+	//d1.operator+=(100);
+	//d1.Print();
+
+	//加不能改变自己
+	//int i = 0;
+	//i + 100;
+	//cout << i << endl;
+
+	//Date d3 = d2 + 100;//拷贝构造
+	//Date d4 = d2;//初始化d4,等价于Date d4(d2);
+	//d4 = d2;//赋值,两个已经存在的对象
+
+	//Date d2(2025, 7, 12);
+	//Date d3(d2 + 100);
+	//d2.Print();
+	//d3.Print();
+
+	//Date d1(2025, 7, 12);
+	////前置++返回++以后的对象,后置++返回++之前的对象
+	//d1++;//d1.operator++()
+	//++d1;//d1.operator++(int)
+
+	//-=
+	//Date d2(2025, 7, 12);
+	//d2 -= 50;
+	//d2.Print();
+
+	Date d1(2025, 7, 12);
+	d1 += 100;
+	d1.Print();
+
+
+	Date d2(2025, 7, 12);
+	d2 += -100;
+	d2.Print();
+}
 int main()
 {
-	Date d1(2018, 9, 26);
-	Date d2(2018, 10, 27);
-	//日期-日期有意义
-	//日期+日期没意义
-	//是否要重载运算符,这个运算符对这个类是否有意义
-	//d1 < d2;//转换成operator<(d1, d2);
-	d1 < d2;//转换成d1.operator<(d2);
-	d1.operator<(d2);
+	TestDate();
 	return 0;
 }
 
