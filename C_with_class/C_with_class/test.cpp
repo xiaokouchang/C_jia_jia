@@ -1351,116 +1351,524 @@
 //两个运算符重载可以构成函数重载
 //cout可以支持内置类型是因为库里面实现了
 //cout可以支持自定识别类型是因为函数重载
+//#include<iostream>
+//#include"Date.h"
+//using namespace std;
+//void TestDate()
+//{
+//	//日期+-天数有价值
+//	//Date d1(2025, 7, 12);
+//	////d1 += 100;
+//	//d1.operator+=(100);
+//	//d1.Print();
+//
+//	//加不能改变自己
+//	//int i = 0;
+//	//i + 100;
+//	//cout << i << endl;
+//
+//	//Date d3 = d2 + 100;//拷贝构造
+//	//Date d4 = d2;//初始化d4,等价于Date d4(d2);
+//	//d4 = d2;//赋值,两个已经存在的对象
+//
+//	//Date d2(2025, 7, 12);
+//	//Date d3(d2 + 100);
+//	//d2.Print();
+//	//d3.Print();
+//
+//	//Date d1(2025, 7, 12);
+//	////前置++返回++以后的对象,后置++返回++之前的对象
+//	//d1++;//d1.operator++()
+//	//++d1;//d1.operator++(int)
+//
+//	//-=
+//	//Date d2(2025, 7, 12);
+//	//d2 -= 50;
+//	//d2.Print();
+//
+//	//Date d1(2025, 7, 12);
+//	////Date d2(d1 + 100);
+//	//Date d2 = d1 + 100;
+//	//d2.Print();
+//
+//
+//	//+= -
+//	//Date d2(2025, 7, 12);
+//	//d2 += -100;
+//	//d2.Print();
+//
+//	//-= -
+//	//Date d3(2025, 7, 13);
+//	//d3 -= -100;
+//	//d3.Print();
+//
+//
+//	//前置++
+//	//Date d3(2025, 7, 13);
+//	//++d3;
+//	//d3.Print();
+//
+//
+//	////后置++
+//	//Date d4(2025, 7, 13);
+//	//d4++;
+//	//d4.Print();
+//
+//
+//	//前置--
+//	//前置拷贝次数少
+//	//Date d3(2025, 7, 13);
+//	//--d3;//d3.operator--(&d3);
+//	//d3.Print();
+//
+//
+//	//后置--
+//	//Date d4(2025, 7, 13);
+//	//d4--;//d4.operator--(&d4, 0);
+//	//d4.Print();
+//
+//
+//	//循环n次使用n--
+//	//循环n-1次使用--n
+//
+//
+//	//Date d1(2025, 7, 13);
+//	//Date d2(1930, 10, 1);
+//	//cout << d1 - d2 << endl;
+//	//cout << d2 - d1 << endl;
+//
+//
+//	//流插入不能写成成员函数
+//	//Date d1(2025, 7, 13);
+//	//Date d2(2025, 7, 14);
+//	//Date d3(2025, 7, 15);
+//	////d1 += 100;
+//	//d1.operator+=(100);
+//	////cout << d1;//d1.operator(cout);d1流向cout
+//	////d1 << cout;//d1.operator(cout);cout流向d1
+//	////cout << d1;//友元函数和全局变量可以使用,单个赋值
+//	//cout << d1 << d2 << d3;//可以使用引用返回,连续赋值
+//
+//
+//	//流提取
+//	//printf和scanf只能支持内置类型
+//	//流可以支持内置类型和自定义类型
+//	//Date d1(2025, 7, 13);
+//	//Date d2(2025, 7, 14);
+//	//cin >> d1 >> d2;
+//	//cout << d1 << d2 << endl;
+//
+//
+//	//const
+//	//成员函数后面加const以后,普通函数和const对象都可以调用
+//	//不是所有函数都要加const,要修改成员变量的函数不能加const
+//	//只要成员内部函数不修改成员变量,都应该加const
+//	//这样const对象和普通对象都可以调用
+//	Date d1(2025, 7, 13);
+//	d1.Print();//d1.Print(&d1);//Date*->Date* --- 权限的平移
+//	const Date d2(2025, 7, 14);
+//	d2.Print();//d2.Print(&d2);//const Date*->Date*  --- 权限的放大
+//
+//	//bool operator<(const Date& x);
+//	//d1 < d2;//d1传this指针,Date* -> Date*
+//	//d2 < d1;//d2不能传this指针,const Date* -> Date* --- 权限的放大
+//}
+//int main()
+//{
+//	TestDate();
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class Date
+//{
+//public:
+//	//Date*和const Date*构成函数重载
+//	Date* operator&()
+//	{
+//		cout << "Date* operator&()" << endl;
+//		return this;
+//	}
+//	const Date* operator&() const
+//	{
+//		cout << "const Date* operator&() const" << endl;
+//		return this;
+//	}
+//private:
+//	int _year = 1;
+//	int _month = 1;
+//	int _day = 1;
+//};
+//int main()
+//{
+//	//const int a = 10;
+//	//int b = a;//拷贝,两个是独立的空间,不涉及权限放大
+//
+//	//const int a = 1;
+//	//int& b = a;//b是a的别名,b的改变会影响a,涉及权限的放大
+//
+//	//const int a = 1;
+//	//int* pb = &a;//权限的放大
+//
+//	Date d1;
+//	const Date d2;//const对象必须初始化
+//	cout << &d1 << endl;
+//	cout << &d2 << endl;
+//	return 0;
+//}
+
+
+//初始化列表
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		:_a(a)
+//	{
+//		cout << "A(int a = 0)" << endl;
+//	}
+//private:
+//	int _a;
+//};
+//class B
+//{
+//public:
+//	//初始化列表,对象成员定义的位置
+//	//初始化列表不能出现相同的成员
+//	B(int a, int& ref)//这里传的参数可以不使用
+//		: _ref(ref)
+//		, _n(1)
+//		, _x(2)//如果初始化列表有值,则不需要缺省值
+//		,_aobj(10)//为默认构造函数传参,如果默认构造函数有缺省值可以不传参,没有缺省值必须传参
+//		//, _n(10)
+//	{}
+//private:
+//	//声明
+//	A _aobj;		//没有默认构造函数(编译器生成的,全缺省的,无参的)
+//	//引用和const必须在定义时初始化
+//	int& _ref;		//引用
+//	const int _n;	//const
+//	int _x = 1;     //这里1是缺省值,不是初始化
+//};	
+//class Stack
+//{
+//public:
+//	Stack()
+//	{
+//		cout << "Stack()" << endl;
+//		_a = (int*)malloc(sizeof(int) * 4);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_top = 0;
+//		_capacity = 4;
+//	}
+//	Stack(int capacity)
+//	{
+//		cout << "Stack(int capacity)" << endl;
+//		_a = (int*)malloc(sizeof(int) * capacity);
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		_top = 0;
+//		_capacity = capacity;
+//	}
+//	~Stack()
+//	{
+//		cout << "~Stack()" << endl;
+//		free(_a);
+//		_a = nullptr;
+//		_capacity = _top = 0;
+//	}
+//private:
+//	int* _a;
+//	int _top;
+//	int _capacity;
+//};
+//class MyQueue
+//{
+//public:
+//	MyQueue()
+//	{}
+//	MyQueue(int capacity)
+//		:_pushst(capacity)
+//		, _popst(capacity)
+//	{}
+//private:
+//	Stack _pushst;
+//	Stack _popst;
+//};
+//int main()
+//{
+//	//对象整体定义
+//	int n = 10;
+//	B bb(10, n);
+//	MyQueue q1;
+//	MyQueue q2(100);
+//	return 0;
+//}
+
+
+//尽量使用初始化列表初始化,因为不管你是否使用初始化列表,
+//对于自定义类型成员变量,一定会先使用初始化列表初始化
+//#include<iostream>
+//using namespace std;
+//class Stack
+//{
+//public:
+//	Stack(int capacity = 10)
+//		: _top(0)
+//		, _capacity(capacity)
+//		, _a((int*)malloc(sizeof(int) * capacity))
+//	{
+//		if (nullptr == _a)
+//		{
+//			perror("malloc fail");
+//			return;
+//		}
+//		//要求数组初始化一下
+//		memset(_a, 0, sizeof(int) * capacity);
+//	}
+//private:
+//	int* _a;
+//	int _top;
+//	int _capacity;
+//};
+//class AA
+//{
+//public:
+//	AA(int row = 10, int col = 5)
+//		: _row(10)
+//		, _col(5)
+//	{
+//		//指针数组
+//		_aa = (int**)malloc(sizeof(int*) * row);
+//		int i = 0;
+//		for (i = 0; i < row; i++)
+//		{
+//			_aa[i] = (int*)malloc(sizeof(int) * col);
+//		}
+//	}
+//private:
+//	int** _aa;
+//	int _row;
+//	int _col;
+//};
+//int main()
+//{
+//	Stack st;
+//	return 0;
+//}
+
+
+//成员变量在类中声明次序就是其在初始化列表中的初始化顺序,与其在初始化列表中的先后次序无关
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	A(int a)
+//		: _a1(a)
+//		, _a2(_a1)
+//	{}
+//	void Print() 
+//	{
+//		cout << _a1 << " " << _a2 << endl;
+//	}
+//private:
+//	int _a2;
+//	int _a1;
+//};
+//int main() 
+//{
+//	A aa(1);
+//	aa.Print();
+//	return 0;
+//}
+
+
+//explicit --- 禁止使用隐式类型转换,添加在构造函数的前面
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	A(int a)
+//		:_a(a)
+//	{
+//		cout << "A(int a)" << endl;
+//	}
+//	A(const A& aa)
+//		:_a(aa._a)
+//	{
+//		cout << "A(const A& aa)" << endl;
+//	}
+//private:
+//	int _a;
+//};
+//int main()
+//{
+//	A aa1(1);//调用构造函数
+//	A aa2 = 2;//隐式类型转换,整型转换成自定义类型
+//	//使用2调用构造函数构造1个A的临时对象,临时对象再拷贝构造
+//	
+//	//A& aa3 = 2;
+//	const A& aa3 = 2;
+//
+//	//类型转换会产生临时变量,临时变量具有常性
+//	int i = 10;
+//	double d = i;
+//	//临时变量是double类型,不能使用引用
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<string>
+////#include<list>
+//using namespace std;
+////string类用来管理字符串
+////class string
+////{
+////public:
+////	string(const char* str)
+////	{}
+////private:
+////};
+//class list
+//{
+//public:
+//	void push_back(const string& str)
+//	{}
+//};
+//int main()
+//{
+//	string name1("张三");//构造
+//	string name2 = "张三";//构造+拷贝构造+优化
+//	list lt1;
+//	
+//	//方法1
+//	string name3("李四");
+//	lt1.push_back(name3);
+//	
+//	//方法2
+//	lt1.push_back("李四");//隐式类型转换
+//	return 0;
+//}
+
+
+//static
+//当前还有多少个A对象正在使用
+//#include<iostream>
+//using namespace std;
+//int _scount = 0;
+//class A
+//{
+//public:
+//	A() 
+//	{ 
+//		++_scount; 
+//	}
+//	A(const A& t) 
+//	{ 
+//		++_scount; 
+//	}
+//	~A() 
+//	{ 
+//		--_scount; 
+//	}
+//	//static int GetACount() 
+//	//{ 
+//	//	return _scount; 
+//	//}
+//private:
+//	//static int _scount;
+//};
+////void TestA()
+////{
+////	cout << A::GetACount() << endl;
+////	A a1, a2;
+////	A a3(a1);
+////	cout << A::GetACount() << endl;
+////}
+//A aa0;
+//A Func(A aa)
+//{
+//	//自定义类型实参传给形参要调用拷贝构造
+//	cout << __LINE__ << ":" << _scount << endl;//aa0,aa1,aa2,实参传给形参的临时拷贝:4个
+//	return aa;
+//}
+//int main()
+//{
+//	//__LINE__---文件的哪一行
+//	//全局函数在main函数之前调用构造
+//	cout << __LINE__ << ":" << _scount << endl;//aa0:1个
+//	//静态的局部的对象不会在main函数之前初始化
+//	A aa1;
+//	static A aa2;
+//	Func(aa1);
+//	cout << __LINE__ << ":" << _scount << endl;
+//	return 0;
+//}
+
+
+
 #include<iostream>
-#include"Date.h"
 using namespace std;
-void TestDate()
+int _scount = 0;
+class A
 {
-	//日期+-天数有价值
-	//Date d1(2025, 7, 12);
-	////d1 += 100;
-	//d1.operator+=(100);
-	//d1.Print();
-
-	//加不能改变自己
-	//int i = 0;
-	//i + 100;
-	//cout << i << endl;
-
-	//Date d3 = d2 + 100;//拷贝构造
-	//Date d4 = d2;//初始化d4,等价于Date d4(d2);
-	//d4 = d2;//赋值,两个已经存在的对象
-
-	//Date d2(2025, 7, 12);
-	//Date d3(d2 + 100);
-	//d2.Print();
-	//d3.Print();
-
-	//Date d1(2025, 7, 12);
-	////前置++返回++以后的对象,后置++返回++之前的对象
-	//d1++;//d1.operator++()
-	//++d1;//d1.operator++(int)
-
-	//-=
-	//Date d2(2025, 7, 12);
-	//d2 -= 50;
-	//d2.Print();
-
-	//Date d1(2025, 7, 12);
-	////Date d2(d1 + 100);
-	//Date d2 = d1 + 100;
-	//d2.Print();
-
-
-	//+= -
-	//Date d2(2025, 7, 12);
-	//d2 += -100;
-	//d2.Print();
-
-	//-= -
-	//Date d3(2025, 7, 13);
-	//d3 -= -100;
-	//d3.Print();
-
-
-	//前置++
-	//Date d3(2025, 7, 13);
-	//++d3;
-	//d3.Print();
-
-
-	////后置++
-	//Date d4(2025, 7, 13);
-	//d4++;
-	//d4.Print();
-
-
-	//前置--
-	//前置拷贝次数少
-	//Date d3(2025, 7, 13);
-	//--d3;//d3.operator--(&d3);
-	//d3.Print();
-
-
-	//后置--
-	//Date d4(2025, 7, 13);
-	//d4--;//d4.operator--(&d4, 0);
-	//d4.Print();
-
-
-	//循环n次使用n--
-	//循环n-1次使用--n
-
-
-	//Date d1(2025, 7, 13);
-	//Date d2(1930, 10, 1);
-	//cout << d1 - d2 << endl;
-	//cout << d2 - d1 << endl;
-
-
-	//流插入不能写成成员函数
-	//Date d1(2025, 7, 13);
-	//Date d2(2025, 7, 14);
-	//Date d3(2025, 7, 15);
-	////d1 += 100;
-	//d1.operator+=(100);
-	////cout << d1;//d1.operator(cout);d1流向cout
-	////d1 << cout;//d1.operator(cout);cout流向d1
-	////cout << d1;//友元函数和全局变量可以使用,单个赋值
-	//cout << d1 << d2 << d3;//可以使用引用返回,连续赋值
-
-
-	//流提取
-	//printf和scanf只能支持内置类型
-	//流可以支持内置类型和自定义类型
-	//Date d1(2025, 7, 13);
-	//Date d2(2025, 7, 14);
-	//cin >> d1 >> d2;
-	//cout << d1 << d2 << endl;
+public:
+	A()
+	{
+		++_scount;
+	}
+	A(const A& t)
+	{
+		++_scount;
+	}
+	~A()
+	{
+		--_scount;
+	}
+	//static int GetACount() 
+	//{ 
+	//	return _scount; 
+	//}
+private:
+	//static int _scount;
+};
+//void TestA()
+//{
+//	cout << A::GetACount() << endl;
+//	A a1, a2;
+//	A a3(a1);
+//	cout << A::GetACount() << endl;
+//}
+A aa0;
+void Func()
+{
+	static A aa2;
+	cout << __LINE__ << ":" << _scount << endl;
 }
 int main()
 {
-	TestDate();
+	//__LINE__---文件的哪一行
+	//全局函数在main函数之前调用构造
+	cout << __LINE__ << ":" << _scount << endl;//aa0:1个
+	//静态的局部的对象不会在main函数之前初始化
+	A aa1;
+
+	Func();
+	Func();
 	return 0;
 }
 
