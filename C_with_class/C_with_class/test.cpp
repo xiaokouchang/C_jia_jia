@@ -1766,6 +1766,7 @@
 
 
 //static
+//全局变量的劣势是任何地方都可以随意改变
 //当前还有多少个A对象正在使用
 //#include<iostream>
 //using namespace std;
@@ -1821,56 +1822,313 @@
 
 
 
-#include<iostream>
-using namespace std;
-int _scount = 0;
-class A
-{
-public:
-	A()
-	{
-		++_scount;
-	}
-	A(const A& t)
-	{
-		++_scount;
-	}
-	~A()
-	{
-		--_scount;
-	}
-	//static int GetACount() 
-	//{ 
-	//	return _scount; 
-	//}
-private:
-	//static int _scount;
-};
-//void TestA()
+//#include<iostream>
+//using namespace std;
+//int _scount = 0;
+//class A
 //{
-//	cout << A::GetACount() << endl;
-//	A a1, a2;
-//	A a3(a1);
-//	cout << A::GetACount() << endl;
+//public:
+//	A()
+//	{
+//		++_scount;
+//	}
+//	A(const A& t)
+//	{
+//		++_scount;
+//	}
+//	~A()
+//	{
+//		--_scount;
+//	}
+//	//static int GetACount() 
+//	//{ 
+//	//	return _scount; 
+//	//}
+//private:
+//	//static int _scount;
+//};
+////void TestA()
+////{
+////	cout << A::GetACount() << endl;
+////	A a1, a2;
+////	A a3(a1);
+////	cout << A::GetACount() << endl;
+////}
+//A aa0;
+//void Func()
+//{
+//	static A aa2;
+//	cout << __LINE__ << ":" << _scount << endl;
 //}
-A aa0;
-void Func()
+//int main()
+//{
+//	//__LINE__---文件的哪一行
+//	//全局函数在main函数之前调用构造
+//	cout << __LINE__ << ":" << _scount << endl;//aa0:1个
+//	//静态的局部的对象不会在main函数之前初始化
+//	A aa1;
+//	Func();
+//	Func();
+//	return 0;
+//}
+
+
+//成员变量属于每一个类对象,存储在对象里面
+//静态成员变量属于类,属于类的每个对象共享,存储在静态区,生命周期是全局的
+//静态成员函数没有this指针,指定类域和访问限定符就可以访问,静态成员函数和静态成员变量一般是一起出现的
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	A()
+//		//:_scout(0);
+//	{
+//		++_scount;
+//	}
+//	A(const A& t)
+//	{
+//		++_scount;
+//	}
+//	~A()
+//	{
+//		--_scount;
+//	}
+//	void Func1()
+//	{
+//		//非静态可以调用静态
+//		GetACount();
+//	}
+//	void Func2()
+//	{
+//	}
+//	static int GetACount()
+//	{
+//		//静态不可以调用非静态
+//		//非静态的成员函数需要调用this指针
+//		//Func2();
+//		//_a1++;
+//		return _scount;
+//	}
+//private:
+//	//成员变量
+//	int _a1 = 1;
+//	int _a2 = 1;
+//
+//	//静态成员函数
+//	//静态成员变量不能在声明时初始化,静态成员变量没有初始化列表
+//	//成员变量可以在声明时初始化,有初始化列表初始化
+//	static int _scount;//声明
+//};
+//int A::_scount = 0;
+//A aa0;
+//void Func()
+//{
+//	static A aa2;
+//	cout << __LINE__ << ":" << _scount << endl;
+//}
+//int main()
+//{
+//	//__LINE__---文件的哪一行
+//	//全局函数在main函数之前调用构造
+//	cout << __LINE__ << ":" << _scount << endl;//aa0:1个
+//	//静态的局部的对象不会在main函数之前初始化
+//	A aa1;
+//	Func();
+//	Func();
+//	return 0;
+//}
+
+
+//设计1个类,只能在栈上创建对象
+//设计1个类,只能在堆上创建对象
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	static A GetStackObj()
+//	{
+//		A aa;
+//		return aa;
+//	}
+//	static A* GetHeapObj()
+//	{
+//		return new A;
+//	}
+//private:
+//	A()
+//	{}
+//private:
+//	int _a1 = 1;
+//	int _a2 = 2;
+//};
+//int main()
+//{
+//	//都调用构造函数
+//	//static A aa1;   //静态区
+//	//A aa2;          //栈
+//	//A* ptr = new A; //堆
+//	A::GetStackObj();
+//	A::GetHeapObj();
+//	return 0;
+//}
+
+
+//友元类
+//#include<iostream>
+//using namespace std;
+//class Time
+//{
+//	friend class Date; //声明日期类为时间类的友元类,则在日期类中就直接访问Time类中的私有成员变量
+//public:
+//	Time(int hour = 0, int minute = 0, int second = 0)
+//		: _hour(hour)
+//		, _minute(minute)
+//		, _second(second)
+//	{}
+//private:
+//	int _hour;
+//	int _minute;
+//	int _second;
+//};
+//class Date
+//{
+//public:
+//	Date(int year = 1900, int month = 1, int day = 1)
+//		: _year(year)
+//		, _month(month)
+//		, _day(day)
+//	{}
+//	void SetTimeOfDate(int hour, int minute, int second)
+//	{
+//		//直接访问时间类私有的成员变量
+//		_t._hour = hour;
+//		_t._minute = minute;
+//		_t._second = second;
+//	}
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//	Time _t;
+//};
+//int main()
+//{
+//	return 0;
+//}
+
+
+//内部类
+//公有和私有
+//内部类是外部类的友元
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//private:
+//	static int k;
+//	int h;
+//public:
+//	//B在A中不占空间,对象占空间
+//	class B //B天生就是A的友元
+//	{
+//	public:
+//		void foo(const A& a)
+//		{
+//			cout << k << endl;
+//			cout << a.h << endl;
+//		}
+//	private:
+//		int b;
+//	};
+//};
+//int A::k = 1;
+//int main()
+//{
+//	cout << sizeof(A) << endl;
+//	A::B b;
+//	b.foo(A());
+//	return 0;
+//}
+
+
+//匿名对象
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		:_a(a)
+//	{
+//		cout << "A(int a = 0)" << endl;
+//	}
+//	~A()
+//	{
+//		cout << "~A()" << endl;
+//	}
+//private:
+//	int _a;
+//};
+//class Solution
+//{
+//public:
+//	Solution(int x)
+//	{}
+//public:
+//	int Sum_Solution(int n)
+//	{
+//		cout << "int Sum_Solution(int n)" << endl;
+//		//...
+//		return n;
+//	}
+//};
+//int main()
+//{
+//	//A aa;
+//	//A aa(1);//有名对象  --- 生命周期在当前函数的局部域
+//	//A(1);//匿名对象  --- 生命周期在当前行,到下一行会销毁。即使用完成后就销毁
+//	
+//	//不能这样定义对象,因为编译器无法识别下面是一个函数声明,还是对象定义
+//	//Solution sl();
+//	//sl.Sum_Solution(2);
+//
+//	//Solution().Sum_Solution(3);//括号代表构造函数没有参数
+//	//Solution.Sum_Solution(3);//静态成员可以这样调用,因为没有this指针
+//
+//	//A& ra = A(1);//匿名对象具有常性
+//	const A& ra = A(1);//会变成野引用,const引用延长了匿名对象的生命周期,生命周期在当前函数的局部域
+//	return 0;
+//}
+
+
+#include<iostream>
+#include<string>
+using namespace std;
+void push_back(const string& s)
 {
-	static A aa2;
-	cout << __LINE__ << ":" << _scount << endl;
+	cout << "void push_back()" << s << endl;
 }
 int main()
 {
-	//__LINE__---文件的哪一行
-	//全局函数在main函数之前调用构造
-	cout << __LINE__ << ":" << _scount << endl;//aa0:1个
-	//静态的局部的对象不会在main函数之前初始化
-	A aa1;
-
-	Func();
-	Func();
+	string str("111111");
+	push_back(str);
+	
+	//匿名对象
+	//这两行意义相同
+	push_back(string("22222"));
+	push_back("33333");
 	return 0;
 }
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
 
 
 //#include<iostream>
