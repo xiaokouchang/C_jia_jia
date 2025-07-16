@@ -1882,7 +1882,6 @@
 //{
 //public:
 //	A()
-//		//:_scout(0);
 //	{
 //		++_scount;
 //	}
@@ -1925,7 +1924,7 @@
 //void Func()
 //{
 //	static A aa2;
-//	cout << __LINE__ << ":" << _scount << endl;
+//	cout << __LINE__ << ":" << aa2._scount << endl;
 //}
 //int main()
 //{
@@ -1937,6 +1936,66 @@
 //	Func();
 //	Func();
 //	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class MyClass 
+//{
+//public:
+//    void Func()
+//    {
+//        Mcount();
+//    }
+//    static int Mcount()
+//    {
+//        Func();
+//    }
+//private:
+//    static int count; //声明静态成员变量
+//};
+////类外初始化,初始值设为0
+//int MyClass::count = 0;
+//int main() 
+//{
+//    //方式一:通过类名访问
+//    MyClass::count = 10;
+//
+//    //方式二:通过对象访问
+//    MyClass obj1, obj2;
+//    obj1.count = 20;  //实际上修改的是同一个count
+//    cout << obj2.count << endl;  //输出20
+//}
+
+
+
+//#include<iostream>
+//using namespace std;
+//class MyClass 
+//{
+//public:
+//    void Func()
+//    {
+//        count++;
+//        Mcount();
+//    }
+//    static int Mcount()
+//    {
+//        count++;
+//        //Func();
+//        return count;
+//    }
+//private:
+//    static int count; 
+//};
+//int MyClass::count = 0;
+//int main() 
+//{
+//    MyClass a1;
+//    a1.Func();
+//    cout << a1.Mcount() << endl;
+//    return 0;
 //}
 
 
@@ -2019,6 +2078,121 @@
 //}
 
 
+
+//#include<iostream>
+//using namespace std;
+//class MyFriend
+//{
+//public:
+//    friend void friendFunc(MyFriend obj); // 声明友元函数
+//private:
+//    int a = 0;
+//    int b = 0;
+//};
+////友元函数的定义(不需要friend关键字)
+//void friendFunc(MyFriend obj)
+//{
+//    obj.a = 10;   //可以访问私有成员
+//    cout << obj.a << endl;
+//}
+//int main()
+//{
+//    MyFriend a1;
+//    friendFunc(a1);
+//    return 0;
+//}
+
+
+//普通友元函数
+//#include<iostream>
+//using namespace std;
+//class Point 
+//{
+//private:
+//    int x, y;
+//public:
+//    Point(int a = 1, int b = 2) 
+//        : x(a)
+//        , y(b) 
+//    {}
+//    friend int distance(Point p1, Point p2); //普通友元函数
+//};
+////计算两点之间的距离
+//int distance(Point p1, Point p2) 
+//{
+//    return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+//}
+//int main()
+//{
+//    Point p1(1, 2);
+//    Point p2(2, 3);
+//    int ret = distance(p1, p2);
+//    cout << ret << endl;
+//    return 0;
+//}
+
+
+//类的友元函数
+//#include<iostream>
+//using namespace std;
+//class A;
+//class B
+//{
+//public:
+//    void func(A a);
+//};
+//class A 
+//{
+//public:
+//    friend void B::func(A a); //声明B的成员函数为友元
+//private:
+//    int data = 0;
+//};
+//
+//void B::func(A a)
+//{
+//    a.data = 100;
+//    cout << a.data << endl;
+//}
+//int main()
+//{
+//    A a;
+//    B b;
+//    b.func(a);
+//    return 0;
+//}
+
+
+//友元类
+//#include<iostream>
+//using namespace std;
+//class A 
+//{
+//private:
+//    int data = 0;
+//public:
+//    friend class B; //声明B为友元类
+//};
+//
+//class B 
+//{
+//public:
+//    void setData(A& a, int value) 
+//    {
+//        a.data = value; //可以访问A的私有成员
+//        cout << a.data << endl;
+//    }
+//};
+//int main()
+//{
+//    int value = 10;
+//    A a;
+//    B b;
+//    b.setData(a, value);
+//    return 0;
+//}
+
+
 //内部类
 //公有和私有
 //内部类是外部类的友元
@@ -2026,9 +2200,6 @@
 //using namespace std;
 //class A
 //{
-//private:
-//	static int k;
-//	int h;
 //public:
 //	//B在A中不占空间,对象占空间
 //	class B //B天生就是A的友元
@@ -2042,6 +2213,9 @@
 //	private:
 //		int b;
 //	};
+//private:
+//	static int k;
+//	int h;
 //};
 //int A::k = 1;
 //int main()
@@ -2073,9 +2247,9 @@
 //};
 //class Solution
 //{
-//public:
-//	Solution(int x)
-//	{}
+////public:
+////	Solution(int x)
+////	{}
 //public:
 //	int Sum_Solution(int n)
 //	{
@@ -2094,62 +2268,198 @@
 //	//Solution sl();
 //	//sl.Sum_Solution(2);
 //
-//	//Solution().Sum_Solution(3);//括号代表构造函数没有参数
+//	Solution().Sum_Solution(3);//括号代表构造函数没有参数
 //	//Solution.Sum_Solution(3);//静态成员可以这样调用,因为没有this指针
 //
 //	//A& ra = A(1);//匿名对象具有常性
-//	const A& ra = A(1);//会变成野引用,const引用延长了匿名对象的生命周期,生命周期在当前函数的局部域
+//	//const A& ra = A(1);//会变成野引用,const引用延长了匿名对象的生命周期,生命周期在当前函数的局部域
 //	return 0;
 //}
 
 
-#include<iostream>
-#include<string>
-using namespace std;
-void push_back(const string& s)
-{
-	cout << "void push_back()" << s << endl;
-}
-int main()
-{
-	string str("111111");
-	push_back(str);
-	
-	//匿名对象
-	//这两行意义相同
-	push_back(string("22222"));
-	push_back("33333");
-	return 0;
-}
-
-
 //#include<iostream>
+//#include<string>
 //using namespace std;
+//void push_back(const string& s)
+//{
+//	cout << "void push_back()" << s << endl;
+//}
 //int main()
 //{
+//	string str("111111");
+//	push_back(str);
+//	
+//	//匿名对象
+//	//这两行意义相同
+//	push_back(string("22222"));
+//	push_back("33333");
 //	return 0;
 //}
 
 
 //#include<iostream>
 //using namespace std;
+//class MyClass 
+//{
+//public:
+//    MyClass()
+//    {
+//        cout << "MyClass()" << endl;
+//    }
+//    MyClass(int num) 
+//    {
+//        cout << "MyClass(int num):" << num << endl;
+//    }
+//    void Func(int n)
+//    {
+//        cout << n << endl;
+//    }
+//};
 //int main()
 //{
+//    MyClass my;//有名对象
+//    my.Func(1);
+//
+//    //创建无参匿名对象
+//    MyClass();
+//    //创建带参匿名对象
+//    MyClass(10);
+//
+//    MyClass().Func(1);
+//    return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		:_a(a)
+//	{
+//		cout << "A(int a = 0)" << endl;
+//	}
+//	A(const A& aa)
+//		:_a(aa._a)
+//	{
+//		cout << "A(const A& aa)" << endl;
+//	}
+//	A& operator=(const A& aa)
+//	{
+//		cout << "A& operator=(const A& aa)" << endl;
+//		if (this != &aa)
+//		{
+//			_a = aa._a;
+//		}
+//		return *this;
+//	}
+//	~A()
+//	{
+//		cout << "~A()" << endl;
+//	}
+//private:
+//	int _a;
+//};
+//void Func1(A aa)
+//{
+//
+//}
+//void Func2(const A& aa)//一旦加了const类型就不一样了
+//{
+//
+//}
+//A Func3()
+//{
+//	A aa;
+//	return aa;
+//}
+//A& Func4()
+//{
+//	static A aa;
+//	return aa;
+//}
+//A Func5()
+//{
+//	A aa;//构造局部对象aa
+//	return aa;//拷贝aa到返回值临时对象(第一次拷贝)
+//}
+//int main()
+//{
+//	//A a1;
+//	////传参会调用拷贝构造
+//	////不拷贝构造可以加引用,减少拷贝
+//	////Func1和Func2构成函数重载,但是调用不明确
+//	//Func1(a1);
+//	//Func2(a1);
+//
+//	//Func3();
+//
+//	//Func4();
+//
+//	//两行,对象已经构造出来了,不会优化
+//	//A aa1;
+//	//Func1(aa1);
+//
+//	//建议这样写
+//	//Func1(A(1));//构造+拷贝构造 -->构造
+//    //Func1(1);//构造+拷贝构造 -->构造
+//	//A aa2 = 1;//构造+拷贝构造 -->构造
+//
+//	//A ra1 = Func5();//拷贝构造+拷贝构造 --> 优化为拷贝构造
+//	//cout << "==" << endl;
+//	//A ra2;
+//	//ra2 = Func5();//不会优化,赋值
 //	return 0;
 //}
 
 
 //#include<iostream>
 //using namespace std;
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		:_a(a)
+//	{
+//		cout << "A(int a = 0)" << endl;
+//	}
+//	A(const A& aa)
+//		:_a(aa._a)
+//	{
+//		cout << "A(const A& aa)" << endl;
+//	}
+//	A& operator=(const A& aa)
+//	{
+//		cout << "A& operator=(const A& aa)" << endl;
+//		if (this != &aa)
+//		{
+//			_a = aa._a;
+//		}
+//		return *this;
+//	}
+//	~A()
+//	{
+//		cout << "~A()" << endl;
+//	}
+//private:
+//	int _a;
+//};
+//A Func5()
+//{
+//	//从局部对象到返回值临时对象
+//	A aa;//构造局部对象aa
+//	return aa;//拷贝aa到返回值临时对象(第一次拷贝)
+//	//第二次拷贝:从返回值临时对象到ret
+//
+//}
 //int main()
 //{
+//	A ret = Func5();//返回的是aa的临时对象,拷贝返回值临时对象到ret(第二次拷贝)
+//	const A& ret = Func5();//返回的是aa的临时对象
 //	return 0;
 //}
 
 
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
+//类是对某一类实体(对象)来进行描述的,描述该对象具有那些属性,
+//那些方法,描述完成后就形成了一种新的自定义类型,才用该自定义类型就可以实例化具体的对象
