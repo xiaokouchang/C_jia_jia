@@ -252,42 +252,54 @@
 //}
 
 
-#include<iostream>
-using namespace std;
-class A
-{
-public:
-	A(int a = 0)
-		: _a(a)
-	{
-		cout << "A():" << this << endl;
-	}
-	~A()
-	{
-		cout << "~A():" << this << endl;
-	}
-private:
-	int _a;
-};
-int main()
-{
-	//p1现在指向的只不过是与A对象相同大小的一段空间,还不能算是一个对象,因为构造函数没有执行
-	A* p1 = (A*)malloc(sizeof(A));
-	new(p1)A; //如果A类的构造函数有参数时,此处需要传参
-	p1->~A();
-	free(p1);
-	A* p2 = (A*)operator new(sizeof(A));
-	new(p2)A(10);
-	p2->~A();
-	operator delete(p2);
-	return 0;
-}
+//定位new
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		: _a(a)
+//	{
+//		cout << "A():" << this << endl;
+//	}
+//	~A()
+//	{
+//		cout << "~A():" << this << endl;
+//	}
+//private:
+//	int _a;
+//};
+//int main()
+//{
+//	//p1现在指向的只不过是与A对象相同大小的一段空间,还不能算是一个对象,因为构造函数没有执行
+//	//任何类型的指针都是内置类型
+//	//只有自定义类型才能自动调用构造函数和析构函数
+//	//内置类型不会自动调用构造函数和析构函数。
+//	A* p1 = (A*)malloc(sizeof(A));
+//	//显示调用构造函数
+//	new(p1)A; //如果A类的构造函数有参数时,此处需要传参
+//	p1->~A();
+//	free(p1);
+//	A* p2 = (A*)operator new(sizeof(A));
+//	new(p2)A(10);
+//	p2->~A();
+//	operator delete(p2);
+//	return 0;
+//}
 
 
+//内存泄漏
+//普通程序内存泄漏影响不大,进程正常结束后会正常释放资源
+//长期运行的程序内存泄漏危害很大
 //#include<iostream>
 //using namespace std;
 //int main()
 //{
+//	char* p1 = new char[1024 * 1024 * 1024] {'b', 'o', 'y', '\0'};
+//	cout << (void*)p1 << endl;
+//	_CrtDumpMemoryLeaks();
+//	//delete[] p1;
 //	return 0;
 //}
 
