@@ -304,46 +304,62 @@
 
 
 //扩容
-#include<iostream>
-#include<vector>
-using namespace std;
-void Test()
-{
-	size_t sz;
-	vector<int> v;
-	sz = v.capacity();
-	cout << "making v grow:\n";
-	for (int i = 0; i < 100; ++i)
-	{
-		v.push_back(i);
-		if (sz != v.capacity())
-		{
-			sz = v.capacity();
-			cout << "capacity changed: " << sz << '\n';
-		}
-	}
-}
-int main()
-{
-	Test();
-	return 0;
-}
-
-
 //#include<iostream>
 //#include<vector>
 //using namespace std;
+//void Test()
+//{
+//	size_t sz;
+//	vector<int> v;
+//	sz = v.capacity();
+//	cout << "making v grow:\n";
+//	for (int i = 0; i < 100; ++i)
+//	{
+//		v.push_back(i);
+//		if (sz != v.capacity())
+//		{
+//			sz = v.capacity();
+//			cout << "capacity changed: " << sz << '\n';
+//		}
+//	}
+//}
 //int main()
 //{
+//	Test();
 //	return 0;
 //}
 
 
-//#include<iostream>
-//#include<vector>
+//vector的模拟实现
+//#include "vector.h"
 //using namespace std;
+//void test()
+//{
+//	vec::vector<int> v1;
+//	v1.push_back(1);
+//	v1.push_back(2);
+//	v1.push_back(3);
+//	v1.push_back(4);
+//	v1.push_back(5);
+//	v1.push_back(5);
+//	v1.push_back(5);
+//	v1.push_back(5);
+//	for (auto e : v1)
+//	{
+//		cout << e << " ";
+//	}
+//	cout << endl;
+//	v1.insert(v1.begin(), 100);
+//	for (size_t i = 0; i < v1.size(); i++)
+//	{
+//		cout << v1[i] << " ";
+//	}
+//	cout << endl;
+//	print(v1);
+//}
 //int main()
 //{
+//	test();
 //	return 0;
 //}
 
