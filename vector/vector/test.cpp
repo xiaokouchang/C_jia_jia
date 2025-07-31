@@ -332,30 +332,108 @@
 
 //vector的模拟实现
 //#include "vector.h"
+////#include<vector>
+//#include<iostream>
 //using namespace std;
 //void test()
 //{
-//	vec::vector<int> v1;
-//	v1.push_back(1);
-//	v1.push_back(2);
-//	v1.push_back(3);
-//	v1.push_back(4);
-//	v1.push_back(5);
-//	v1.push_back(5);
-//	v1.push_back(5);
-//	v1.push_back(5);
-//	for (auto e : v1)
+//	//vec::vector<int> v1;
+//	//v1.push_back(1);
+//	//v1.push_back(2);
+//	//v1.push_back(3);
+//	//v1.push_back(4);
+//	//v1.push_back(5);
+//	//v1.push_back(5);
+//	//v1.push_back(5);
+//	//v1.push_back(5);
+//	//for (auto e : v1)
+//	//{
+//	//	cout << e << " ";
+//	//}
+//	//cout << endl;
+//	//v1.insert(v1.begin(), 100);
+//	//for (size_t i = 0; i < v1.size(); i++)
+//	//{
+//	//	cout << v1[i] << " ";
+//	//}
+//	//cout << endl;
+//	//print(v1);
+//
+//	//insert
+//	//vec::vector<int> v1;
+//	//v1.push_back(1);
+//	//v1.push_back(2);
+//	//v1.push_back(3);
+//	//v1.push_back(4);
+//	//v1.push_back(1);
+//	//v1.push_back(2);
+//	//v1.push_back(3);
+//	//v1.push_back(4);
+//	//vec::vector<int>::iterator pos = v1.begin() + 3;
+//	////insert以后迭代器可能会失效(扩容)
+//	////insert后面不能使用形参迭代器,因为他可能失效了
+//	//v1.insert(pos, 100);
+//	////*pos += 3;//传形参失效
+//	//print(v1);
+//
+//	//erase
+//	//vector<int> v1;
+//	//v1.push_back(1);
+//	//v1.push_back(2);
+//	//v1.push_back(3);
+//	//v1.push_back(4);
+//	//v1.push_back(5);
+//	////v1.erase(v1.begin());
+//	//for (auto e : v1)
+//	//{
+//	//	cout << e << " ";
+//	//}
+//	//cout << endl;
+//	//auto it = v1.begin() + 4;
+//	//v1.erase(it);
+//	////erase以后,迭代器失效了,不能访问
+//	////vs会强制检查,访问会直接报错
+//	//cout << *it << endl;
+//	//it++;
+//	//cout << *it << endl;
+//	//for (auto e : v1)
+//	//{
+//	//	cout << e << " ";
+//	//}
+//	//cout << endl;
+//	////print(v1);
+//
+//	//resize
+//	//vec::vector<int> v;
+//	//v.resize(10, 0);
+//	//print(v);
+//
+//	//拷贝构造
+//	//vec::vector<int> v;
+//	//v.push_back(1);
+//	//v.push_back(2);
+//	//v.push_back(3);
+//	//v.push_back(4);
+//	//vec::vector<int> v1(v);//没有拷贝构造函数,就是浅拷贝,再析构时会析构2次
+//	//vec::vector<int> v2;//没有拷贝构造函数,就是浅拷贝,再析构时会析构2次
+//	//v2.resize(10, 1);
+//	////赋值
+//	//v1 = v2;
+//	//print(v1);
+//
+//	vec::vector<string> v;
+//	v.push_back("1111111111111111111");//支持隐式类型转换
+//	v.push_back("2222222222222222222");
+//	v.push_back("3333333333333333333");
+//	v.push_back("4444444444444444444");
+//	v.push_back("5555555555555555555");
+//
+//	vec::vector<string> v1(v);
+//	for (auto& e : v1)//使用自定义类型建议传引用
 //	{
 //		cout << e << " ";
 //	}
 //	cout << endl;
-//	v1.insert(v1.begin(), 100);
-//	for (size_t i = 0; i < v1.size(); i++)
-//	{
-//		cout << v1[i] << " ";
-//	}
-//	cout << endl;
-//	print(v1);
 //}
 //int main()
 //{
@@ -364,11 +442,30 @@
 //}
 
 
-//#include<iostream>
-//#include<vector>
+//在vector中,在erase和insert迭代器对象后,不能再访问这个迭代器,我们认为它失效,访问结果是未定义
+//#include <iostream>
+//#include <vector>
 //using namespace std;
 //int main()
 //{
+//	vector<int> v{ 1, 2, 2, 3, 4 };
+//	auto it = v.begin();
+//	while (it != v.end())
+//	{
+//		if (*it % 2 == 0)
+//		{
+//			it = v.erase(it);
+//		}
+//		else
+//		{
+//			it++;
+//		}
+//	}
+//	for (auto e : v)
+//	{
+//		cout << e << " ";
+//	}
+//	cout << endl;
 //	return 0;
 //}
 
@@ -378,6 +475,12 @@
 //using namespace std;
 //int main()
 //{
+//	int i = 0;
+//	int j = int();
+//	int k = int(1);
+//	cout << i << endl;
+//	cout << j << endl;
+//	cout << k << endl;
 //	return 0;
 //}
 
@@ -387,6 +490,10 @@
 //using namespace std;
 //int main()
 //{
+//	string s1("111111");
+//	string s2;
+//	cout << sizeof(s1) << endl;
+//	cout << sizeof(s2) << endl;
 //	return 0;
 //}
 
