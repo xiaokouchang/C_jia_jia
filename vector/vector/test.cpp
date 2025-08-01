@@ -421,19 +421,27 @@
 //	//v1 = v2;
 //	//print(v1);
 //
-//	vec::vector<string> v;
-//	v.push_back("1111111111111111111");//支持隐式类型转换
-//	v.push_back("2222222222222222222");
-//	v.push_back("3333333333333333333");
-//	v.push_back("4444444444444444444");
-//	v.push_back("5555555555555555555");
+//	//vec::vector<string> v;
+//	//v.push_back("1111111111111111111");//支持隐式类型转换
+//	//v.push_back("2222222222222222222");
+//	//v.push_back("3333333333333333333");
+//	//v.push_back("4444444444444444444");
+//	//v.push_back("5555555555555555555");
+//	//vec::vector<string> v1(v);
+//	//for (auto& e : v1)//使用自定义类型建议传引用
+//	//{
+//	//	cout << e << " ";
+//	//}
+//	//cout << endl;
 //
-//	vec::vector<string> v1(v);
-//	for (auto& e : v1)//使用自定义类型建议传引用
-//	{
-//		cout << e << " ";
-//	}
-//	cout << endl;
+//
+//	//n个val初始化
+//	//vector(size_t n, const T& val = T())  --- 1
+//	//vector(InputIterator first, InputIterator last)  --- 2
+//	vec::vector<int> v1(10u, 1);//u代表无符号的整数,只有1可以选
+//	vec::vector<string> v2(10, "1111");//只有1可以选
+//	vec::vector<int> v3(10, 1);//1和2都可以选
+//	//print(v1);
 //}
 //int main()
 //{
