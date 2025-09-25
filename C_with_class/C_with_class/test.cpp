@@ -20,24 +20,32 @@
 //	//成员函数
 //	void Init(int defaultcapacity = 4)
 //	{
-//		a = (int*)malloc(sizeof(int) * capacity);
-//		if (nullptr == a)
+//		this->a = (int*)malloc(sizeof(int) * defaultcapacity);
+//		if (nullptr == this->a)
 //		{
-//			perror("malloc申请空间失败");
+//			perror("malloc fail");
 //			return;
 //		}
-//		capacity = defaultcapacity;
-//		top = 0;
+//		this->capacity = defaultcapacity;
+//		this->top = 0;
 //	}
 //	void Push(int x)
 //	{
-//		a[top++] = x;
+//		this->a[this->top++] = x;
 //	}
 //	void Destory()
 //	{
-//		free(a);
-//		a = nullptr;
-//		top = capacity;
+//		free(this->a);
+//		this->a = nullptr;
+//		this->top = this->capacity;
+//	}
+//	void Print()
+//	{
+//		for (size_t i = 0;i < top;i++)
+//		{
+//			printf("%d ", a[i]);
+//		}
+//		printf("\n");
 //	}
 //	//成员变量
 //	//可以写在成员函数之前或之后
@@ -49,14 +57,15 @@
 ////同时struct升级成了类
 //int main()
 //{
-//	struct Stack st1;
-//	st1.Init(20);
+//	//struct Stack st1;
+//	//st1.Init(20);
 //	Stack st2;
 //	st2.Init();
 //	st2.Push(1);
 //	st2.Push(2);
 //	st2.Push(3);
 //	st2.Push(4);
+//	st2.Print();
 //	st2.Destory();
 //	return 0;
 //}
@@ -84,7 +93,7 @@
 //	//成员函数
 //	void Init(int defaultcapacity = 4)
 //	{
-//		a = (int*)malloc(sizeof(int) * capacity);
+//		a = (int*)malloc(sizeof(int) * defaultcapacity);
 //		if (nullptr == a)
 //		{
 //			perror("malloc申请空间失败");
@@ -127,12 +136,15 @@
 //}
 
 
+//#include<iostream>
+//using namespace std;
 //class Date
 //{
 //public:
 //	void Init(int year)
 //	{
-//		year = year;
+//		_year = year;
+//		cout << _year << endl;
 //	}
 //	//局部优先
 //private:
@@ -140,6 +152,12 @@
 //	int _month;
 //	int _day;
 //};
+//int main()
+//{
+//	Date d;
+//	d.Init(4);
+//	return 0;
+//}
 
 
 //封装
@@ -158,13 +176,13 @@
 //	//不能,类访问top是声明,top不能存数据
 //	//st1和st2不是同一个对象,top不同,Push是同一个函数
 //	//Stack::top = 1;
-//	//St1::top = 1;
-//	//st1.Init();
-//	//st1.top = 0;
-//	//st1.Push(1);
-//	//st2.Init();
-//	//st2.top = 1;
-//	//st2.Push(1);
+//	st1.top = 1;
+//	st1.Init();
+//	st1.top = 0;
+//	st1.Push(1);
+//	st2.Init();
+//	st2.top = 1;
+//	st2.Push(1);
 //	//对象中只存储成员变量,没有存储成员函数
 //	cout << sizeof(Stack) << endl;
 //	return 0;
@@ -551,17 +569,17 @@
 //		_capacity = capacity;
 //		_top = 0;
 //	}
-//	void Init()
-//	{
-//		_a = (DataType*)malloc(sizeof(DataType) * 4);
-//		if (nullptr == _a)
-//		{
-//			perror("malloc fail");
-//			return;
-//		}
-//		_capacity = 4;
-//		_top = 0;
-//	}
+//	//void Init()
+//	//{
+//	//	_a = (DataType*)malloc(sizeof(DataType) * 4);
+//	//	if (nullptr == _a)
+//	//	{
+//	//		perror("malloc fail");
+//	//		return;
+//	//	}
+//	//	_capacity = 4;
+//	//	_top = 0;
+//	//}
 //	void Push(int x)
 //	{
 //		_a[_top++] = x;
@@ -577,6 +595,14 @@
 //			_top = 0;
 //			_capacity = 0;
 //		}
+//	}
+//	void Print()
+//	{
+//		for (int i = 0; i < _top; i++)
+//		{
+//			printf("%d ", _a[i]);
+//		}
+//		printf("\n");
 //	}
 //	void Destory()
 //	{
@@ -602,6 +628,7 @@
 //	s.Push(2);
 //	s.Push(3);
 //	s.Push(4);
+//	s.Print();
 //	//s.Destory();
 //	return 0;
 //}
@@ -642,6 +669,7 @@
 //	}
 //	void Init()
 //	{
+//		cout << "void Init()" << endl;
 //		_a = (DataType*)malloc(sizeof(DataType) * 4);
 //		if (nullptr == _a)
 //		{
@@ -817,6 +845,8 @@
 //int main()
 //{
 //	Date d1;
+//	//无参调用和全缺省以及编译器生成的构造函数重载,但存在调用歧义,不能同时存在,只能存在一个
+//  //不传参就可以调用的是默认构造函数
 //	//Date d1();//不可以这样写,会跟函数声明有冲突,编译器不好识别
 //	Date d2(2023, 1, 2);
 //	d1.Print();
@@ -934,8 +964,6 @@
 //		this->_month = d._month;
 //		this->_day = d._day;
 //	}
-//
-//
 //	//指针
 //	//Date(Date* d)
 //	//{
@@ -959,7 +987,8 @@
 //int main()
 //{
 //	Date d1(2023, 4, 25);
-//	Date d2(d1);
+//	//Date d2(d1);
+//	Date d2 = d1;//等价于Date d2(d1);
 //	//规定了自定义类型必须要用拷贝构造去完成
 //	//自定义类型是拷贝构造
 //	//指针
@@ -1311,14 +1340,14 @@
 //	//	_month = d._month;
 //	//	_day = d._day;
 //	//}
-//	//函数返回会调用2次拷贝构造函数
-//	//Date operator=(const Date& d)
-//	//{
-//	//	_year = d._year;
-//	//	_month = d._month;
-//	//	_day = d._day;
-//	//	return *this;
-//	//}
+//	//函数返回会调用2次拷贝构造函数,连续赋值返回2次
+//	Date operator=(const Date& d)
+//	{
+//		_year = d._year;
+//		_month = d._month;
+//		_day = d._day;
+//		return *this;
+//	}
 //	//赋值运算符重载函数
 //	//Date& operator=(const Date& d)
 //	//{
@@ -1358,8 +1387,8 @@
 //{
 //	//日期+-天数有价值
 //	//Date d1(2025, 7, 12);
-//	////d1 += 100;
-//	//d1.operator+=(100);
+//	//d1 += 100;
+//	////d1.operator+=(100);
 //	//d1.Print();
 //
 //	//加不能改变自己
@@ -1367,9 +1396,13 @@
 //	//i + 100;
 //	//cout << i << endl;
 //
+//	//Date d2(2025, 7, 12);
 //	//Date d3 = d2 + 100;//拷贝构造
 //	//Date d4 = d2;//初始化d4,等价于Date d4(d2);
 //	//d4 = d2;//赋值,两个已经存在的对象
+//	//d2.Print();
+//	//d3.Print();
+//	//d4.Print();
 //
 //	//Date d2(2025, 7, 12);
 //	//Date d3(d2 + 100);
@@ -1442,10 +1475,10 @@
 //	//Date d1(2025, 7, 13);
 //	//Date d2(2025, 7, 14);
 //	//Date d3(2025, 7, 15);
-//	////d1 += 100;
+//	//d1 += 100;
 //	//d1.operator+=(100);
-//	////cout << d1;//d1.operator(cout);d1流向cout
-//	////d1 << cout;//d1.operator(cout);cout流向d1
+//	//cout << d1;//d1.operator(cout);d1流向cout
+//	//d1 << cout;//d1.operator(cout);cout流向d1
 //	////cout << d1;//友元函数和全局变量可以使用,单个赋值
 //	//cout << d1 << d2 << d3;//可以使用引用返回,连续赋值
 //
@@ -1464,10 +1497,10 @@
 //	//不是所有函数都要加const,要修改成员变量的函数不能加const
 //	//只要成员内部函数不修改成员变量,都应该加const
 //	//这样const对象和普通对象都可以调用
-//	Date d1(2025, 7, 13);
-//	d1.Print();//d1.Print(&d1);//Date*->Date* --- 权限的平移
-//	const Date d2(2025, 7, 14);
-//	d2.Print();//d2.Print(&d2);//const Date*->Date*  --- 权限的放大
+//	//Date d1(2025, 7, 13);
+//	//d1.Print();//d1.Print(&d1);//Date*->Date* --- 权限的平移
+//	//const Date d2(2025, 7, 14);
+//	//d2.Print();//d2.Print(&d2);//const Date*->Date*  --- 权限的放大
 //
 //	//bool operator<(const Date& x);
 //	//d1 < d2;//d1传this指针,Date* -> Date*
@@ -1511,11 +1544,10 @@
 //
 //	//const int a = 1;
 //	//int* pb = &a;//权限的放大
-//
-//	Date d1;
-//	const Date d2;//const对象必须初始化
-//	cout << &d1 << endl;
-//	cout << &d2 << endl;
+//	//Date d1;
+//	//const Date d2;//const对象必须初始化
+//	//cout << &d1 << endl;
+//	//cout << &d2 << endl;
 //	return 0;
 //}
 
@@ -1720,13 +1752,13 @@
 //	A aa2 = 2;//隐式类型转换,整型转换成自定义类型
 //	//使用2调用构造函数构造1个A的临时对象,临时对象再拷贝构造
 //	
-//	//A& aa3 = 2;
-//	const A& aa3 = 2;
+//	////A& aa3 = 2;
+//	//const A& aa3 = 2;
 //
-//	//类型转换会产生临时变量,临时变量具有常性
-//	int i = 10;
-//	double d = i;
-//	//临时变量是double类型,不能使用引用
+//	////类型转换会产生临时变量,临时变量具有常性
+//	//int i = 10;
+//	//double d = i;
+//	////临时变量是double类型,不能使用引用
 //	return 0;
 //}
 

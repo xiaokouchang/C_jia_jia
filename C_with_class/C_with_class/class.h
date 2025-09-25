@@ -1,30 +1,30 @@
 #pragma once
-#include<iostream>
-#include<stdlib.h>
-using namespace std;
-class Stack
-{
-public:
-	void Init(int defaultcapacity = 4);
-	void Push(int x)
-	{
-		a[top++] = x;
-	}
-	void Destory()
-	{
-		free(a);
-		a = nullptr;
-		top = capacity;
-	}
-	int Top()
-	{
-		return a[top - 1];
-	}
-//private:
-	int* a;      
-	int top;
-	int capacity;
-};
+//#include<iostream>
+//#include<stdlib.h>
+//using namespace std;
+//class Stack
+//{
+//public:
+//	void Init(int defaultcapacity = 4);
+//	void Push(int x)
+//	{
+//		a[top++] = x;
+//	}
+//	void Destory()
+//	{
+//		free(a);
+//		a = nullptr;
+//		top = capacity;
+//	}
+//	int Top()
+//	{
+//		return a[top - 1];
+//	}
+////private:
+//	int* a;      
+//	int top;
+//	int capacity;
+//};
 
 
 
@@ -62,42 +62,43 @@ public:
 //	int capacity;
 //};
 
-class A
-{
-public:
-	//健身房,篮球场
-	void PrintA()
-	{
-		cout << _a << endl;
-	}
-private:
-	//卧室,厨房
-	char _a;
-};
 
-
-class A1 
-{
-public:
-	void f1() 
-	{
-
-	}
-private:
-	int _a;
-	char _ch;
-};
-//类中仅有成员函数
-class A2 
-{
-public:
-	void f2() 
-	{
-
-	}
-};
-//类中什么都没有---空类
-class A3
-{
-
-};
+//class A
+//{
+//public:
+//	//健身房,篮球场
+//	void PrintA()
+//	{
+//		cout << _a << endl;
+//	}
+//private:
+//	//卧室,厨房
+//	char _a;
+//};
+//
+//
+//class A1 
+//{
+//public:
+//	void f1() 
+//	{
+//
+//	}
+//private:
+//	int _a;
+//	char _ch;
+//};
+////类中仅有成员函数
+//class A2 
+//{
+//public:
+//	void f2() 
+//	{
+//
+//	}
+//};
+////类中什么都没有---空类
+//class A3
+//{
+//
+//};
