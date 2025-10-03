@@ -274,504 +274,60 @@
 //}
 
 
-#include <iostream>
-#include <list>
-using namespace std;
+//#include <iostream>
+//#include <list>
+//using namespace std;
+//int main()
+//{
+//    list<int> lt = { 1, 2, 3, 4 };
+//    //const迭代器(只读)
+//    list<int>::const_iterator cit = lt.begin();
+//    while (cit != lt.end()) 
+//    {
+//        cout << *cit << " ";  // 2 4 6 8（无法修改）
+//        ++cit;
+//    }
+//    cout << endl;
+//    //普通迭代器(可读可写)
+//    list<int>::iterator it = lt.begin();
+//    while (it != lt.end())
+//    {
+//        *it *= 2;  //修改元素
+//        cout << *it << " "; // 2 4 6 8
+//        ++it;
+//    }
+//    cout << endl;
+//    //范围for循环(只读,等价于const迭代器)
+//    for (auto e : lt) 
+//    {
+//        cout << e << " ";  // 2 4 6 8
+//    }
+//    cout << endl;
+//    return 0;
+//}
+
+
+#include"list.h"
+using namespace lt;
 int main()
 {
-    list<int> lt = { 1, 2, 3, 4 };
-    //const迭代器(只读)
-    list<int>::const_iterator cit = lt.begin();
-    while (cit != lt.end()) 
-    {
-        cout << *cit << " ";  // 2 4 6 8（无法修改）
-        ++cit;
-    }
-    cout << endl;
-    //普通迭代器(可读可写)
-    list<int>::iterator it = lt.begin();
-    while (it != lt.end())
-    {
-        *it *= 2;  //修改元素
-        cout << *it << " "; // 2 4 6 8
-        ++it;
-    }
-    cout << endl;
-    //范围for循环(只读,等价于const迭代器)
-    for (auto e : lt) 
-    {
-        cout << e << " ";  // 2 4 6 8
-    }
-    cout << endl;
-    return 0;
+	list<int> lt;
+	lt.push_back(1);
+	lt.push_back(2);
+	lt.push_back(3);
+	lt.push_back(4);
+	//for (auto e : lt)
+	//{ 
+	//	cout << e << " ";
+	//}
+	//cout << endl;
+	list<int>::reverse_iterator rit = lt.rbegin();
+	while (rit != lt.rend())
+	{
+		cout << *rit << " ";
+		rit++;
+	}
+	cout << endl;
+	return 0;
 }
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//#include<list>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
 

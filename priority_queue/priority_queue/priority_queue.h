@@ -6,7 +6,7 @@ using namespace std;
 template<class T>
 class Less
 {
-public:
+public: 
 	bool operator()(const T& x, const T& y)
 	{
 		return x < y;

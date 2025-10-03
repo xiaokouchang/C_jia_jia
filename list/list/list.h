@@ -1,7 +1,9 @@
 #pragma once
 #include<iostream>
 #include<assert.h>
+#include"reverse_iterator.h"
 using namespace std;
+using namespace ita;
 namespace lt
 {
 	template<class T>
@@ -109,6 +111,18 @@ namespace lt
 		typedef _list_iterator<T, T&, T*> iterator;
 		//typedef _list_const_iterator<T> const_iterator;//const迭代器
 		typedef _list_iterator<T, const T&, const T*> const_iterator;
+
+		typedef ReverseIterator<iterator, T&, T*> reverse_iterator;
+		typedef ReverseIterator<iterator, const T&, const T*> const_reverse_iterator;
+
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator(end());
+		}
+		reverse_iterator rend()
+		{
+			return reverse_iterator(begin());
+		}
 		//这样设计迭代器不行,const迭代器希望本身不能修改,而不是类型不能改变
 		//const迭代器指向的数据不能被修改,自己可以修改
 		//const T* ptr1;
