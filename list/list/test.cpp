@@ -307,22 +307,42 @@
 //}
 
 
-#include"list.h"
-using namespace lt;
+//#include"list.h"
+//using namespace lt;
+//int main()
+//{
+//	list<int> lt;
+//	lt.push_back(1);
+//	lt.push_back(2);
+//	lt.push_back(3);
+//	lt.push_back(4);
+//	//for (auto e : lt)
+//	//{ 
+//	//	cout << e << " ";
+//	//}
+//	//cout << endl;
+//	list<int>::reverse_iterator rit = lt.rbegin();
+//	while (rit != lt.rend())
+//	{
+//		cout << *rit << " ";
+//		rit++;
+//	}
+//	cout << endl;
+//	return 0;
+//}
+
+
+#include"vector.h"
+using namespace vec;
 int main()
 {
-	list<int> lt;
-	lt.push_back(1);
-	lt.push_back(2);
-	lt.push_back(3);
-	lt.push_back(4);
-	//for (auto e : lt)
-	//{ 
-	//	cout << e << " ";
-	//}
-	//cout << endl;
-	list<int>::reverse_iterator rit = lt.rbegin();
-	while (rit != lt.rend())
+	vector<int> vec;
+	vec.push_back(1);
+	vec.push_back(2);
+	vec.push_back(3);
+	vec.push_back(4);
+	vector<int>::reverse_iterator rit = vec.rbegin();
+	while (rit != vec.rend())
 	{
 		cout << *rit << " ";
 		rit++;
@@ -330,4 +350,3 @@ int main()
 	cout << endl;
 	return 0;
 }
-

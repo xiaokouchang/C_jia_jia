@@ -174,3 +174,347 @@
 //	Stack<double> s1;//double
 //	return 0;
 //}
+
+
+//#include<vector>
+//#include<iostream>
+//using namespace std;
+//
+////void Print(const vector<int>& v)
+////{
+////	vector<int>::const_iterator it = v.begin();
+////	while (it != v.end())
+////	{
+////		cout << *it << " ";
+////		it++;
+////	}
+////	cout << endl;
+////}
+////template<typename Container>
+//template<class Container>
+//void Print(const Container& v)
+//{
+//	//typename Container::const_iterator it = v.begin();//没有实例化,必须使用typename,无法区分类型还是对象
+//	auto it = v.begin();//没有实例化,必须使用typename,无法区分类型还是对象
+//	while (it != v.end())
+//	{
+//		cout << *it << " ";
+//		it++;
+//	}
+//	cout << endl;
+//}
+//int main()
+//{
+//	vector<int> vec;
+//	vec.push_back(1);
+//	vec.push_back(2);
+//	vec.push_back(3);
+//	vec.push_back(4);
+//	for (auto e : vec)
+//	{
+//		cout << e << " ";
+//	}
+//	cout << endl;
+//	Print(vec);
+//	return 0;
+//}
+
+
+//#include<vector>
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	int begin()
+//	{
+//		return 0;
+//	}
+//	static int const_iterator;
+//};
+//int A::const_iterator = 1;
+//int main()
+//{
+//	A aa;
+//	A::const_iterator = aa.begin();
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//template<class T,size_t N>
+//class stack
+//{
+////静态栈
+//public:
+//	void Func()
+//	{
+//		N = 0;
+//	}
+//private:
+//	T _a[N];
+//	int _top;
+//};
+//int main()
+//{
+//	stack<int,10> st1;  //10
+//	stack<int,100> st2;  //100
+//	
+//	//按需实例化
+//	st1.Func();
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<array>
+//using namespace std;
+//int main()
+//{
+//	array<int, 10> a;
+//	for (auto e : a)
+//	{
+//		cout << e << " ";
+//	}
+//	cout << endl;
+//	a[10];//越界访问会中断程序
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<array>
+//using namespace std;
+//
+////泛型模版
+//template<class T>
+//bool Less(T left, T right)
+//{
+//	return left < right;
+//}
+//////函数模版部分特化
+////template<>
+////bool Less<int*>(int* left, int* right)
+////{
+////	return *left < *right;
+////}
+////类模板的片特化
+////template<class T>
+////class Less
+////{
+////public:
+////	bool operator()(T left, T right) const
+////	{
+////		return left < right;
+////	}
+////};
+////template<class T>
+////class Less<T*>
+////{
+////public:
+////	bool operator()(T* left, T* right)
+////	{
+////		return *left < *right;
+////	}
+////};
+////class Solution
+////{
+////public:
+////	template<class T>
+////	bool Less(T left, T right) {
+////		return ::Less<T>()(left, right);
+////	}
+////};
+////普通函数
+//bool Less(int* left, int* right)
+//{
+//	return *left < *right;
+//}
+//template<class T>
+//bool Less(T* left, T* right)
+//{
+//	return *left < *right;
+//}
+//int main()
+//{
+//	int a = 2;
+//	int b = 1;
+//	cout << Less(&a, &b) << endl;
+//	a = 1;
+//	b = 2;
+//	cout << Less(&a, &b) << endl;
+//	double c = 1.1;
+//	double d = 2.2;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//template<class T1, class T2>
+//class Data
+//{
+//public:
+//	Data() 
+//	{ 
+//		cout << "Data<T1, T2>" << endl; 
+//	}
+//private:
+//	T1 _d1;
+//	T2 _d2;
+//};
+//template<>
+//class Data<int,double>
+//{
+//public:
+//	Data()
+//	{
+//		cout << "Data<int,double>" << endl;
+//	}
+//private:
+//};
+//int main()
+//{
+//	Data<int, int> d1;
+//	Data<int, double> d1;
+//	return 0;
+//}
+
+
+#include"stack.h"
+using namespace sta;
+int main()
+{
+	stack<int> st;
+	//有声明和定义
+	st.push(1);
+	st.push(2);
+	st.push(3);
+	A aa;
+	aa.func1();//有声明和定义
+	//aa.func2();//有声明没有定义
+	return 0;
+}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	return 0;
+//}
+
+

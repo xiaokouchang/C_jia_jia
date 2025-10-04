@@ -43,26 +43,26 @@ namespace ita
 		{
 			return &(operator*());
 		}
-		self operator++()
+		self& operator++()
 		{
 			--_it;
 			return *this;
 		}
-		self operator--()
+		self& operator--()
 		{
 			++_it;
 			return *this;
 		}
-		self& operator++(int)
+		self operator++(int)
 		{
 			self tmp(*this);
-			--(*this);
+			_it--;
 			return tmp;
 		}
-		self& operator--(int)
+		self operator--(int)
 		{
 			self tmp(*this);
-			++(*this);
+			_it++;
 			return tmp;
 		}
 		bool operator!=(const self& s) const
