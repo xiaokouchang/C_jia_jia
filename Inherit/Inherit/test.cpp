@@ -261,328 +261,131 @@
 //}
 
 
-#include<iostream>
-using namespace std;
-class A
-{
-public:
-	int _a;
-};
-// class B : public A
-class B : virtual public A
-{
-public:
-	int _b;
-};
-// class C : public A
-class C : virtual public A
-{
-public:
-	int _c;
-};
-class D : public B, public C
-{
-public:
-	int _d;
-};
-int main()
-{
-	D d;
-	d.B::_a = 1;
-	d.C::_a = 2;
-	d._b = 3;
-	d._c = 4;
-	d._d = 5;
-	d._a = 0;
-	return 0;
-}
-
-
 //#include<iostream>
 //using namespace std;
+//class A
+//{
+//public:
+//	int _a;
+//};
+//// class B : public A
+//class B : virtual public A
+//{
+//public:
+//	int _b;
+//};
+//// class C : public A
+//class C : virtual public A
+//{
+//public:
+//	int _c;
+//};
+//class D : public B, public C
+//{
+//public:
+//	int _d;
+//};
 //int main()
 //{
+//	D d;
+//	d.B::_a = 1;
+//	d.C::_a = 2;
+//	d._b = 3;
+//	d._c = 4;
+//	d._d = 5;
+//	d._a = 0;
+//	D d1;
+//
+//	B* ptr = &b;
+//	ptr->_a++;
+//
+//	ptr = &d;
+//	ptr->_a++;
 //	return 0;
 //}
 
 
 //#include<iostream>
 //using namespace std;
-//int main()
+//class Base1 { public: int _b1; };
+//class Base2 { public: int _b2; };
+//class Derive : public Base1, public Base2 { public: int _d; };
+//int main() 
 //{
+//	Derive d;
+//	Base1* p1 = &d;
+//	Base2* p2 = &d;
+//	Derive* p3 = &d;
 //	return 0;
 //}
 
 
 //#include<iostream>
 //using namespace std;
-//int main()
+//class A {
+//public:
+//	A(const char* s) 
+//	{ 
+//		cout << s << endl; 
+//	}
+//	~A() 
+//	{}
+//};
+//class B :virtual public A
 //{
+//public:
+//	B(const char* s1, const char* s2)
+//		:A(s1) 
+//	{ 
+//		cout << s2 << endl; 
+//	}
+//};
+//class C :virtual public A
+//{
+//public:
+//	C(const char* s1, const char* s2) 
+//		:A(s1) 
+//	{ 
+//		cout << s2 << endl; 
+//	}
+//};
+//class D :public B, public C
+//{
+//public:
+//	D(const char* s1, const char* s2, const char* s3, const char* s4) 
+//		:B(s1, s2)
+//		,C(s1, s3)
+//		,A(s1)
+//	{
+//		cout << s4 << endl;
+//	}
+//};
+//int main() 
+//{
+//	D* p = new D("class A", "class B", "class C", "class D");
+//	delete p;
+//
+//	B b("class A", "class B");
 //	return 0;
 //}
 
 
 //#include<iostream>
 //using namespace std;
-//int main()
+//class C
 //{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
+//
+//};
+////¼Ì³Ğ(°×Ïä¸´ÓÃ)
+//class D : public C
 //{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
+//
+//};
+////×éºÏ(ºÚºĞ)
+//class E
 //{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
+//private:
+//	C _cc;
+//};
 
 

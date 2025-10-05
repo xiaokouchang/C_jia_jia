@@ -79,5 +79,72 @@ int main()
 		cout << *rit << " ";
 		rit++;
 	}
+	cout << endl;
 	return 0;
 }
+
+
+//#include <iostream>
+//#include <queue>
+//#include <vector>
+//using namespace std;
+//struct Person 
+//{
+//    string name;
+//    int age;
+//};
+//
+////自定义比较器:按年龄升序(小的优先)
+//struct CompareAge 
+//{
+//    bool operator()(const Person& a, const Person& b) 
+//    {
+//        return a.age > b.age; // 注意：优先队列默认用 <，我们用 > 实现升序
+//    }
+//};
+//
+//int main() 
+//{
+//    priority_queue<Person, vector<Person>, CompareAge> pq;
+//    pq.push({ "Alice", 25 });
+//    pq.push({ "Bob", 20 });
+//    pq.push({ "Charlie", 30 });
+//    while (!pq.empty()) 
+//    {
+//        cout << pq.top().name << "(" << pq.top().age << ")" << " ";
+//        pq.pop();
+//    }
+//    return 0;
+//}
+
+
+//#include"priority_queue.h"
+//using namespace prior;
+//int main()
+//{
+//	//大堆
+//	priority_queue<int, vector<int>, Less<int>> pq1;
+//	pq1.push(3);
+//	pq1.push(5);
+//	pq1.push(1);
+//	pq1.push(4);
+//	while (!pq1.empty())
+//	{
+//		cout << pq1.top() << " ";
+//		pq1.pop();
+//	}
+//	cout << endl;
+//	//小堆
+//	priority_queue<int, vector<int>, Greater<int>> pq2;
+//	pq2.push(3);
+//	pq2.push(5);
+//	pq2.push(1);
+//	pq2.push(4);
+//	while (!pq2.empty())
+//	{
+//		cout << pq2.top() << " ";
+//		pq2.pop();
+//	}
+//	cout << endl;
+//	return 0;
+//}

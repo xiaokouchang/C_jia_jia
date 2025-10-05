@@ -2,7 +2,7 @@
 using namespace que;
 int main()
 {
-	queue<int, vector<int>> q1;//效率低
+	queue<int, list<int>> q1;//效率低
 	q1.push(1);
 	q1.push(2);
 	q1.push(3);
@@ -11,17 +11,6 @@ int main()
 	{
 		cout << q1.front() << " ";
 		q1.pop();
-	}
-	cout << endl;
-	queue<int, list<int>> q2;
-	q2.push(1);
-	q2.push(2);
-	q2.push(3);
-	q2.push(4);
-	while (!q2.empty())
-	{
-		cout << q2.front() << " ";
-		q2.pop();
 	}
 	cout << endl;
 	return 0;

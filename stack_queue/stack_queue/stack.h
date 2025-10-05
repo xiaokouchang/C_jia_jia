@@ -1,11 +1,12 @@
 #pragma once
 #include<vector>
+#include<deque>
 #include<list>
 #include<iostream>
 using namespace std;
 namespace sta
 {
-	template<class T,class Container = vector<T>>
+	template<class T,class Container = deque<T>>
 	class stack
 	{
 	public:

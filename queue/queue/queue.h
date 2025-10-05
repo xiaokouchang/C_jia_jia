@@ -1,11 +1,11 @@
 #pragma once
-#include<vector>
 #include<list>
+#include<deque>
 #include<iostream>
 using namespace std;
 namespace que
 {
-	template<class T, class Container>
+	template<class T, class Container = deque<T>>
 	class queue
 	{
 	public:
@@ -15,7 +15,8 @@ namespace que
 		}
 		void pop()
 		{
-			_con.erase(_con.begin());//强制适配,使用公用的函数erase,不推荐,顺序表的头删效率低
+			_con.pop_front();
+			//_con.erase(_con.begin());//强制适配,使用公用的函数erase,不推荐,顺序表的头删效率低
 		}
 		T& top()
 		{
@@ -39,6 +40,5 @@ namespace que
 		}
 	private:
 		Container _con;
-
 	};
 }
