@@ -345,52 +345,293 @@
 //}
 
 
+//虚函数放在代码段里,虚函数表里存放着虚函数的地址
 //#include<iostream>
 //using namespace std;
+//class Base
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		cout << "Func1()" << endl;
+//	}
+//	virtual void Func2()
+//	{
+//		cout << "Func1()" << endl;
+//	}     
+//	void Func3()
+//	{
+//		cout << "Func1()" << endl;
+//	}
+//private:
+//	char _b = 1;
+//};
 //int main()
 //{
+//	cout << sizeof(Base) << endl;
+//	Base b;
 //	return 0;
 //}
 
 
 //#include<iostream>
 //using namespace std;
+//class Car 
+//{
+//public:
+//	virtual void Drive() = 0;
+//};
+//class Benz :public Car 
+//{
+//public:
+//	virtual void Drive() override 
+//	{ 
+//		cout << "Benz-舒适" << endl; 
+//	}
+//};
 //int main()
 //{
+//	Car c;
 //	return 0;
 //}
 
 
 //#include<iostream>
 //using namespace std;
+//class Person 
+//{
+//public:
+//	virtual void BuyTicket()
+//	{
+//		cout << "买票-全价" << endl;
+//	}
+//	int _a = 1;
+//};
+//class Student : public Person 
+//{
+//public:
+//	virtual void BuyTicket() 
+//	{ 
+//		cout << "买票-半价" << endl; 
+//	}
+//	int _b = 1;
+//};
+//void Func(Person& p)
+//{
+//	//不符合多态,编译器时就确认地址
+//	//符合多态,运行时到指向对象的虚函数表中找调用函数的地址
+//	p.BuyTicket();
+//}
 //int main()
 //{
+//	Person Mike;
+//	Func(Mike);
+//	Student Johnson;
+//	Func(Johnson);
+//	return 0;
+//}
+
+
+//virtual void func(int val = 1) + std::cout << "B->" << val << std::endl; 
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	virtual void func(int val = 1) 
+//	{ 
+//		std::cout << "A->" << val << std::endl;
+//	}
+//	virtual void test() 
+//	{ 
+//		func();
+//	}
+//};
+//class B : public A
+//{
+//public:
+//	void func(int val = 0) 
+//	{ 
+//		std::cout << "B->" << val << std::endl; 
+//	}
+//};
+//int main(int argc, char* argv[])
+//{
+//	B* p = new B;
+//	p->test();
 //	return 0;
 //}
 
 
 //#include<iostream>
 //using namespace std;
-//int main()
+//class A
 //{
+//public:
+//	virtual void func(int val = 1) 
+//	{ 
+//		std::cout << "A->" << val << std::endl;
+//	}
+//	
+//};
+//class B : public A
+//{
+//public:
+//	void func(int val = 0) 
+//	{ 
+//		std::cout << "B->" << val << std::endl; 
+//	}
+//	virtual void test()
+//	{
+//		func();//this*指向的是B*
+//	}
+//};
+//int main(int argc, char* argv[])
+//{
+//	B* p = new B;
+//	p->test();
 //	return 0;
 //}
 
 
 //#include<iostream>
 //using namespace std;
+//class Person 
+//{
+//public:
+//	virtual void BuyTicket()
+//	{
+//		cout << "买票-全价" << endl;
+//	}
+//	virtual void Func1()
+//	{
+//	}
+//	virtual void Func2()
+//	{
+//	}
+//protected:
+//	int _a = 0;
+//};
+//class Student : public Person 
+//{
+//public:
+//	virtual void BuyTicket()
+//	{
+//		cout << "买票-半价" << endl;
+//	}
+//protected:
+//	int _b = 1;
+//};
+//void Func(Person& p)
+//{
+//	p.BuyTicket();
+//}
 //int main()
 //{
+//	Person ps;
+//	Student st;
+//
+//	//三种切片
+//	ps = st;
+//	Person* ptr = &st;
+//	Person& ref = st;
+//	//Func(j);
 //	return 0;
 //}
 
 
+//验证虚表存储在代码区
 //#include<iostream>
 //using namespace std;
+//class Person 
+//{
+//public:
+//	virtual void BuyTicket()
+//	{
+//		cout << "买票-全价" << endl;
+//	}
+//	virtual void Func1()
+//	{
+//	}
+//	virtual void Func2()
+//	{
+//	}
+//protected:
+//	int _a = 0;
+//};
+//class Student : public Person 
+//{
+//public:
+//	virtual void BuyTicket()
+//	{
+//		cout << "买票-半价" << endl;
+//	}
+//protected:
+//	int _b = 1;
+//};
 //int main()
 //{
+//	int a = 0;
+//	printf("栈:%p\n", &a);
+//	static int b = 0;
+//	printf("静态区:%p\n", &b);
+//	int* c = new int;
+//	printf("堆区:%p\n", &c);
+//	const char* d = "hello world";
+//	printf("常量区(代码段):%p\n", d);
+//	Person ps1;
+//	Student st1;
+//	printf("虚表1:%p\n", *((int*)&ps1));
+//	printf("虚表2:%p\n", *((int*)&st1));
 //	return 0;
 //}
+
+
+#include<iostream>
+using namespace std;
+class Person 
+{
+public:
+	virtual void BuyTicket()
+	{
+		cout << "买票-全价" << endl;
+	}
+	virtual void Func1()
+	{
+		cout << "Person:Func1()" << endl;
+	}
+	virtual void Func2()
+	{
+		cout << "Person:Func2()" << endl;
+	}
+//protected:
+	int _a = 0;
+};
+class Student : public Person 
+{
+public:
+	virtual void BuyTicket()
+	{
+		cout << "买票-半价" << endl;
+	}
+	virtual void func3()
+	{
+		cout << "Student:Func3()" << endl;
+	}
+protected:
+	int _b = 1;
+};
+void Func(Person& p)
+{
+	p.BuyTicket();
+}
+int main()
+{
+	Person ps1;
+	Student st1;
+
+	return 0;
+}
 
 
 //#include<iostream>
