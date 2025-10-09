@@ -382,52 +382,224 @@
 //}
 
 
-#include"stack.h"
-using namespace sta;
+//#include"stack.h"
+//using namespace sta;
+//int main()
+//{
+//	stack<int> st;
+//	//有声明和定义
+//	st.push(1);
+//	st.push(2);
+//	st.push(3);
+//	A aa;
+//	aa.func1();//有声明和定义
+//	//aa.func2();//有声明没有定义
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//template <class T>  // T 是类型参数
+//class ClassName 
+//{
+//public:
+//    T member;
+//    ClassName(T m) : member(m) 
+//    {}
+//    void print() 
+//    {
+//        cout << member << endl;
+//    }
+//};
+//int main() 
+//{
+//    ClassName<int> obj1(10);      
+//    ClassName<double> obj2(3.14); 
+//    obj1.print(); 
+//    obj2.print(); 
+//    return 0;
+//}
+
+
+//全特化
+//#include<iostream>
+//using namespace std;
+//template <class T>
+//class Pair 
+//{
+//public:
+//    Pair(T a, T b) 
+//        : first(a)
+//        , second(b) 
+//    {}
+//    void print() 
+//    {
+//        cout << first << " " << second << endl;
+//    }
+//private:
+//    T first, second;
+//};
+//
+////全特化版本
+//template<>
+//class Pair<int> 
+//{
+//public:
+//    Pair(int a, int b) 
+//        : first(a)
+//        , second(b) 
+//    {}
+//    void print() 
+//    {
+//        cout << "int special: " << first << ", " << second << endl;
+//    }
+//private:
+//    int first, second;
+//};
+//int main()
+//{
+//    Pair<double> p1(1.2, 3.4); //调用普通模板
+//    Pair<int> p2(10, 20);      //调用全特化版本
+//    p1.print();
+//    p2.print();
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//template <class T1, class T2>
+//class Pair 
+//{
+//public:
+//    Pair(T1 a, T2 b) 
+//        : first(a)
+//        , second(b) 
+//    {}
+//    void print() 
+//    {
+//        cout << "Primary: " << first << ", " << second << endl;
+//    }
+//private:
+//    T1 first;
+//    T2 second;
+//};
+////偏特化:第二个参数固定为int
+//template <class T1>
+//class Pair<T1, int> {
+//public:
+//    Pair(T1 a, int b) 
+//        : first(a)
+//        , second(b) 
+//    {}
+//    void print() 
+//    {
+//        cout << "Partial spec: " << first << ", " << second << endl;
+//    }
+//private:
+//    T1 first;
+//    int second;
+//};
+//int main()
+//{
+//    Pair<double, double> p1(1.1, 2.2);
+//    Pair<int, int> p2(1, 2);
+//    p1.print();
+//    p2.print();
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//template<class T1, class T2>
+//class Data
+//{
+//public:
+//	Data() 
+//	{ 
+//		cout << "Data<T1, T2>" << endl;
+//	}
+//private:
+//	T1 _d1;
+//	T2 _d2;
+//};
+////将第二个参数特化为int
+//template <class T1>
+//class Data<T1, int>
+//{
+//public:
+//	Data() 
+//	{ 
+//		cout << "Data<T1, int>" << endl;
+//	}
+//private:
+//	T1 _d1;
+//	int _d2;
+//};
+////两个参数偏特化为指针类型
+//template <typename T1, typename T2>
+//class Data <T1*, T2*>
+//{
+//public:
+//	Data() 
+//	{ 
+//		cout << "Data<T1*, T2*>" << endl;
+//	}
+//private:
+//	T1 _d1;
+//	T2 _d2;
+//};
+////两个参数偏特化为引用类型
+//template <typename T1, typename T2>
+//class Data <T1&, T2&>
+//{
+//public:
+//	Data(const T1& d1, const T2& d2)
+//		: _d1(d1)
+//		, _d2(d2)
+//	{
+//		cout << "Data<T1&, T2&>" << endl;
+//	}
+//private:
+//	const T1& _d1;
+//	const T2& _d2;
+//};
+//int main()
+//{
+//	Data<double, int> d1;	   //调用特化的int版本
+//	Data<int, double> d2;	   //调用基础的模板
+//	Data<int*, int*> d3;	   //调用特化的指针版本
+//	Data<int&, int&> d4(1, 2); //调用特化的指针版本
+//	return 0;
+//}
+
+
+#include<iostream>
+using namespace std;
+//函数模板 --- 参数匹配
+template <class T>
+bool Less(T a, T b) 
+{
+	cout << "Less(T a, T b)" << " ";
+	return a < b;
+}
+//全特化版本(针对int*)
+template <>
+bool Less<int*>(int* a, int* b) 
+{
+	cout << "Less<int*>" << " ";
+	return *a < *b;
+}
 int main()
 {
-	stack<int> st;
-	//有声明和定义
-	st.push(1);
-	st.push(2);
-	st.push(3);
-	A aa;
-	aa.func1();//有声明和定义
-	//aa.func2();//有声明没有定义
+	int a = 1;
+	int b = 2;
+	cout << Less(a, b) << endl;
+	cout << Less(&a, &b) << endl;
 	return 0;
 }
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
-
-
-//#include<iostream>
-//using namespace std;
-//int main()
-//{
-//	return 0;
-//}
 
 
 //#include<iostream>

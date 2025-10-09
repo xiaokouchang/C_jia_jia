@@ -587,59 +587,168 @@
 //}
 
 
-#include<iostream>
-using namespace std;
-class Person 
-{
-public:
-	virtual void BuyTicket()
-	{
-		cout << "买票-全价" << endl;
-	}
-	virtual void Func1()
-	{
-		cout << "Person:Func1()" << endl;
-	}
-	virtual void Func2()
-	{
-		cout << "Person:Func2()" << endl;
-	}
+//#include<iostream>
+//using namespace std;
+//class Person 
+//{
+//public:
+//	virtual void BuyTicket()
+//	{
+//		cout << "买票-全价" << endl;
+//	}
+//	virtual void Func1()
+//	{
+//		cout << "Person:Func1()" << endl;
+//	}
+//	virtual void Func2()
+//	{
+//		cout << "Person:Func2()" << endl;
+//	}
 //protected:
-	int _a = 0;
-};
-class Student : public Person 
-{
-public:
-	virtual void BuyTicket()
-	{
-		cout << "买票-半价" << endl;
-	}
-	virtual void func3()
-	{
-		cout << "Student:Func3()" << endl;
-	}
-protected:
-	int _b = 1;
-};
-void Func(Person& p)
-{
-	p.BuyTicket();
-}
-int main()
-{
-	Person ps1;
-	Student st1;
+//	int _a = 0;
+//};
+//class Student : public Person 
+//{
+//public:
+//	virtual void BuyTicket()
+//	{
+//		cout << "买票-半价" << endl;
+//	}
+//	virtual void func3()
+//	{
+//		cout << "Student:Func3()" << endl;
+//	}
+//protected:
+//	int _b = 1;
+//};
+//void Func(Person& p)
+//{
+//	p.BuyTicket();
+//}
+////打印函数指针数组
+//typedef void(*FUNC_PIR) ();
+////void PrintVFT(FUNC_PIR table[])
+//void PrintVFT(FUNC_PIR* table)
+//{
+//	for (size_t i = 0; table[i] != nullptr; i++)
+//	{
+//		printf("[%d]:%p->", i, table[i]);
+//		FUNC_PIR f = table[i];
+//		f();
+//	}
+//	printf("\n");
+//}
+//int main()
+//{
+//	Person ps;
+//	Student st;
+//	int vft1 = *((int*)&ps);//取出4个字节
+//	PrintVFT((FUNC_PIR*)vft1);
+//
+//	int vft2 = *((int*)&st);
+//	PrintVFT((FUNC_PIR*)vft2);
+//	return 0;
+//}
 
-	return 0;
-}
 
-
+//静态绑定
 //#include<iostream>
 //using namespace std;
 //int main()
 //{
+//	int i = 0;
+//	double d = 1.1;
+//	cout << i << endl;
+//	cout << d << endl;
 //	return 0;
 //}
+
+
+#include<iostream>
+using namespace std;
+class Base1 
+{
+public:
+	virtual void func1() 
+	{ 
+		cout << "Base1::func1" << endl; 
+	}
+	virtual void func2() 
+	{ 
+		cout << "Base1::func2" << endl; 
+	}
+private:
+	int b1;
+};
+class Base2 
+{
+public:
+	virtual void func1() 
+	{ 
+		cout << "Base2::func1" << endl; 
+	}
+	virtual void func2() 
+	{ 
+		cout << "Base2::func2" << endl; 
+	}
+private:
+	int b2;
+};
+class Derive : public Base1, public Base2 
+{
+public:
+	virtual void func1() 
+	{ 
+		cout << "Derive::func1" << endl; 
+	}
+	virtual void func3() 
+	{ 
+		cout << "Derive::func3" << endl; 
+	}
+private:
+	int d1;
+};
+typedef void(*VFPTR) ();
+void PrintVTable(VFPTR vTable[])
+{
+	cout << "虚表地址>" << vTable << endl;
+	for (int i = 0; vTable[i] != nullptr; ++i)
+	{
+		printf("第%d个虚函数地址:0X%x->", i, vTable[i]);
+		VFPTR f = vTable[i];
+		f();
+	}
+	cout << endl;
+}
+int main()
+{
+	//Derive d;
+	//Base1 b1;
+	//Base2 b2;
+	//cout << "sizeof(d):" << sizeof(d) << endl;
+	//int vft1 = *((int*)&d);
+	//PrintVTable((VFPTR*)vft1);
+
+	////方法1
+	////int vft2 = *((int*)((char*)&d + sizeof(Base1)));
+	////方法2
+	//Base2* ptr = &d;
+	//int vft2 = *((int*)ptr);
+	//PrintVTable((VFPTR*)vft2);
+
+
+	Derive d;
+
+	Base1* ptr1 = &d;
+	ptr1->func1();
+
+	Base2* ptr2 = &d;
+	ptr2->func1();
+
+	Derive* ptr3 = &d;
+	ptr3->func1();
+	return 0;
+}
 
 
 //#include<iostream>
