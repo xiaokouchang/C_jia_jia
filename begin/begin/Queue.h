@@ -1,5 +1,5 @@
-#pragma once
-namespace N1
-{
-	int y = 10;
-}
+//#pragma once
+//namespace N1
+//{
+//	int y = 10;
+//}

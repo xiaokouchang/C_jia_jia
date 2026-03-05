@@ -46,39 +46,80 @@
 //using namespace std;
 //class Person
 //{
-//public:
-//	void func()
-//	{
-//		cout << "Person" << endl;
-//	}
 //protected:
-//	string _name = "小李子"; // 姓名
-//	int _num = 111; // 身份证号
+//	string _name; // 姓名
+//	string _sex; // 性别
+//	int _age; // 年龄
 //};
 //class Student : public Person
 //{
 //public:
-//	void func(int i)
-//	{
-//		//子类和父类的两个func构成隐藏/重定义
-//		cout << "Student : public Person" << endl;
-//	}
-//	void Print()
-//	{
-//		cout << " 姓名:" << _name << endl;
-//		cout << " 身份证号:" << Person::_num << endl;
-//		cout << " 学号:" << _num << endl;//就近原则,先查找子类的作用域
-//	}
-//protected:
-//	int _num = 999; // 学号
+//	int _No; // 学号
 //};
 //int main()
 //{
-//	Student s1;
-//	s1.Print();
-//	s1.func(1);
+//	Student sobj;
+//
+//	//1.子类对象可以赋值给父类对象/指针/引用
+//	Person pobj = sobj;
+//	Person* pp = &sobj;
+//	Person& rp = sobj;
+//
+//	//2.基类对象不能赋值给派生类对象
+//	//sobj = pobj;
+//
+//	//3.基类的指针可以通过强制类型转换赋值给派生类的指针
+//	pp = &sobj;
+//	Student* ps1 = (Student*)pp; //这种情况转换时可以的
+//	ps1->_No = 10;
+//
+//	//这种情况转换时虽然可以,但是会存在越界访问的问题
+//	pp = &pobj;
+//	Student* ps2 = (Student*)pp;
+//	ps2->_No = 10;
+//	//这里将基类对象指针强制转换为派生类指针,然后访问派生类特有成员_No,
+//	//这会导致未定义行为,可能造成内存越界和程序崩溃
 //	return 0;
 //}
+
+
+#include<iostream>
+using namespace std;
+class Person
+{
+public:
+	void func1()
+	{
+		cout << "Person" << endl;
+	}
+protected:
+	string _name = "小李子"; // 姓名
+	int _num = 111; // 身份证号
+};
+class Student : public Person
+{
+public:
+	void func(int i)
+	{
+		//子类和父类的两个func构成隐藏/重定义
+		cout << "Student : public Person" << endl;
+	}
+	void Print()
+	{
+		cout << "姓名:" << _name << endl;
+		cout << "身份证号:" << Person::_num << endl;
+		cout << "学号:" << _num << endl;//就近原则,先查找子类的作用域
+	}
+protected:
+	int _num = 999; // 学号
+};
+int main()
+{
+	Student s1;
+	//s1.Print();
+	s1.func(1);
+	return 0;
+}
 
 
 //#include<iostream>
