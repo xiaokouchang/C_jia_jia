@@ -174,6 +174,7 @@ void test3()
 
 void test4()
 {
+	//map是双向迭代器,不支持sort,sort是随机迭代器
 	//map需要修改value
 	//key不允许修改是因为修改key,搜索树结构被破坏
 	//pair是类模板的结构
@@ -234,11 +235,51 @@ void test6()
 {
 	//统计次数,通过一个值找另一个值
 	string arr[] = { "苹果","西瓜","苹果","西瓜","苹果","苹果","西瓜","苹果","香蕉" };
-	map<string, int> dict;//第1个为key,必须要支持比较大小才可以
+	map<string, int> countMap;//第1个为key,必须要支持比较大小才可以
+	//for (auto e : arr)
+	//{
+	//	auto it = countMap.find(e);
+	//	if (it == countMap.end())
+	//	{
+	//		countMap.insert(make_pair(e, 1));
+	//	}
+	//	else
+	//	{
+	//		it->second++;
+	//	}
+	//}
+	//简写
+	//[]通过调用insert实现(*((this->insert(make_pair(k,mapped_type()))).first)).second
+	//insert
+	//key已经在树里面,返回pair<树里面key所在节点的iterator,false>
+	//key不在树里面,返回pair<新插入的key所在节点的iterator,true>
+	//V& operator[](const K& key)
+	//{
+	//	pair<iterator, bool> ret = insert(make(key, V()));
+	//  return ret.first->second;
+	//}
 	for (auto e : arr)
 	{
-
+		countMap[e]++;//operator[]通过key,返回value的引用
 	}
+	for (const auto& kv : countMap)
+	{
+		cout << kv.first << ":" << kv.second << endl;
+	}
+}
+//[]的本质是insert
+void test7()
+{
+	map<string, string> dict;
+	dict.insert(make_pair("string", "字符串"));
+	dict.insert(make_pair("sort", "排序"));
+	dict.insert(make_pair("insert", "插入"));
+	
+	dict["sort"];//返回迭代器,没有改变 --- 读取和查找
+	dict["map"];//没有map,插入了缺省值  --- 插入
+	dict["map"] = "映射,地图";  //map已经有了 --- 修改
+	dict["insert"] = "xxx";    // 修改
+	dict["set"] = "集合";      //插入+修改
 }
 int main()
 {
@@ -246,6 +287,6 @@ int main()
 	//test1();
 	//test2();
 	//test4();
-	test5();
+	test6();
 	return 0;
 }
