@@ -52,13 +52,13 @@ void test()
 	//erease
 	//auto pos = s.find(3);
 	//s.erase(pos);//迭代器位置
-	
-	s.erase(3);//值
-	s.erase(30);//值
+	//
+	//s.erase(3);//值
+	//s.erase(30);//值
 	//值和迭代器的区别是这个值如果在,两种都删除,如果不在,迭代器会崩溃,传值会正常运行
-	auto pos = find(s.begin(), s.end(), 3);//auto pos = s.find(3);
+	auto pos = find(s.begin(), s.end(), 3);//algorithm中的函数auto pos = s.find(3);
 	//两个find有差异
-	//auto pos = s.find(3);时间复杂度为O(log2N),建议使用这个
+	//auto pos = s.find(3);//set中的查找,时间复杂度为O(log2N),二分查找,建议使用这个
 	//迭代器是暴力查找,时间复杂度为O(N)
 	if (pos != s.end())
 	{
@@ -77,6 +77,9 @@ void test1()
 	s.insert(5);
 	s.insert(8);
 	s.insert(7);
+	//set插入元素时,会返回一个pair<迭代器, bool>
+	//first:指向插入元素的迭代器
+	//second:是否插入成功(true= 插入成功,false=元素已存在)
 	auto it = s.find(10);
 	if (it != s.end())
 	{
@@ -95,24 +98,24 @@ void test1()
 
 	//lower_bound 上边界
 	//upper_bound 下边界
-	//std::set<int> myset;
-	//std::set<int>::iterator itlow, itup;
-	//for (int i = 1; i < 10; i++)
-	//{
-	//	myset.insert(i * 10); // 10 20 30 40 50 60 70 80 90
-	//}
-	//itlow = myset.lower_bound(35);//>=35,左边界
-	//itup = myset.upper_bound(60);//>60
-	//cout << *itlow << endl;
-	//cout << *itup << endl;
-	////删除是左闭右闭,查找是左闭右开
-	//myset.erase(itlow, itup);//迭代器区间要求左闭右开
-	//std::cout << "myset contains:";
-	//for (auto e : myset)
-	//{
-	//	cout << e << " ";
-	//}
-	//cout << endl;
+	std::set<int> myset;
+	std::set<int>::iterator itlow, itup;
+	for (int i = 1; i < 10; i++)
+	{
+		myset.insert(i * 10); // 10 20 30 40 50 60 70 80 90
+	}
+	itlow = myset.lower_bound(35);//>=35,左边界
+	itup = myset.upper_bound(60);//<60
+	cout << *itlow << endl;
+	cout << *itup << endl;
+	//查找是左闭右开
+	myset.erase(itlow, itup);//迭代器区间要求左闭右开
+	std::cout << "myset contains:";
+	for (auto e : myset)
+	{
+		cout << e << " ";
+	}
+	cout << endl;
 }
 void test2()
 {
@@ -180,6 +183,7 @@ void test4()
 	//pair是类模板的结构
 	map<string, string> dict;
 	//pair涉及隐式类型转换
+	//const char* 隐式转换为string
 	pair<string, string> kv1("insert", "插入");
 	pair<string, string> kv2("sort", "排序");
 	pair<string, string> kv3("insert", "插入");
@@ -202,12 +206,13 @@ void test4()
 }
 void test5()
 {
-	map<string, string> dict;
+	map<string, string> dict;//map<const string,string>
 	dict.insert(make_pair("string", "字符串"));
 	dict.insert(make_pair("sort", "排序"));
 	dict.insert(make_pair("insert", "插入"));
-	//key相同value不相同,不会插入,不会覆盖,插入过程中只比较key
+	//insert插入时key相同value不相同,不会插入,不会覆盖,插入过程中只比较key
 	//key已经有了就不插入
+	//[]插入会进行覆盖
 	
 	//迭代器返回operator*,c++不支持返回两个值key和value,需要使用pair
 	map<string, string>::iterator it = dict.begin();
@@ -218,7 +223,7 @@ void test5()
 		//it->second = "xxx";//允许修改
 		//cout << *it << " ";//返回pair的引用
 		//迭代器重载指针和->
-		cout << (*it).first << ":" << (*it).second << endl;
+		//cout << (*it).first << ":" << (*it).second << endl;
 		cout << it->first << ":" << it->second << endl;
 		//编译器进行了优化,第1个箭头是运算符重载,返回pair*,第2个箭头通过pair*返回first或者second
 		//cout << it->->first << ":" << it->->second << endl;
@@ -226,28 +231,28 @@ void test5()
 	}
 	cout << endl;
 	//不修改
-	for (const auto& kv : dict)
-	{
-		cout << kv.first << ":" << kv.second << endl;
-	}
+	//for (const auto& kv : dict)
+	//{
+	//	cout << kv.first << ":" << kv.second << endl;
+	//}
 }
 void test6()
 {
 	//统计次数,通过一个值找另一个值
 	string arr[] = { "苹果","西瓜","苹果","西瓜","苹果","苹果","西瓜","苹果","香蕉" };
 	map<string, int> countMap;//第1个为key,必须要支持比较大小才可以
-	//for (auto e : arr)
-	//{
-	//	auto it = countMap.find(e);
-	//	if (it == countMap.end())
-	//	{
-	//		countMap.insert(make_pair(e, 1));
-	//	}
-	//	else
-	//	{
-	//		it->second++;
-	//	}
-	//}
+	for (auto e : arr)
+	{
+		auto it = countMap.find(e);
+		if (it == countMap.end())//没有该元素
+		{
+			countMap.insert(make_pair(e, 1));
+		}
+		else
+		{
+			it->second++;
+		}
+	}
 	//简写
 	//[]通过调用insert实现(*((this->insert(make_pair(k,mapped_type()))).first)).second
 	//insert
@@ -256,12 +261,12 @@ void test6()
 	//V& operator[](const K& key)
 	//{
 	//	pair<iterator, bool> ret = insert(make(key, V()));
-	//  return ret.first->second;
+	//    return ret.first->second;
 	//}
-	for (auto e : arr)
-	{
-		countMap[e]++;//operator[]通过key,返回value的引用
-	}
+	//for (auto e : arr)
+	//{
+	//	countMap[e]++;//operator[]通过key,返回value的引用
+	//}
 	for (const auto& kv : countMap)
 	{
 		cout << kv.first << ":" << kv.second << endl;
@@ -271,6 +276,7 @@ void test6()
 void test7()
 {
 	map<string, string> dict;
+	//insert返回pair<迭代器, bool>
 	dict.insert(make_pair("string", "字符串"));
 	dict.insert(make_pair("sort", "排序"));
 	dict.insert(make_pair("insert", "插入"));
@@ -286,6 +292,7 @@ int main()
 	//test();
 	//test1();
 	//test2();
+	//test5();
 	//test4();
 	test6();
 	return 0;
