@@ -1,27 +1,13 @@
 #pragma once
-//哈希
-//查找
-//暴力查找(O(N))
-//有序数组的二分查找(增删查改不方便)
-//平衡搜索树
-//哈希(散列):存储的值跟存储位置建立出一个对应(映射)关系
-//直接定制法(数据分散)
-//哈希冲突/碰撞:不同的值,可能会映射到同一个位置,值和位置是多对一的关系,位置被占了,去找下一个位置
-//闭散列-开放定址法:当前位置被占用,按规则找下一个位置(占用别人的位置)
-//线性探测
-//二次探测
-//哈希表太满会影响效率
-//状态标记
-//存在,空,删除
-
-//哈希本质上是一种映射关系
-
-//直接定址法(值的分布范围集中)
-//除留余数法(值的分布范围分散)hashi = key % n
-
-//计数排序(数据范围大)
-//字母开头分类特点,范围小
-
+#pragma once
+//该文件是修改后的Hash.h,适用于UnorderedSet.h和UnorderedMap.h
+//1. 哈希表
+//2. 封装map和set
+//3. 普通迭代器
+//4. const迭代器
+//5. insert返回值  operator[]
+//6. key不能修改的问题
+//泛型编程:不是针对某种具体类型,针对广泛的类型(两种及以上)
 #include<vector>
 #include<iostream>
 using namespace std;
@@ -87,7 +73,7 @@ namespace open_address
 		pair<K, V> _kv;//K不能使用const K
 		STATE _state = EMPTY;
 	};
-	
+
 	//载荷因子=填入表的元素个数/散列表的长度
 	//负载因子越大,冲突概率越大(空间利用率越高)
 	//负载因子越小,冲突概率越小(空间利用率越低,浪费越大)
@@ -163,7 +149,7 @@ namespace open_address
 		//模版是按需编译
 		bool Erase(const K& key)
 		{
-			HashData<K, V>* ret = find(key);
+			HashData<K, V>* ret = Find(key);
 			if (ret)
 			{
 				ret->_state = DELETE;
@@ -182,21 +168,134 @@ namespace open_address
 //指针数组
 namespace hash_bucket
 {
-	template<class K, class V>
+	template<class T>//不确定是key还是key_value
 	struct HashNode
 	{
-		pair<K, V> _kv;
-		HashNode<K, V>* _next;
-		HashNode(const pair<K, V>& kv)
-			:_kv(kv)
-			,_next(nullptr)
-		{}
+		T _data;
+		HashNode<T>* _next;
+		HashNode(const T& data)
+			:_data(data)
+			, _next(nullptr)
+		{
+		}
 	};
-	template<class K, class V,class HashFunc = DefaultHashFunc<K>>	
+	//前置声明
+	template<class K, class T, class KeyOfT, class HashFunc>
+	class HashTable;
+
+	template<class K, class T, class Ptr, class Ref, class KeyOfT, class HashFunc>
+	struct HTIterator
+	{
+		//哈希表要用迭代器,迭代器要使用哈希表
+		typedef HashNode<T> Node;
+		typedef HTIterator<K, T, Ptr, Ref, KeyOfT, HashFunc> Self;//不需要加typename
+
+		const HashTable<K, T, KeyOfT, HashFunc>* _pht;
+		Node* _node;
+		
+		HTIterator(Node* node, HashTable<K, T, KeyOfT, HashFunc>* pht)
+			:_node(node)
+			,_pht(pht)
+		{ }
+		HTIterator(Node* node, const HashTable<K, T, KeyOfT, HashFunc>* pht)
+			:_node(node)
+			, _pht(pht)
+		{
+		}
+
+		Ref operator*()
+		{
+			return _node->_data;
+		}
+		Ptr operator->()
+		{
+			return &_node->_data;
+		}
+		Self& operator++()
+		{
+			if (_node->_next)
+			{
+				//当前桶还没有完
+				_node = _node->_next;
+			}
+			else
+			{
+				KeyOfT kot;
+				HashFunc hf;
+				size_t hashi = hf(kot(_node->_data)) % _pht->_table.size();
+				//从下一个位置开始查找下一个不为空的桶
+				++hashi;
+				while (hashi < _pht->_table.size())
+				{
+					if (_pht->_table[hashi])
+					{
+						_node = _pht->_table[hashi];
+						return *this;
+					}
+					else
+					{
+						++hashi;
+					}
+				}
+				_node = nullptr;
+			}
+			return *this;
+		}
+		bool operator!=(const Self& s)
+		{
+			return _node != s._node;
+		}
+		bool operator==(const Self& s)
+		{
+			return _node == s._node;
+		}
+	};
+	//set ---> hash_bucket::HashTable<K, K> _ht;
+	//map ---> hash_bucket::HashTable<K, pair<K, V>> _ht;
+	template<class K, class T,class KeyOfT, class HashFunc = DefaultHashFunc<K>>
 	class HashTable
 	{
-		typedef HashNode<K, V> Node;
+		typedef HashNode<T> Node;
+		//友元声明
+		template<class K, class T, class Ptr, class Ref, class KeyOfT, class HashFunc>
+		friend struct HTIterator;
 	public:
+		typedef HTIterator<K, T, T*, T&, KeyOfT, HashFunc> iterator;
+		typedef HTIterator<K, const T, const T*, const T&, KeyOfT, HashFunc> const_iterator;
+		iterator begin()
+		{
+			//找第1个桶
+			for (size_t i = 0; i < _table.size(); i++)
+			{
+				Node* cur = _table[i];
+				if (cur)
+				{
+					return iterator(cur, this);
+				}
+			}
+			return iterator(nullptr, this);
+		}
+		iterator end()
+		{
+			return iterator(nullptr, this);//this传到构造函数是权限的放大
+		}
+		const_iterator begin() const
+		{
+			//找第1个桶
+			for (size_t i = 0; i < _table.size(); i++)
+			{
+				Node* cur = _table[i];
+				if (cur)
+				{
+					return const_iterator(cur, this);
+				}
+			}
+			return const_iterator(nullptr, this);
+		}
+		const_iterator end() const
+		{
+			return const_iterator(nullptr, this);//this传到构造函数是权限的放大
+		}
 		HashTable()
 		{
 			_table.resize(10, nullptr);
@@ -215,9 +314,10 @@ namespace hash_bucket
 				_table[i] = nullptr;
 			}
 		}
-		bool Insert(const pair<K, V>& kv)
+		bool Insert(const T& data)
 		{
-			if (Find(kv.first))
+			KeyOfT kot;
+			if (Find(kot(data)))
 			{
 				return false;
 			}
@@ -245,7 +345,7 @@ namespace hash_bucket
 					{
 						Node* next = cur->_next;
 						//头插到新表
-						size_t hashi = hf(cur->_kv.first) % newSize;
+						size_t hashi = hf(kot(cur->_data)) % newSize;
 						cur->_next = newTable[hashi];
 						newTable[hashi] = cur;
 						cur = next;
@@ -254,9 +354,9 @@ namespace hash_bucket
 				}
 				_table.swap(newTable);
 			}
-			size_t hashi = hf(kv.first) % _table.size();
+			size_t hashi = hf(kot(data)) % _table.size();
 			//头插
-			Node* newnode = new Node(kv);
+			Node* newnode = new Node(data);
 			newnode->_next = _table[hashi];
 			_table[hashi] = newnode;
 			++_n;
@@ -280,11 +380,12 @@ namespace hash_bucket
 		Node* Find(const K& key)
 		{
 			HashFunc hf;
+			KeyOfT kot;
 			size_t hashi = hf(key) % _table.size();
 			Node* cur = _table[hashi];
 			while (cur)
 			{
-				if (cur->_kv.first == key)
+				if (kot(cur->_data) == key)
 				{
 					return cur;
 				}
@@ -295,12 +396,13 @@ namespace hash_bucket
 		bool Erase(const K& key)
 		{
 			HashFunc hf;
+			KeyOfT kot;
 			size_t hashi = hf(key) % _table.size();
 			Node* cur = _table[hashi];
 			Node* prev = nullptr;
 			while (cur)
 			{
-				if (cur->_kv.first == key)
+				if (kot(cur->_data) == key)
 				{
 					if (prev == nullptr)
 					{

@@ -113,43 +113,135 @@
 //}
 
 
-#include"Hash.h"
+//#include"Hash.h"
+//void test1()
+//{
+//	open_address::HashTable<int, int> ht;
+//	int a[] = { 1,111,4,7,15,25,44,9 };
+//	for (auto e : a)
+//	{
+//		ht.Insert(make_pair(e, e));
+//	}
+//	auto kv = ht.Find(4);
+//	//kv->_kv.first = 40;
+//	kv->_kv.second = 400;
+//}
+//void test2()
+//{
+//	//HashTable<string, string, StringHashFunc> dict;
+//	open_address::HashTable<string, string> dict;
+//	dict.Insert(make_pair("sort", "ÅÅĞò"));
+//	dict.Insert(make_pair("left", "xxx"));
+//	auto pdata = dict.Find("left");
+//	//pdata->_kv.first = "xx";
+//	pdata->_kv.second = "×ó±ß";
+//}
+//void test3()
+//{
+//	string s1("xxx");
+//	string s2("xxx");
+//	DefaultHashFunc<string> hf;
+//	cout << hf(s1) << endl;
+//	cout << hf(s2) << endl;
+//	cout << hf("abcd") << endl;
+//	cout << hf("bacd") << endl;
+//	cout << hf("abbe") << endl;
+//	cout << hf("https://legacy.cplusplus.com/reference/unordered_map/unordered_map/") << endl;
+//}
+//void test4()
+//{
+//	hash_bucket::HashTable<int, int> ht;
+//	int a[] = { 1,111,4,7,15,25,44,9 };
+//	for (auto e : a)
+//	{
+//		ht.Insert(make_pair(e, e));
+//	}
+//	ht.Print();
+//
+//	ht.Insert(make_pair(14, 14));
+//	ht.Print();
+//
+//	ht.Insert(make_pair(24, 24));
+//	ht.Print();
+//
+//	ht.Insert(make_pair(34, 34));
+//	ht.Print();
+//
+//	ht.Insert(make_pair(44, 44));
+//	ht.Insert(make_pair(54, 54));
+//	ht.Insert(make_pair(64, 64));
+//	ht.Print();
+//
+//	ht.Erase(1);
+//	ht.Erase(111);
+//	ht.Print();
+//}
+//void test5()
+//{
+//	hash_bucket::HashTable<string, string> dict;
+//	dict.Insert(make_pair("sort", "ÅÅĞò"));
+//	dict.Insert(make_pair("left", "xxx"));
+//	dict.Insert(make_pair("insert", "²åÈë"));
+//	dict.Insert(make_pair("string", "×Ö·û´®"));
+//	dict.Insert(make_pair("bucket", "Í°"));
+//	auto pdata = dict.Find("left");
+//	//pdata->_kv.first = "xx";
+//	pdata->_kv.second = "×ó±ß";
+//	dict.Print();
+//}
+//int main()
+//{
+//	//test3();
+//	test4();
+//	//test5();
+//	return 0;
+//}
+
+
+
+#include"UnorderedSet.h"
+#include"UnorderedMap.h"
 void test1()
 {
-	HashTable<int, int> ht;
-	int a[] = { 1,111,4,7,15,25,44,9 };
-	for (auto e : a)
+	Set::unordered_set<int> us;
+	us.insert(3);
+	us.insert(1);
+	us.insert(3);
+	us.insert(4);
+	us.insert(5);
+	us.insert(0);
+	Set::unordered_set<int>::iterator sit = us.begin();
+	while (sit != us.end())
 	{
-		ht.Insert(make_pair(e, e));
+		//*sit += 10;
+		cout << *sit << " ";
+		++sit;
 	}
-	auto kv = ht.find(4);
-	//kv->_kv.first = 40;
-	kv->_kv.second = 400;
-}
-void test2()
-{
-	//HashTable<string, string, StringHashFunc> dict;
-	HashTable<string, string> dict;
-	dict.Insert(make_pair("sort", "ÅÅĞò"));
-	dict.Insert(make_pair("left", "xxx"));
-	auto pdata = dict.find("left");
-	//pdata->_kv.first = "xx";
-	pdata->_kv.second = "×ó±ß";
-}
-void test3()
-{
-	string s1("xxx");
-	string s2("xxx");
-	DefaultHashFunc<string> hf;
-	cout << hf(s1) << endl;
-	cout << hf(s2) << endl;
-	cout << hf("abcd") << endl;
-	cout << hf("bacd") << endl;
-	cout << hf("abbe") << endl;
-	cout << hf("https://legacy.cplusplus.com/reference/unordered_map/unordered_map/") << endl;
+	cout << endl;
+
+	Map::unordered_map<string, string> dict;
+	dict.insert(make_pair("sort", "ÅÅĞò"));
+	dict.insert(make_pair("left", "×ó±ß"));
+	dict.insert(make_pair("insert", "²åÈë"));
+	//dict["sort"] = "ÅÅĞò";
+	//dict["insert"] = "²åÈë";
+	//dict["string"] = "×Ö·û´®";
+	//dict["left"];
+	Map::unordered_map<string, string>::iterator mit = dict.begin();
+	while (mit != dict.end())
+	{
+		//mit->first += 'xx';
+		mit->second += 'xx';
+		++mit;
+	}
+	cout << endl;
+	for (auto& kv : dict)
+	{
+		cout << kv.first << ":" << kv.second << endl;
+	}
 }
 int main()
 {
-	test3();
+	test1();
 	return 0;
 }
