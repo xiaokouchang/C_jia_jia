@@ -32,9 +32,14 @@ namespace Map
 		{
 			return _ht.end();
 		}
-		bool insert(const pair<const K, V>& kv)
+		pair<iterator, bool> insert(const pair<const K, V>& kv)
 		{
 			return _ht.Insert(kv);
+		}
+		V& operator[](const K& key)
+		{
+			pair<iterator, bool>ret = _ht.Insert(make_pair(key, V()));
+			return ret.first->second;
 		}
 	private:
 		hash_bucket::HashTable<K, pair<const K, V>, MapKeyOfT> _ht;

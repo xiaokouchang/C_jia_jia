@@ -198,50 +198,138 @@
 //}
 
 
+//#include<iostream>
+//#include<list>
+//using namespace std;
+//template<class T,class Ref>
+//class A
+//{
+//public:
+//	A(Ref a)
+//		:_a(a)
+//	{ }
+//	A(const A<T,T&>& aa)
+//		:_a(aa._a)
+//	{ }
+//	Ref _a;
+//};
+//void test1()
+//{
+//	int x = 0;
+//	//同一个类模板
+//	A<int, int&> aa1(x);
+//	A<int, const int&> aa2(2);
+//	//aa1 = aa2;
+//	//aa2 = aa1;
+//	A<int, const int&> aa3(aa1);
+//}
+//int main()
+//{
+//	test1();
+//	return 0;
+//}
 
-#include"UnorderedSet.h"
-#include"UnorderedMap.h"
-void test1()
-{
-	Set::unordered_set<int> us;
-	us.insert(3);
-	us.insert(1);
-	us.insert(3);
-	us.insert(4);
-	us.insert(5);
-	us.insert(0);
-	Set::unordered_set<int>::iterator sit = us.begin();
-	while (sit != us.end())
-	{
-		//*sit += 10;
-		cout << *sit << " ";
-		++sit;
-	}
-	cout << endl;
 
-	Map::unordered_map<string, string> dict;
-	dict.insert(make_pair("sort", "排序"));
-	dict.insert(make_pair("left", "左边"));
-	dict.insert(make_pair("insert", "插入"));
-	//dict["sort"] = "排序";
-	//dict["insert"] = "插入";
-	//dict["string"] = "字符串";
-	//dict["left"];
-	Map::unordered_map<string, string>::iterator mit = dict.begin();
-	while (mit != dict.end())
-	{
-		//mit->first += 'xx';
-		mit->second += 'xx';
-		++mit;
-	}
-	cout << endl;
-	for (auto& kv : dict)
-	{
-		cout << kv.first << ":" << kv.second << endl;
-	}
-}
-int main()
-{
-	test1();
-	return 0;
-}
+//#include"UnorderedSet.h"
+//#include"UnorderedMap.h"
+//void test1()
+//{
+//	Set::unordered_set<int> us;
+//	us.insert(3);
+//	us.insert(1);
+//	us.insert(3);
+//	us.insert(4);
+//	us.insert(5);
+//	us.insert(0);
+//	Set::unordered_set<int>::iterator sit = us.begin();
+//	while (sit != us.end())
+//	{
+//		//不能修改key
+//		//*sit += 10;
+//		cout << *sit << " ";
+//		++sit;
+//	}
+//	cout << endl;
+//
+//	Map::unordered_map<string, string> dict;
+//	dict.insert(make_pair("sort", "排序"));
+//	dict.insert(make_pair("left", "左边"));
+//	dict.insert(make_pair("insert", "插入"));
+//	for (auto& kv : dict)
+//	{
+//		cout << kv.first << ":" << kv.second << endl;
+//	}
+//	dict["sort"] = "排序";
+//	dict["insert"] = "插入";
+//	dict["string"] = "字符串";
+//	dict["left"];
+//	Map::unordered_map<string, string>::iterator mit = dict.begin();
+//	while (mit != dict.end())
+//	{
+//		//不能修改first
+//		//mit->first += 'xx';
+//		mit->second += 'xx';
+//		++mit;
+//	}
+//	cout << endl;
+//	for (auto& kv : dict)
+//	{
+//		cout << kv.first << ":" << kv.second << endl;
+//	}
+//}
+//int main()
+//{
+//	test1();
+//	return 0;
+//}
+
+
+//桶太长
+//桶里可以挂链表和树
+//union Type
+//{
+//	//head和root共用同一份空间
+//	HashNode* head;
+//	TreeNode* root;
+//};
+//struct HashData
+//{
+//	Type ptr;
+//	//bool isTree = false;
+//  size_t bucketsize;
+//};
+//vector<HashData> _table;
+//vector<pair<list,map>> _table;
+//java里面超过8会转成红黑树
+
+
+//素数
+//vs2022是2倍扩容
+//linux下是2倍附近的素数扩容
+//#include<unordered_set>
+//#include<unordered_map>
+//#include<iostream>
+//using namespace std;
+//void test1()
+//{
+//	unordered_set<int> us;
+//	size_t old = us.bucket_count();
+//	cout << old << endl;
+//	for (size_t i = 0; i < 100000; i++)
+//	{
+//		us.insert(i);
+//		if (old != us.bucket_count())
+//		{
+//			old = us.bucket_count();
+//			cout << old << endl;
+//		}
+//	}
+//	cout << endl;
+//}
+//int main()
+//{
+//	test1();
+//	return 0;
+//}
+
+

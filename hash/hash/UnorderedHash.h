@@ -189,20 +189,28 @@ namespace hash_bucket
 		//哈希表要用迭代器,迭代器要使用哈希表
 		typedef HashNode<T> Node;
 		typedef HTIterator<K, T, Ptr, Ref, KeyOfT, HashFunc> Self;//不需要加typename
+		typedef HTIterator<K, T, T*, T&, KeyOfT, HashFunc> Iterator;
 
 		const HashTable<K, T, KeyOfT, HashFunc>* _pht;
 		Node* _node;
-		
-		HTIterator(Node* node, HashTable<K, T, KeyOfT, HashFunc>* pht)
-			:_node(node)
-			,_pht(pht)
-		{ }
+		//可以不需要第1个构造函数
+		//HTIterator(Node* node, HashTable<K, T, KeyOfT, HashFunc>* pht)
+		//	:_node(node)
+		//	,_pht(pht)
+		//{ }
 		HTIterator(Node* node, const HashTable<K, T, KeyOfT, HashFunc>* pht)
 			:_node(node)
 			, _pht(pht)
 		{
 		}
-
+		//迭代器的拷贝构造
+		//普通迭代器时,他是拷贝构造
+		//const迭代器时,他是构造
+		HTIterator(const Iterator& it)
+			:_node(it._node)
+			, _pht(it._pht)
+		{
+		}
 		Ref operator*()
 		{
 			return _node->_data;
@@ -261,7 +269,7 @@ namespace hash_bucket
 		friend struct HTIterator;
 	public:
 		typedef HTIterator<K, T, T*, T&, KeyOfT, HashFunc> iterator;
-		typedef HTIterator<K, const T, const T*, const T&, KeyOfT, HashFunc> const_iterator;
+		typedef HTIterator<K, T, const T*, const T&, KeyOfT, HashFunc> const_iterator;
 		iterator begin()
 		{
 			//找第1个桶
@@ -299,6 +307,7 @@ namespace hash_bucket
 		HashTable()
 		{
 			_table.resize(10, nullptr);
+			//_table.resize(GetNextPrime(_table.size()), nullptr);//获取下一个素数
 		}
 		~HashTable()
 		{
@@ -314,12 +323,36 @@ namespace hash_bucket
 				_table[i] = nullptr;
 			}
 		}
-		bool Insert(const T& data)
+		//获取素数
+		size_t GetNextPrime(size_t prime)
+		{
+			static const int __stl_num_primes = 28;
+			static const unsigned long __stl_prime_list[__stl_num_primes] =
+			{
+			  53,         97,         193,       389,       769,
+			  1543,       3079,       6151,      12289,     24593,
+			  49157,      98317,      196613,    393241,    786433,
+			  1572869,    3145739,    6291469,   12582917,  25165843,
+			  50331653,   100663319,  201326611, 402653189, 805306457,
+			  1610612741, 3221225473, 4294967291
+			};
+			size_t i = 0;
+			for (; i < __stl_num_primes; ++i)
+			{
+				if (__stl_prime_list[i] > prime)
+				{
+					return __stl_prime_list[i];
+				}
+			}
+			return primeList[i];
+		}
+		pair<iterator,bool> Insert(const T& data)
 		{
 			KeyOfT kot;
-			if (Find(kot(data)))
+			iterator it = Find(kot(data));
+			if (it != end())
 			{
-				return false;
+				return make_pair(it, false);
 			}
 			//不扩容,不断插入,某些桶越来越长,效率得不到保证
 			//负载因子适当的放大一些,负载因子控制在1,平均下来,每个桶一个数据
@@ -328,7 +361,9 @@ namespace hash_bucket
 			if (_n >= _table.size())
 			{
 				//这种思路不好
+				//除留余数法,最好模一个素数,如何每次快速取一个类似两倍关系的素数
 				size_t newSize = _table.size() * 2;
+				//size_t newSize = GetNextPrime(_table.size());//获取下一个素数
 				//原因
 				//HashTable<K, V> newht;
 				//for (size_t i = 0; i < _table.size(); i++)
@@ -360,7 +395,7 @@ namespace hash_bucket
 			newnode->_next = _table[hashi];
 			_table[hashi] = newnode;
 			++_n;
-			return true;
+			return make_pair(iterator(newnode, this), true);
 		}
 		void Print()
 		{
@@ -377,7 +412,7 @@ namespace hash_bucket
 			}
 			cout << endl;
 		}
-		Node* Find(const K& key)
+		iterator Find(const K& key)
 		{
 			HashFunc hf;
 			KeyOfT kot;
@@ -387,11 +422,11 @@ namespace hash_bucket
 			{
 				if (kot(cur->_data) == key)
 				{
-					return cur;
+					return iterator(cur, this);
 				}
 				cur = cur->_next;
 			}
-			return nullptr;
+			return end();
 		}
 		bool Erase(const K& key)
 		{

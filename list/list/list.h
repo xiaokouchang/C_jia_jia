@@ -1,4 +1,35 @@
 #pragma once
+//list<int> lt;
+//lt.push_back(1);
+//lt.push_back(2);
+//lt.push_back(3);
+////迭代器的拷贝默认是浅拷贝,不需要写迭代器的拷贝构造
+//list<int>::iterator it1 = lt.begin();//拷贝构造
+//list<int>::const_iterator it2 = lt.begin();//构造,iterator转换成const_iterator
+//list的源代码
+//struct __list_iterator {
+//	typedef __list_iterator<T, T&, T*>             iterator;
+//	typedef __list_iterator<T, const T&, const T*> const_iterator;
+//	typedef __list_iterator<T, Ref, Ptr>           self;
+
+//	typedef bidirectional_iterator_tag iterator_category;
+//	typedef T value_type;
+//	typedef Ptr pointer;
+//	typedef Ref reference;
+//	typedef __list_node<T>* link_type;
+//	typedef size_t size_type;
+//	typedef ptrdiff_t difference_type;
+
+//	link_type node;
+
+//	__list_iterator(link_type x) : node(x) {}
+//	__list_iterator() {}
+//	__list_iterator(const iterator& x) : node(x.node) {}
+
+//最后一行代码的iterator改成是self,是拷贝构造(浅拷贝),实际上不需要写拷贝构造
+//普通迭代器iterator,最后一行代码是拷贝构造,
+//const迭代器const_iterator, 最后一行代码是构造函数,支持普通迭代器转换成const迭代器的构造
+//下面的模拟实现没有实现普通迭代器转换成const迭代器的构造
 #include<iostream>
 #include<assert.h>
 #include"reverse_iterator.h"
