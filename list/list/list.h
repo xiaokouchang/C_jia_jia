@@ -105,7 +105,6 @@ namespace lt
 	{
 		typedef list_node<T> Node;
 		Node* _node;
-
 		_list_const_iterator(Node* node)
 			:_node(node)
 		{}
@@ -119,7 +118,7 @@ namespace lt
 			_node = _node->_next;
 			return *this;
 		}
-		_list_const_iterator<T>& operator++(int)
+		_list_const_iterator<T> operator++(int)
 		{
 			_list_const_iterator<T> tmp(*this);
 			_node = _node->_next;
@@ -145,23 +144,7 @@ namespace lt
 
 		typedef ReverseIterator<iterator, T&, T*> reverse_iterator;
 		typedef ReverseIterator<const_iterator, const T&, const T*> const_reverse_iterator;
-
-		reverse_iterator rbegin()
-		{
-			return reverse_iterator(end());
-		}
-		reverse_iterator rend()
-		{
-			return reverse_iterator(begin());
-		}
-		const_reverse_iterator rbegin() const
-		{
-			return const_reverse_iterator(end());
-		}
-		const_reverse_iterator rend() const
-		{
-			return const_reverse_iterator(begin());
-		}
+		
 		//这样设计迭代器不行,const迭代器希望本身不能修改,而不是类型不能改变
 		//const迭代器指向的数据不能被修改,自己可以修改
 		//const T* ptr1;
@@ -190,7 +173,22 @@ namespace lt
 			//return const_iterator(_head->_prev);
 			return _head;
 		}
-		
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator(end());
+		}
+		reverse_iterator rend()
+		{
+			return reverse_iterator(begin());
+		}
+		const_reverse_iterator rbegin() const
+		{
+			return const_reverse_iterator(end());
+		}
+		const_reverse_iterator rend() const
+		{
+			return const_reverse_iterator(begin());
+		}
 		void empty_init()
 		{
 			_head = new Node;
@@ -215,7 +213,6 @@ namespace lt
 			clear();
 			delete _head;
 			_head = nullptr;
-
 		}
 		void swap(list<T>& lt)
 		{

@@ -332,21 +332,29 @@
 //}
 
 
-#include"vector.h"
-using namespace vec;
+//#include"vector.h"
+//using namespace vec;
+//int main()
+//{
+//	vector<int> vec;
+//	vec.push_back(1);
+//	vec.push_back(2);
+//	vec.push_back(3);
+//	vec.push_back(4);
+//	vector<int>::reverse_iterator rit = vec.rbegin();
+//	while (rit != vec.rend())
+//	{
+//		cout << *rit << " ";
+//		rit++;
+//	}
+//	cout << endl;
+//	return 0;
+//}
+
+
+#include"list.h"
 int main()
 {
-	vector<int> vec;
-	vec.push_back(1);
-	vec.push_back(2);
-	vec.push_back(3);
-	vec.push_back(4);
-	vector<int>::reverse_iterator rit = vec.rbegin();
-	while (rit != vec.rend())
-	{
-		cout << *rit << " ";
-		rit++;
-	}
-	cout << endl;
+	lt::list<int> lt;
 	return 0;
 }
