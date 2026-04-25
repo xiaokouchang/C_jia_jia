@@ -1,0 +1,432 @@
+//#include<iostream>
+//using namespace std;
+//class Person
+//{
+//public:
+//	void Print()
+//	{
+//		cout << "name:" << _name << endl;
+//		cout << "age:" << _age << endl;
+//	}
+////protected:
+//	string _name = "peter"; //姓名
+//	int _age = 18;			//年龄
+//};
+//class Student : public Person
+//{
+//protected:
+//	int _stuid; //学号
+//};
+//class Teacher : public Person
+//{
+//protected:
+//	int _jobid; //工号
+//};
+//int main()
+//{
+//	Person p;
+//	Student s;
+//	Teacher t;
+//	//赋值兼容
+//	//p = t;//子类可以给父类
+//	//t = p;
+//	//t = (Student)p;
+//
+//	//Person& p1 = s;
+//	//Person p2 = s;
+//	//s._name = "张三";
+//
+//	Person* ptr = &s;
+//	ptr->_name = "李四";
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class Person
+//{
+//protected:
+//	string _name; // 姓名
+//	string _sex; // 性别
+//	int _age; // 年龄
+//};
+//class Student : public Person
+//{
+//public:
+//	int _No; // 学号
+//};
+//int main()
+//{
+//	Student sobj;
+//
+//	//1.子类对象可以赋值给父类对象/指针/引用
+//	Person pobj = sobj;
+//	Person* pp = &sobj;
+//	Person& rp = sobj;
+//
+//	//2.基类对象不能赋值给派生类对象
+//	//sobj = pobj;
+//
+//	//3.基类的指针可以通过强制类型转换赋值给派生类的指针
+//	pp = &sobj;
+//	Student* ps1 = (Student*)pp; //这种情况转换时可以的
+//	ps1->_No = 10;
+//
+//	//这种情况转换时虽然可以,但是会存在越界访问的问题
+//	pp = &pobj;
+//	Student* ps2 = (Student*)pp;
+//	ps2->_No = 10;
+//	//这里将基类对象指针强制转换为派生类指针,然后访问派生类特有成员_No,
+//	//这会导致未定义行为,可能造成内存越界和程序崩溃
+//	return 0;
+//}
+
+
+#include<iostream>
+using namespace std;
+class Person
+{
+public:
+	void func1()
+	{
+		cout << "Person" << endl;
+	}
+protected:
+	string _name = "小李子"; // 姓名
+	int _num = 111; // 身份证号
+};
+class Student : public Person
+{
+public:
+	void func(int i)
+	{
+		//子类和父类的两个func构成隐藏/重定义
+		cout << "Student : public Person" << endl;
+	}
+	void Print()
+	{
+		cout << "姓名:" << _name << endl;
+		cout << "身份证号:" << Person::_num << endl;
+		cout << "学号:" << _num << endl;//就近原则,先查找子类的作用域
+	}
+protected:
+	int _num = 999; // 学号
+};
+int main()
+{
+	Student s1;
+	//s1.Print();
+	s1.func(1);
+	return 0;
+}
+
+
+//#include<iostream>
+//using namespace std;
+//class Person
+//{
+//public:
+//	Person(const char* name = "peter")
+//		: _name(name)
+//	{
+//		cout << "Person()" << endl;
+//	}
+//	Person(const Person& p)
+//		: _name(p._name)
+//	{
+//		cout << "Person(const Person& p)" << endl;
+//	}
+//	Person& operator=(const Person& p)
+//	{
+//		cout << "Person operator=(const Person& p)" << endl;
+//		if (this != &p)
+//			_name = p._name;
+//		return *this;
+//	}
+//	~Person()
+//	{
+//		cout << "~Person()" << endl;
+//		delete _pstr;
+//	}
+//protected:
+//	string _name; // 姓名
+//	string* _pstr = new string("111111");
+//};
+//class student : public Person
+//{
+//public:
+//	student(const char* name = "张三",int id = 0)
+//		:Person(name)
+//		,_id(0)
+//		//,_name(name)
+//	{ }
+//	student(const student& s)
+//		:_id(s._id)
+//		, Person(s)
+//	{}
+//	student& operator=(const student& s)
+//	{
+//		if (this != &s)
+//		{
+//			Person::operator=(s);
+//			_id = s._id;
+//		}
+//		return *this;
+//	}
+//	~student()
+//	{
+//		//由于后面多态的原因,析构函数的函数名被特殊处理
+//		//统一处理成destructor
+//		cout << *_pstr << endl;
+//		//Person::~Person();
+//		//显示调用父类析构,无法保证先子后父
+//		//所以子类析构函数完成后,自动调用父类析构,这样就保证了先子后父
+//		delete _ptr;
+//	}
+//protected:
+//	int _id;
+//	int* _ptr = new int;
+//};
+//int main()
+//{
+//	student s1;
+//	student s2(s1);
+//	student s3("李四", 1);
+//	s1 = s3;
+//	return 0;
+//}
+
+
+//友元
+//#include<iostream>
+//using namespace std;
+//class Student;
+//class Person
+//{
+//public:
+//	friend void Display(const Person& p, const Student& s);
+//protected:
+//	string _name; // 姓名
+//};
+//class Student : public Person
+//{
+//	friend void Display(const Person& p, const Student& s);
+//protected:
+//	int _stuNum; // 学号
+//};
+//void Display(const Person& p, const Student& s)
+//{
+//	cout << p._name << endl;
+//	cout << s._stuNum << endl;
+//}
+//int main()
+//{
+//	Person p;
+//	Student s;
+//	Display(p, s);
+//	return 0;
+//}
+
+
+//静态成员
+//#include<iostream>
+//using namespace std;
+//class Person
+//{
+//public:
+//	Person() { ++_count; }
+////protected:
+//	string _name; // 姓名
+//public:
+//	static int _count; // 统计人的个数。
+//};
+//int Person::_count = 0;
+//class Student : public Person
+//{
+//protected:
+//	int _stuNum; // 学号
+//};
+//class Graduate : public Student
+//{
+//protected:
+//	string _seminarCourse; // 研究科目
+//};
+//int main()
+//{
+//	Person p;
+//	Student s1;
+//	Student s2;
+//	cout << p._count << endl;
+//
+//	//cout << &p._name << endl;
+//	//cout << &s._name << endl;
+//	//cout << &p._count << endl;
+//	//cout << &s._count << endl;
+//	//cout << &Person::_count << endl;
+//	//cout << &Student::_count << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class Person
+//{
+//public:
+//	string _name; // 姓名
+//	int _age;
+//};
+//class Student : virtual public Person
+//{
+//protected:
+//	int _num; //学号
+//};
+//class Teacher : virtual public Person
+//{
+//protected:
+//	int _id; // 职工编号
+//};
+//class Assistant : public Student, public Teacher
+//{
+//protected:
+//	string _majorCourse; // 主修课程
+//};
+//int main()
+//{
+//	Assistant as;
+//	as.Teacher::_age = 18;
+//	as.Student::_age = 30;
+//	as._age = 19;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	int _a;
+//};
+//// class B : public A
+//class B : virtual public A
+//{
+//public:
+//	int _b;
+//};
+//// class C : public A
+//class C : virtual public A
+//{
+//public:
+//	int _c;
+//};
+//class D : public B, public C
+//{
+//public:
+//	int _d;
+//};
+//int main()
+//{
+//	D d;
+//	d.B::_a = 1;
+//	d.C::_a = 2;
+//	d._b = 3;
+//	d._c = 4;
+//	d._d = 5;
+//	d._a = 0;
+//	D d1;
+//
+//	B* ptr = &b;
+//	ptr->_a++;
+//
+//	ptr = &d;
+//	ptr->_a++;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class Base1 { public: int _b1; };
+//class Base2 { public: int _b2; };
+//class Derive : public Base1, public Base2 { public: int _d; };
+//int main() 
+//{
+//	Derive d;
+//	Base1* p1 = &d;
+//	Base2* p2 = &d;
+//	Derive* p3 = &d;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class A {
+//public:
+//	A(const char* s) 
+//	{ 
+//		cout << s << endl; 
+//	}
+//	~A() 
+//	{}
+//};
+//class B :virtual public A
+//{
+//public:
+//	B(const char* s1, const char* s2)
+//		:A(s1) 
+//	{ 
+//		cout << s2 << endl; 
+//	}
+//};
+//class C :virtual public A
+//{
+//public:
+//	C(const char* s1, const char* s2) 
+//		:A(s1) 
+//	{ 
+//		cout << s2 << endl; 
+//	}
+//};
+//class D :public B, public C
+//{
+//public:
+//	D(const char* s1, const char* s2, const char* s3, const char* s4) 
+//		:B(s1, s2)
+//		,C(s1, s3)
+//		,A(s1)
+//	{
+//		cout << s4 << endl;
+//	}
+//};
+//int main() 
+//{
+//	D* p = new D("class A", "class B", "class C", "class D");
+//	delete p;
+//
+//	B b("class A", "class B");
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//class C
+//{
+//
+//};
+////继承(白箱复用)
+//class D : public C
+//{
+//
+//};
+////组合(黑盒)
+//class E
+//{
+//private:
+//	C _cc;
+//};
+
+
