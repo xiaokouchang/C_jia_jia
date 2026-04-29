@@ -27,6 +27,9 @@
 //	Person p;
 //	Student s;
 //	Teacher t;
+//	s.Print();
+//	t.Print();
+//
 //	//赋值兼容
 //	//p = t;//子类可以给父类
 //	//t = p;
@@ -36,8 +39,8 @@
 //	//Person p2 = s;
 //	//s._name = "张三";
 //
-//	Person* ptr = &s;
-//	ptr->_name = "李四";
+//	//Person* ptr = &s;
+//	//ptr->_name = "李四";
 //	return 0;
 //}
 
@@ -116,8 +119,8 @@ protected:
 int main()
 {
 	Student s1;
-	//s1.Print();
-	s1.func(1);
+	s1.Print();
+	//s1.func(1);
 	return 0;
 }
 
@@ -428,5 +431,4 @@ int main()
 //private:
 //	C _cc;
 //};
-
 
